@@ -1,3 +1,5 @@
+/bytepushers-common-js-client/jspm_packages
+/bytepushers-common-js-package/node_modules
 /.idea
 ### Java template
 *.class

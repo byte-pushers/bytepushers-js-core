@@ -47,5 +47,23 @@
     "protractor": "protractor e2e-tests/protractor.conf.js",
 
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
+  },
+  "jspm": {
+    "directories": {
+      "lib": "byte-pushers-common-js-package/src/main/javascript"
+      // Everything is relative to this now.
+    },
+    "main": "index.js",
+    // Main entry point for package
+    // READ THIS. IT IS NOT CORRECT FOR PUBLISHING
+    //"files": ["Files you want to include if its a small number of files.", "You can leave this out if its a large number of files."],
+    // READ THIS. IT IS NOT CORRECT FOR PUBLISHING
+    //"ignore": ["Files you want ignored"],
+    "registry": "jspm"
+    // If package has dependencies on github. Default for this is npm otherwise.
+    /*"dependencies": {
+      "dep": "registry:package@version",
+      "jquery": "^2.1.1" // example
+    }*/
   }
 }

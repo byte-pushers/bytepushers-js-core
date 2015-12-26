@@ -37,7 +37,7 @@
     "start": "http-server -a localhost -p 8000 -c-1",
 
     "pretest": "npm install",
-    "test": "karma start src/test/resources/karma.conf.js",
+    "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",
 
     "preupdate-webdriver": "npm install",
@@ -51,8 +51,19 @@
   "jspm": {
     "directories": {
       "lib": "byte-pushers-common-js-package/src/main/javascript"
+      // Everything is relative to this now.
     },
     "main": "index.js",
+    // Main entry point for package
+    // READ THIS. IT IS NOT CORRECT FOR PUBLISHING
+    //"files": ["Files you want to include if its a small number of files.", "You can leave this out if its a large number of files."],
+    // READ THIS. IT IS NOT CORRECT FOR PUBLISHING
+    //"ignore": ["Files you want ignored"],
     "registry": "jspm"
+    /* If package has dependencies on github. Default for this is npm otherwise. */
+    /*"dependencies": {
+      "dep": "registry:package@version",
+      "jquery": "^2.1.1" // example
+    }*/
   }
 }

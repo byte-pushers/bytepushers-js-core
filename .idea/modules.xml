@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bytepushers-common-js.iml" filepath="$PROJECT_DIR$/bytepushers-common-js.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bytepushers-common-js-client/bytepushers-common-js-client.iml" filepath="$PROJECT_DIR$/bytepushers-common-js-client/bytepushers-common-js-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bytepushers-common-js-package/bytepushers-common-js-package.iml" filepath="$PROJECT_DIR$/bytepushers-common-js-package/bytepushers-common-js-package.iml" />
+    </modules>
+  </component>
+</project>

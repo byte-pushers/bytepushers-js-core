@@ -53,7 +53,7 @@
       "lib": "byte-pushers-common-js-package/src/main/javascript"
       // Everything is relative to this now.
     },
-    "main": "index.js",
+    "main": "index.js.old",
     // Main entry point for package
     // READ THIS. IT IS NOT CORRECT FOR PUBLISHING
     //"files": ["Files you want to include if its a small number of files.", "You can leave this out if its a large number of files."],

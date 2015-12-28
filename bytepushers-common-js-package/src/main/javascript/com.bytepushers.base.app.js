@@ -1,6 +1,8 @@
 /**
  * Created by tonte on 11/29/15.
  */
+//console.info("************************************************************");
+//console.info("inside app.js");
 (function(window, document, undefined) {
     'use strict';
 
@@ -363,4 +365,5 @@
         return enumeration;
     };
 })(window, document);
-
+//console.info("end of app.js");
+//console.info("************************************************************");

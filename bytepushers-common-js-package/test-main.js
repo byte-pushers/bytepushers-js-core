@@ -8,6 +8,8 @@ Object.keys(window.__karma__.files).forEach(function(file) {
     // If you require sub-dependencies of test files to be loaded as-is (requiring file extension)
     // then do not normalize the paths
     var normalizedTestModule = file.replace(/^\/base\/|\.js$/g, '');
+    console.info("file: " + file.toString());
+    console.info("normalizedTestModule: " + normalizedTestModule);
     allTestFiles.push(normalizedTestModule);
   }
 });
@@ -18,14 +20,23 @@ require.config({
 
   paths: {
     /*'jquery': '../lib/jquery',*/
-    'underscore': 'node_modules/underscore/underscore'
+    /*'underscore': 'node_modules/underscore/underscore'*/
+    BytePushers: 'src/main/javascript/com.bytepushers.base.app'
   },
 
   shim: {
-    'underscore': {
+    /*'underscore': {
       exports: '_'
+    }*/
+    BytePushers: {
+      exports: 'BytePushers'
     }
   },
+
+  priority: [
+    'BytePushers'
+  ],
+
   // dynamically load all test files
   deps: allTestFiles,
 

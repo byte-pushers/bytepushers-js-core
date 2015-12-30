@@ -6,6 +6,8 @@
 (function(window, document, undefined) {
     'use strict';
 
+    /****************************************************************************************************
+    * BEGIN Array Extensions */
     if (!Array.prototype.every) {
         Array.prototype.every = function (fun /*, thisp */) {
             "use strict";
@@ -121,6 +123,9 @@
             return Object.prototype.toString.call(targetArray) === "[object Array]";
         };
     }
+
+    /* END Array Extensions *
+     ****************************************************************************************************/
 
     /* We need to tell jshint what variables are being exported */
     /* global BytePushers: true

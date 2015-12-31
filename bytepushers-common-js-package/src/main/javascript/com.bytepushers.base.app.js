@@ -6,6 +6,8 @@
 (function(window, document, undefined) {
     'use strict';
 
+    /****************************************************************************************************
+    * BEGIN Array Extensions */
     if (!Array.prototype.every) {
         Array.prototype.every = function (fun /*, thisp */) {
             "use strict";
@@ -122,6 +124,266 @@
         };
     }
 
+    /* END Array Extensions *
+     ****************************************************************************************************/
+
+    /****************************************************************************************************
+     * BEGIN Date Extensions */
+
+    /****************************************************************************************************
+     * BEGIN Date Extensions */
+    /**
+     * <p>Function that is used to determine if two dates objects have the same date.</p>
+     * @static
+     * @function
+     * @param {@link Date} The date to evaluate against this object.
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date passed in is equal the date object; otherwise return false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.isDateEqualTo = function (date) {
+        "use strict";
+        if (this.getFullYear() === date.getFullYear()) {
+            if (this.getMonth() === date.getMonth()) {
+                if (this.getDate() === date.getDate()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
+    /**
+     * <p>Function that is used to determine if two dates objects have the same date and time.</p>
+     * @static
+     * @function
+     * @param {@link Date} The date to evaluate against this object.
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date passed in is equal the date object; otherwise return false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.isDateEqualToDateAndTime = function (date) {
+        "use strict";
+        if (this.getFullYear() === date.getFullYear()) {
+            if (this.getMonth() === date.getMonth()) {
+                if (this.getDate() === date.getDate()) {
+                    if (this.getHours() === date.getHours()) {
+                        if (this.getMinutes() === date.getMinutes()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    };
+
+    /**
+     * <p>Function that is used to determine a date is the day after another date.</p>
+     * @static
+     * @function
+     * @param {@link Date} The date to evaluate against this object.
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date is the day after the original date; otherwise return false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.isDateEqualToTomorrow = function (date) {
+        "use strict";
+        if (this.getFullYear() === date.getFullYear()) {
+            if (this.getMonth() === date.getMonth()) {
+                if (this.getDate() + 1 === date.getDate()) {
+                    return true;
+                }
+            } else if (this.getMonth() + 1 === date.getMonth()) {
+                if (this.isLastDayInMonth() && date.getDate() === 1) {
+                    return true;
+                }
+            }
+        } else if (this.getFullYear() + 1 === date.getFullYear()) {
+            if (this.getMonth() === 11 && date.getMonth() === 0) {
+                if (this.getDate() === 31 && date.getDate() === 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
+    /**
+     * <p>Function that is used to determine a date is the day before another date.</p>
+     * @static
+     * @function
+     * @param {@link Date} The date to evaluate against this object.
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date is the day before the original date; otherwise return false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.isDateEqualToYesterday = function (date) {
+        "use strict";
+        if (this.getFullYear() === date.getFullYear()) {
+            if (this.getMonth() === date.getMonth()) {
+                if (this.getDate() - 1 === date.getDate()) {
+                    return true;
+                }
+            } else if (this.getMonth() === date.getMonth() + 1) {
+                if (this.getDate() === 1 && date.isLastDayInMonth()) {
+                    return true;
+                }
+            }
+        } else if (this.getFullYear() - 1 === date.getFullYear()) {
+            if (this.getMonth() === 0 && date.getMonth() === 11) {
+                if (this.getDate() === 1 && date.getDate() === 31) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
+    /**
+     * <p>Tells you whether it is the last day in a month or not.</p>
+     * @private
+     *
+     * @returns {String} A new Date object with the specified time added.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.isLastDayInMonth = function () {
+        "use strict";
+        var lastDayInMonth = this.getCurrentMonthTotalDays();
+        if (this.getDate() === lastDayInMonth) {
+            return true;
+        }
+        return false;
+    };
+
+    /**
+     * <p>Static function that tells you whether a date is the last day in a month or not.</p>
+     * @private
+     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Number</a>} time Represents the time you want to add to the date.
+     *
+     * @returns {String} A new Date object with the specified time added.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.isLastDayInMonth = function (date) {
+        "use strict";
+        var lastDayInMonth = date.getCurrentMonthTotalDays();
+        if (date.getDate() === lastDayInMonth) {
+            return true;
+        }
+        return false;
+    };
+
+    /**
+     * <p>Static field that is used to get calendar total calendar days of the previous month.</p>
+     * @static
+     * @function
+     * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the previous month.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.getPreviousMonthTotalDays = function () {
+        "use strict";
+        if (this.getMonth() === 0) {
+            return Date.monthNames[11].getTotalDays(this.getFullYear());
+        } else {
+            return Date.monthNames[this.getMonth() - 1].getTotalDays(this.getFullYear());
+        }
+    };
+
+    /**
+     * <p>Static function that is used to get the total calendar days of the next month.</p>
+     * @static
+     * @function
+     * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the next month.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.getNextMonthTotalDays = function () {
+        "use strict";
+        if (this.getMonth() === 11) {
+            return Date.monthNames[0].getTotalDays(this.getFullYear());
+        } else {
+            return Date.monthNames[this.getMonth() + 1].getTotalDays(this.getFullYear());
+        }
+    };
+
+    /**
+     * <p>Function that is used to get the total calendar days of the next month.</p>
+     * @static
+     * @function
+     * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the next month.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.getCurrentMonthTotalDays = function () {
+        "use strict";
+        if (this.getMonth() === 11) {
+            return Date.monthNames[0].getTotalDays(this.getFullYear());
+        } else {
+            return Date.monthNames[this.getMonth()].getTotalDays(this.getFullYear());
+        }
+    };
+
+    /**
+     * <p>Adds time to a date object.</p>
+     * @private
+     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} time Represents the time you want to add to the date.
+     *
+     * @returns {String} A new Date object with the specified time added.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.prototype.addTime = function (time) {
+        "use strict";
+        var newDate = new Date(),
+            wholeNumber = (time > 0) ? Math.floor(time) : Math.ceil(time),
+            fraction = ((time - wholeNumber).toFixed(2) * 100),
+            hourInMilliseconds = (1000 * 60 * 60) * wholeNumber,
+            minutesInMilliseconds = (1000 * 60) * (fraction);
+
+        newDate.setTime(this.getTime());
+        newDate.setTime(newDate.getTime() + hourInMilliseconds);
+        newDate.setTime(newDate.getTime() + minutesInMilliseconds);
+
+        return newDate;
+    };
+
+    /**
+     * <p>Static method that gets month name.</p>
+     * @private
+     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} index Represents the position of the month in a month array.
+     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} useAbbr An optional boolean flag that governs whether the
+     * full name of the month is returned or its abbreviation.
+     *
+     * @returns {String} The name of the month.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.getMonthName = function (index, getAbbr) {
+        "use strict";
+        if (getAbbr) {
+            return this.monthNames[index].abbr;
+        } else {
+            return this.monthNames[index].name;
+        }
+    };
+
+    /**
+     * <p>Static field for the list of month.</p>
+     * @static
+     * @field
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.monthNames = [
+        {"name": "January", "abbr": "Jan", "getTotalDays": function (year) { "use strict"; return 31; } },
+        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) { "use strict"; if (year) { return (year % 4 === 0) ? 29 : 28; } else { throw ("Expected parameter(Year) is not defined."); } } },
+        {"name": "March", "abbr": "Mar", "getTotalDays": function (year) { "use strict"; return 31; }},
+        {"name": "April", "abbr": "Apr", "getTotalDays": function (year) { "use strict"; return 30; }},
+        {"name": "May", "abbr": "May", "getTotalDays": function (year) { "use strict"; return 31; }},
+        {"name": "June", "abbr": "Jun", "getTotalDays": function (year) { "use strict"; return 30; }},
+        {"name": "July", "abbr": "Jul", "getTotalDays": function (year) { "use strict"; return 31; }},
+        {"name": "August", "abbr": "Aug", "getTotalDays": function (year) { "use strict"; return 31; }},
+        {"name": "September", "abbr": "Sep", "getTotalDays": function (year) { "use strict"; return 30; }},
+        {"name": "October", "abbr": "Oct", "getTotalDays": function (year) { "use strict"; return 31; }},
+        {"name": "November", "abbr": "Nov", "getTotalDays": function (year) { "use strict"; return 30; }},
+        {"name": "December", "abbr": "Dec", "getTotalDays": function (year) { "use strict"; return 31; }}
+    ];
+    /* END Date Extensions *
+     ********************************************************/
+
+    /* END Date Extensions *
+     ****************************************************************************************************/
     /* We need to tell jshint what variables are being exported */
     /* global BytePushers: true
      *

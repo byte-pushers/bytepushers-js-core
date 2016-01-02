@@ -232,7 +232,7 @@
     /**
      * <p>Tells you whether it is the last day in a month or not.</p>
      * @private
-     * @returns {String} A new Date object with the specified time added.
+     * @returns {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if it is the last day of the month, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isLastDayInMonth = function () {
@@ -315,7 +315,7 @@
      * @private
      * @static
      * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Number</a>} time Represents the time you want to add to the date.
-     * @returns {String} A new Date object with the specified time added.
+     * @returns {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if it is the last day of the month, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.isLastDayInMonth = function (date) {
@@ -334,7 +334,6 @@
      * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} index Represents the position of the month in a month array.
      * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} useAbbr An optional boolean flag that governs whether the
      * full name of the month is returned or its abbreviation.
-     *
      * @returns {String} The name of the month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
@@ -368,6 +367,120 @@
         {"name": "December", "abbr": "Dec", "getTotalDays": function (year) { "use strict"; return 31; }}
     ];
     /* END Date Extensions *
+     ****************************************************************************************************/
+
+    /****************************************************************************************************
+     * BEGIN Object Extensions */
+    /**
+     * <p>Static function that tells you whether an object is an array or not.</p>
+     * @static
+     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is an array.
+     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is an array, otherwise false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Object.isArray = function (someArray) {
+        "use strict";
+        var result = false;
+        if (Object.isDefined(someArray)) {
+            if (someArray.constructor.toString().indexOf("Array") > -1) {
+                result = true;
+            }
+        }
+
+        return result;
+    };
+
+    /**
+     * <p>Static function that tells you whether an object is a date or not.</p>
+     * @static
+     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is a date.
+     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is an date, otherwise false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Object.isDate = function (someDate) {
+        "use strict";
+        var result = false;
+        if (Object.isDefined(someDate)) {
+            if (typeof someDate === "object" && someDate instanceof Date) {
+                result = true;
+            }
+        }
+
+        return result;
+    };
+    /**
+     * <p>Static function that tells you whether an object is a string or not.</p>
+     * @static
+     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is a string.
+     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is an string, otherwise false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Object.isString = function (someString) {
+        "use strict";
+        var result = false;
+        if (Object.isDefined(someString)) {
+            if (typeof someString === "string" || (typeof someString === "object" && someString instanceof String)) {
+                result = true;
+            }
+        }
+
+        return result;
+    };
+
+    /**
+     * <p>Static function that tells you whether an object is numeric or not.</p>
+     * @static
+     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is numeric.
+     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is numeric, otherwise false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Object.isNumeric = function (someNumber) {
+        "use strict";
+        var result = false;
+        if (Object.isDefined(someNumber)) {
+            if (typeof someNumber === "number" || (typeof someNumber === "object" && someNumber instanceof Number)) {
+                result = true;
+            }
+        }
+
+        return result;
+    };
+
+    /**
+     * <p>Static function that tells you whether an object is a boolean or not.</p>
+     * @static
+     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is a boolean.
+     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is a boolean, otherwise false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Object.isBoolean = function (someBoolean) {
+        "use strict";
+        var result = false;
+        if (Object.isDefined(someBoolean)) {
+            if (typeof someBoolean === "boolean" || (typeof someBoolean === "object" && someBoolean instanceof Boolean)) {
+                result = true;
+            }
+        }
+
+        return result;
+    };
+
+    /**
+     * <p>Static function that tells you whether an object is defined or not.</p>
+     * @static
+     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is defined.
+     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is defined, otherwise false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Object.isDefined = function (target) {
+        "use strict";
+        var result = false;
+        if (target !== undefined && target !== null) {
+            result = true;
+        }
+        return result;
+    };
+    /* END Object Extensions *
      ****************************************************************************************************/
 
     /* We need to tell jshint what variables are being exported */

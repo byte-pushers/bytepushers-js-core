@@ -129,12 +129,8 @@
 
     /****************************************************************************************************
      * BEGIN Date Extensions */
-
-    /****************************************************************************************************
-     * BEGIN Date Extensions */
     /**
      * <p>Function that is used to determine if two dates objects have the same date.</p>
-     * @static
      * @function
      * @param {@link Date} The date to evaluate against this object.
      * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date passed in is equal the date object; otherwise return false.
@@ -154,7 +150,6 @@
 
     /**
      * <p>Function that is used to determine if two dates objects have the same date and time.</p>
-     * @static
      * @function
      * @param {@link Date} The date to evaluate against this object.
      * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date passed in is equal the date object; otherwise return false.
@@ -178,7 +173,6 @@
 
     /**
      * <p>Function that is used to determine a date is the day after another date.</p>
-     * @static
      * @function
      * @param {@link Date} The date to evaluate against this object.
      * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date is the day after the original date; otherwise return false.
@@ -208,7 +202,6 @@
 
     /**
      * <p>Function that is used to determine a date is the day before another date.</p>
-     * @static
      * @function
      * @param {@link Date} The date to evaluate against this object.
      * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date is the day before the original date; otherwise return false.
@@ -239,7 +232,6 @@
     /**
      * <p>Tells you whether it is the last day in a month or not.</p>
      * @private
-     *
      * @returns {String} A new Date object with the specified time added.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
@@ -253,25 +245,7 @@
     };
 
     /**
-     * <p>Static function that tells you whether a date is the last day in a month or not.</p>
-     * @private
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Number</a>} time Represents the time you want to add to the date.
-     *
-     * @returns {String} A new Date object with the specified time added.
-     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
-     */
-    Date.isLastDayInMonth = function (date) {
-        "use strict";
-        var lastDayInMonth = date.getCurrentMonthTotalDays();
-        if (date.getDate() === lastDayInMonth) {
-            return true;
-        }
-        return false;
-    };
-
-    /**
-     * <p>Static field that is used to get calendar total calendar days of the previous month.</p>
-     * @static
+     * <p>Function that is used to get calendar total calendar days of the previous month.</p>
      * @function
      * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the previous month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
@@ -286,8 +260,7 @@
     };
 
     /**
-     * <p>Static function that is used to get the total calendar days of the next month.</p>
-     * @static
+     * <p>Function that is used to get the total calendar days of the next month.</p>
      * @function
      * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the next month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
@@ -303,7 +276,6 @@
 
     /**
      * <p>Function that is used to get the total calendar days of the next month.</p>
-     * @static
      * @function
      * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the next month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
@@ -319,7 +291,6 @@
 
     /**
      * <p>Adds time to a date object.</p>
-     * @private
      * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} time Represents the time you want to add to the date.
      *
      * @returns {String} A new Date object with the specified time added.
@@ -339,10 +310,27 @@
 
         return newDate;
     };
+    /**
+     * <p>Static function that tells you whether a date is the last day in a month or not.</p>
+     * @private
+     * @static
+     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Number</a>} time Represents the time you want to add to the date.
+     * @returns {String} A new Date object with the specified time added.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    Date.isLastDayInMonth = function (date) {
+        "use strict";
+        var lastDayInMonth = date.getCurrentMonthTotalDays();
+        if (date.getDate() === lastDayInMonth) {
+            return true;
+        }
+        return false;
+    };
 
     /**
-     * <p>Static method that gets month name.</p>
+     * <p>Static function that gets month name.</p>
      * @private
+     * @static
      * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} index Represents the position of the month in a month array.
      * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} useAbbr An optional boolean flag that governs whether the
      * full name of the month is returned or its abbreviation.
@@ -380,10 +368,8 @@
         {"name": "December", "abbr": "Dec", "getTotalDays": function (year) { "use strict"; return 31; }}
     ];
     /* END Date Extensions *
-     ********************************************************/
-
-    /* END Date Extensions *
      ****************************************************************************************************/
+
     /* We need to tell jshint what variables are being exported */
     /* global BytePushers: true
      *

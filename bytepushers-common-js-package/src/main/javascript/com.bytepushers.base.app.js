@@ -483,6 +483,81 @@
     /* END Object Extensions *
      ****************************************************************************************************/
 
+    /****************************************************************************************************
+     * BEGIN String Extensions */
+    /**
+     * <p>Function that is used to trim the white spaces from the beginning and end of the string.</p>
+     * @function
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been trimmed.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    String.prototype.trim = function () {
+        "use strict";
+        return this.replace(/^\s+|\s+$/g, '');
+    };
+
+    /**
+     * <p>Function that is used to determine if a string includes a certain character or string.</p>
+     * @function
+     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The string we are checking if is included.
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True of the string is included, otherwise false.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    if (!String.prototype.includes) {
+        String.prototype.includes = function() {'use strict';
+            return String.prototype.indexOf.apply(this, arguments) !== -1;
+        };
+    }
+
+    /**
+     * <p>Function that is used to format a sentence to camel case. (e.g. Hello world => helloWorld).</p>
+     * @function
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been formatted to camel case.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    String.prototype.toCamelCase = function() {
+        return this.replace(/^([A-Z])|\s(\w)/g, function(match, p1, p2, offset) {
+            if (p2) return p2.toUpperCase();
+            return p1.toLowerCase();
+        });
+    };
+
+    /**
+     * <p>Function that is used to turn a string that is in camel case format to a Normal sentence format. (e.g. helloWorld => Hello World)</p>
+     * @function
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been formatted to a normal sentence format.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    String.prototype.toNormalCase = function() {
+        return this.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, function(str){ return str.toUpperCase(); });
+    };
+
+    /**
+     * <p>Convenience function that will format a string with dynamic variables.</p>
+     * @static
+     * @param {...string} string - first argument is the string to be formatted.  The remaining arguments are the format items (e.g. "{0}")
+     * @function
+     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been formatted.
+     * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
+     */
+    String.format = function() {
+        // The string containing the format items (e.g. "{0}")
+        // will and always has to be the first argument.
+        var theString = arguments[0];
+
+        // start with the second argument (i = 1)
+        for (var i = 0; i < arguments.length; i++) {
+            // "gm" = RegEx options for Global search (more than one instance)
+            // and for Multiline search
+            var regEx = new RegExp("\\{" + (i) + "\\}", "gm");
+            theString = theString.replace(regEx, arguments[i]);
+        }
+
+        return theString;
+    };
+    /* END String Extensions *
+     ****************************************************************************************************/
+
     /* We need to tell jshint what variables are being exported */
     /* global BytePushers: true
      *

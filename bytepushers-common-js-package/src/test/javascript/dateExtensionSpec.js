@@ -1,6 +1,5 @@
 describe("Date extension tests:", function() {
 
-    //new Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]]);
     var dec31 = new Date(2015, 11, 31, 13, 4),
         dec31Again = new Date(2015, 11, 31, 15, 5),
         jan1 = new Date(2016, 0, 1),
@@ -41,7 +40,7 @@ describe("Date extension tests:", function() {
     describe('Date.prototype.isDateEqualToTomorrow', function () {
 
         it('will work if date is in next year', function() {
-            var result = dec31.isDateEqualToTomorrow(jan1); // Dec 31 2015 -> Jan 1 2016 DOES NOT WORK
+            var result = dec31.isDateEqualToTomorrow(jan1);
 
             expect(result).toBe(true);
         });
@@ -80,7 +79,7 @@ describe("Date extension tests:", function() {
         });
 
         it('will work if date is in last year', function() {
-            var result = jan1.isDateEqualToYesterday(dec31); //  Jan 1 2016 -> Dec 31 2015  DOES NOT WORK
+            var result = jan1.isDateEqualToYesterday(dec31);
 
             expect(result).toBe(true);
         });
@@ -96,14 +95,12 @@ describe("Date extension tests:", function() {
 
         it('will return true if tests succeeds for prototype', function() {
             var result = dec31.isLastDayInMonth();
-                //&& new Date().isLastDayInMonth(date4); // Test both ways of calling method
 
             expect(result).toBe(true);
         });
 
         it('will return true if tests succeeds as a static method', function() {
             var result = Date.isLastDayInMonth(dec31);
-            //&& new Date().isLastDayInMonth(date4); // Test both ways of calling method
 
             expect(result).toBe(true);
         });

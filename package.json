@@ -39,7 +39,7 @@
   },
   "jspm": {
     "directories": {
-      "lib": "byte-pushers-common-js-package/src/main/javascript"
+      "lib": "src/main/javascript"
     },
     "main": "index.js",
     "registry": "jspm",

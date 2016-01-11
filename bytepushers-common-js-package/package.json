@@ -42,6 +42,7 @@
       "lib": "byte-pushers-common-js-package/src/main/javascript"
     },
     "main": "index.js",
-    "registry": "jspm"
+    "registry": "jspm",
+    "ignore": ["../bytepushers-common-js-client/*"]
   }
 }

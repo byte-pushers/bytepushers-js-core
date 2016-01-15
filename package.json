@@ -39,7 +39,7 @@
   },
   "jspm": {
     "files": [ "src/main" ],
-    "main": "index.js",
+    "main": "com.bytepushers.base.app.js",
     "registry": "jspm"
   }
 }

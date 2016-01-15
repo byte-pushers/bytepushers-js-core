@@ -5,11 +5,13 @@
   <groupId>software.bytepushsers.bytepushers-common-js</groupId>
   <artifactId>bytepushers-common-js</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <name>bytepushers-common-js</name>
   <url>http://maven.apache.org</url>
-
+  <modules>
+    <module>bytepushers-common-js-client</module>
+  </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

@@ -9,7 +9,9 @@
 
   <name>bytepushers-common-js</name>
   <url>http://maven.apache.org</url>
-
+  <modules>
+    <module>bytepushers-common-js-client</module>
+  </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -22,8 +24,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <modules>
-    <module>bytepushers-common-js-package</module>
-    <module>bytepushers-common-js-client</module>
-  </modules>
 </project>

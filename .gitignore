@@ -1,7 +1,4 @@
-/.idea/modules.xml
-/bytepushers-common-js-client/jspm_packages
-/bytepushers-common-js-package/node_modules
-/.idea
+/node_modules
 ### Java template
 *.class
 

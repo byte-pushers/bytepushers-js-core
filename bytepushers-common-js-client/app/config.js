@@ -1,5 +1,4 @@
 System.config({
-  baseURL: ".",
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
@@ -16,7 +15,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.34",
     "babel-runtime": "npm:babel-runtime@5.8.34",
-    "byte-pushers/bytepushers-common-js": "github:byte-pushers/bytepushers-common-js@master",
+    "bytepushers-common-js": "github:byte-pushers/bytepushers-common-js@0.0.3",
     "core-js": "npm:core-js@1.2.6",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"

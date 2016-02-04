@@ -133,7 +133,7 @@
      * <p>Function that is used to determine if two dates objects have the same date.</p>
      * @function
      * @param {@link Date} The date to evaluate against this object.
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date passed in is equal the date object; otherwise return false.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True if the date passed in is equal the date object; otherwise return false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualTo = function (date) {
@@ -152,7 +152,7 @@
      * <p>Function that is used to determine if two dates objects have the same date and time.</p>
      * @function
      * @param {@link Date} The date to evaluate against this object.
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date passed in is equal the date object; otherwise return false.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True if the date passed in is equal the date object; otherwise return false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualToDateAndTime = function (date) {
@@ -175,7 +175,7 @@
      * <p>Function that is used to determine a date is the day after another date.</p>
      * @function
      * @param {@link Date} The date to evaluate against this object.
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date is the day after the original date; otherwise return false.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True if the date is the day after the original date; otherwise return false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualToTomorrow = function (date) {
@@ -204,7 +204,7 @@
      * <p>Function that is used to determine a date is the day before another date.</p>
      * @function
      * @param {@link Date} The date to evaluate against this object.
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date is the day before the original date; otherwise return false.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True if the date is the day before the original date; otherwise return false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualToYesterday = function (date) {
@@ -232,7 +232,7 @@
     /**
      * <p>Tells you whether it is the last day in a month or not.</p>
      * @private
-     * @returns {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if it is the last day of the month, otherwise false.
+     * @returns <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True if it is the last day of the month, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isLastDayInMonth = function () {
@@ -247,7 +247,7 @@
     /**
      * <p>Function that is used to get calendar total calendar days of the previous month.</p>
      * @function
-     * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the previous month.
+     * @returns <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a> The total days in the previous month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.getPreviousMonthTotalDays = function () {
@@ -262,7 +262,7 @@
     /**
      * <p>Function that is used to get the total calendar days of the next month.</p>
      * @function
-     * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the next month.
+     * @returns <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a> The total days in the next month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.getNextMonthTotalDays = function () {
@@ -277,7 +277,7 @@
     /**
      * <p>Function that is used to get the total calendar days of the next month.</p>
      * @function
-     * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the next month.
+     * @returns <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a> The total days in the next month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.getCurrentMonthTotalDays = function () {
@@ -291,7 +291,7 @@
 
     /**
      * <p>Adds time to a date object.</p>
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} time Represents the time you want to add to the date.
+     * @param <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a> time Represents the time you want to add to the date.
      *
      * @returns {String} A new Date object with the specified time added.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
@@ -314,8 +314,8 @@
      * <p>Static function that tells you whether a date is the last day in a month or not.</p>
      * @private
      * @static
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Number</a>} time Represents the time you want to add to the date.
-     * @returns {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if it is the last day of the month, otherwise false.
+     * @param <a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Number</a> time Represents the time you want to add to the date.
+     * @returns <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True if it is the last day of the month, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.isLastDayInMonth = function (date) {
@@ -331,8 +331,8 @@
      * <p>Static function that gets month name.</p>
      * @private
      * @static
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} index Represents the position of the month in a month array.
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} useAbbr An optional boolean flag that governs whether the
+     * @param <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a> index Represents the position of the month in a month array.
+     * @param <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> useAbbr An optional boolean flag that governs whether the
      * full name of the month is returned or its abbreviation.
      * @returns {String} The name of the month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
@@ -374,8 +374,8 @@
     /**
      * <p>Static function that tells you whether an object is an array or not.</p>
      * @static
-     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is an array.
-     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is an array, otherwise false.
+     * @param <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a> The object that will be tested to see if it is an array.
+     * @returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> True if an object is an array, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isArray = function (someArray) {
@@ -393,8 +393,8 @@
     /**
      * <p>Static function that tells you whether an object is a date or not.</p>
      * @static
-     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is a date.
-     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is an date, otherwise false.
+     * @param <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a> The object that will be tested to see if it is a date.
+     * @returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> True if an object is an date, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isDate = function (someDate) {
@@ -411,8 +411,8 @@
     /**
      * <p>Static function that tells you whether an object is a string or not.</p>
      * @static
-     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is a string.
-     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is an string, otherwise false.
+     * @param <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a> The object that will be tested to see if it is a string.
+     * @returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> True if an object is an string, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isString = function (someString) {
@@ -430,8 +430,8 @@
     /**
      * <p>Static function that tells you whether an object is numeric or not.</p>
      * @static
-     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is numeric.
-     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is numeric, otherwise false.
+     * @param <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a> The object that will be tested to see if it is numeric.
+     * @returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> True if an object is numeric, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isNumeric = function (someNumber) {
@@ -449,8 +449,8 @@
     /**
      * <p>Static function that tells you whether an object is a boolean or not.</p>
      * @static
-     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is a boolean.
-     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is a boolean, otherwise false.
+     * @param <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a> The object that will be tested to see if it is a boolean.
+     * @returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> True if an object is a boolean, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isBoolean = function (someBoolean) {
@@ -468,8 +468,8 @@
     /**
      * <p>Static function that tells you whether an object is defined or not.</p>
      * @static
-     * @param {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a>} The object that will be tested to see if it is defined.
-     * @returns {<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>} True if an object is defined, otherwise false.
+     * @param <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">Object of some type</a> The object that will be tested to see if it is defined.
+     * @returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> True if an object is defined, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isDefined = function (target) {
@@ -488,7 +488,7 @@
     /**
      * <p>Function that is used to trim the white spaces from the beginning and end of the string.</p>
      * @function
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been trimmed.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been trimmed.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     String.prototype.trim = function () {
@@ -499,8 +499,8 @@
     /**
      * <p>Function that is used to determine if a string includes a certain character or string.</p>
      * @function
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The string we are checking if is included.
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True of the string is included, otherwise false.
+     * @param <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The string we are checking if is included.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True of the string is included, otherwise false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     if (!String.prototype.includes) {
@@ -512,7 +512,7 @@
     /**
      * <p>Function that is used to format a sentence to camel case. (e.g. Hello world => helloWorld).</p>
      * @function
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been formatted to camel case.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted to camel case.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     String.prototype.toCamelCase = function() {
@@ -525,7 +525,7 @@
     /**
      * <p>Function that is used to turn a string that is in camel case format to a Normal sentence format. (e.g. helloWorld => Hello World)</p>
      * @function
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been formatted to a normal sentence format.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted to a normal sentence format.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     String.prototype.toNormalCase = function() {
@@ -537,7 +537,7 @@
      * @static
      * @param {...string} string - first argument is the string to be formatted.  The remaining arguments are the format items (e.g. "{0}")
      * @function
-     * @return {<a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a>} The value of the string after it has been formatted.
+     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     String.format = function() {

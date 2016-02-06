@@ -35,7 +35,7 @@ describe("Object extension tests:", function() {
         it('can tell an object is a string', function() {
             var result = Object.isString("");
 
-            expect(result).toBe(true);
+            expect(result).toBe(false);
         });
 
         it('can tell an object is not a string', function () {
@@ -86,4 +86,52 @@ describe("Object extension tests:", function() {
             expect(result).toBe(false);
         });
     });
+
+    describe("Object.isRegEx", function() {
+        it('can tell if a literal is regular expression or not', function(){
+            var result = Object.isRegEx(/Hello World/g);
+
+            expect(result).toBe(true);
+        });
+        it('can tell if an object is regular expression or not', function(){
+            var result = Object.isRegEx(new RegExp("Hello World","g"));
+
+            expect(result).toBe(true);
+        });
+        it('can tell if an object is not a regular expression', function(){
+            var result = Object.isRegEx("Goat Cheese");
+
+            expect(result).toBe(false);
+        });
+    });
+    describe("Object.getProperty", function(){
+        it('0 can tell if object gets property',function (){
+            var person = {
+                    firstName: "Tonte"
+                },
+                expectedResult = "Tonte";
+
+
+            var actualResult = Object.getProperty(person, "firstName");
+
+            expect(actualResult).toBe(expectedResult);
+        });
+
+        it('1 can tell if object gets property',function (){
+            var person = {
+                    getFirstName: function() {
+                        return "Tonte";
+                    }
+                },
+                expectedResult = "Tonte";
+
+
+            var actualResult = Object.getProperty(person, "firstName");
+
+            expect(actualResult).toBe(expectedResult);
+        });
+
+        //TODO: test super property.
+    })
+
 });

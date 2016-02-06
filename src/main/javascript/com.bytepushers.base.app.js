@@ -3,6 +3,8 @@
  */
 //console.info("************************************************************");
 //console.info("inside app.js");
+var window = window || {};
+var document = document || {};
 (function(window, document, undefined) {
     'use strict';
 
@@ -420,7 +422,9 @@
         var result = false;
         if (Object.isDefined(someString)) {
             if (typeof someString === "string" || (typeof someString === "object" && someString instanceof String)) {
-                result = true;
+                if (someString.trim().length > 0) {
+                    result = true;
+                }
             }
         }
 
@@ -437,7 +441,7 @@
     Object.isNumeric = function (someNumber) {
         "use strict";
         var result = false;
-        if (Object.isDefined(someNumber)) {
+        if (Object.isDefined(someNumber) && !isNaN(someNumber)) {
             if (typeof someNumber === "number" || (typeof someNumber === "object" && someNumber instanceof Number)) {
                 result = true;
             }
@@ -480,6 +484,46 @@
         }
         return result;
     };
+    Object.isRegEx = function (someRegEx) {
+        "use strict";
+        var result = false;
+
+        if(Object.isDefined(someRegEx)) {
+            if ((typeof someRegEx === "object" ||  someRegEx instanceof RegExp)) {
+                result = true;
+            }
+        }
+
+        return result;
+    };
+    Object.getProperty = function (obj, p) {
+        "use strict";
+        var pFunction = "get" + p.substring(0,1).toUpperCase() + p.substring(1),
+            value = null;
+
+        if (obj.hasOwnProperty(p)) {
+            value = obj[p];
+        } else if (p in obj) {
+            value = obj[p];
+        } else if (typeof obj[pFunction] === "function"){
+            value = obj[pFunction]();
+        }
+
+        return value;
+    };
+    Object.setProperty = function (obj, p, v) {
+        "use strict";
+        var pFunction = "set" + p.substring(0,1).toUpperCase() + p.substring(1);
+
+        if (obj.hasOwnProperty(p)) {
+            obj[p] = v;
+        } else if (p in obj) {
+            obj[p] = v;
+        } else if (typeof obj[pFunction] === "function"){
+            obj[pFunction](v);
+        }
+    };
+
     /* END Object Extensions *
      ****************************************************************************************************/
 

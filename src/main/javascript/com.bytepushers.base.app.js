@@ -501,10 +501,9 @@ var document = document || {};
         var pFunction = "get" + p.substring(0,1).toUpperCase() + p.substring(1),
             value = null;
 
-        if (obj.hasOwnProperty(p)) {
-            value = obj[p];
-        } else if (p in obj) {
-            value = obj[p];
+        if(Object.hasProperty(obj,p)){
+                value = obj[p];
+
         } else if (typeof obj[pFunction] === "function"){
             value = obj[pFunction]();
         }
@@ -515,15 +514,26 @@ var document = document || {};
         "use strict";
         var pFunction = "set" + p.substring(0,1).toUpperCase() + p.substring(1);
 
-        if (obj.hasOwnProperty(p)) {
-            obj[p] = v;
-        } else if (p in obj) {
-            obj[p] = v;
+        if(Object.hasProperty(obj,p)) {
+                obj[p] = v;
+
         } else if (typeof obj[pFunction] === "function"){
             obj[pFunction](v);
         }
     };
+    Object.hasProperty = function (obj, p) {
+        var hasProperty = false;
 
+        if(typeof obj.hasOwnProperty === "function"){
+            if (obj.hasOwnProperty(p)) {
+                hasProperty = true;
+            }
+        } else if (p in obj) {
+            hasProperty = true;
+        }
+
+        return hasProperty;
+    };
     /* END Object Extensions *
      ****************************************************************************************************/
 

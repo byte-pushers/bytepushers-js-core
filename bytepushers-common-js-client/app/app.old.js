@@ -1,14 +1,14 @@
 define(
     [
-        'angular',
-        'uiRouter'/*,
+        'angular'/*,
+     'uiRouter'*//*,
      './view1/view1',
      './view2/view2'*/
     ],
     function(angular) {
         'use strict';
 
-        var myApp = angular.module('myApp', ["ui.router"]);
+        var myApp = angular.module('myApp', [/*"ui.router"*/]);
 
         /*myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
          $urlRouterProvider.otherwise("/view1");

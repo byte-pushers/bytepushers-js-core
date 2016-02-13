@@ -516,7 +516,6 @@ var document = document || {};
 
         if(Object.hasProperty(obj,p)) {
                 obj[p] = v;
-
         } else if (typeof obj[pFunction] === "function"){
             obj[pFunction](v);
         }

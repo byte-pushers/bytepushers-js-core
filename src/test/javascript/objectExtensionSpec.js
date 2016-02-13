@@ -113,8 +113,10 @@ describe("Object extension tests:", function() {
 
 
             var actualResult = Object.getProperty(person, "firstName");
+            var actualResult2 = person.firstName;
 
             expect(actualResult).toBe(expectedResult);
+            expect(actualResult2).toBe(expectedResult);
         });
 
         it('1 can tell if object gets property',function (){
@@ -127,11 +129,47 @@ describe("Object extension tests:", function() {
 
 
             var actualResult = Object.getProperty(person, "firstName");
+            var actualResult2 = person.getFirstName();
 
             expect(actualResult).toBe(expectedResult);
+            expect(actualResult2).toBe(expectedResult);
+
         });
 
         //TODO: test super property.
-    })
+    });
+    describe("Object.setProperty", function(){
+        it('can set a property', function() {
+            var car = {
+                    model: undefined
+                },
+                expectedResult = "Viper";
+
+            Object.setProperty(car, "model", "Viper");
+            var actualResult1 = Object.getProperty(car, "model");
+            var actualResult2 = car.model;
+
+            expect(actualResult1).toBe(expectedResult);
+            expect(actualResult2).toBe(expectedResult);
+        });
+        it('can set property by the setter method', function(){
+            var car = {
+                    model: undefined,
+                    setCarModel: function(someCarModel) {
+                        this.model = someCarModel;
+                    }
+                },
+            expectedResult = "Viper";
+
+            Object.setProperty(car,"carModel", "Viper");
+            var actualResult1 = car.model;
+            var actualResult2 = Object.getProperty(car, "model");
+            expect(actualResult1).toBe(expectedResult);
+            expect(actualResult2).toBe(expectedResult);
+        });
+    });
+
 
 });
+
+

@@ -1,24 +1,29 @@
 requirejs.config({
-    baseUrl: '.',
     paths: {
-        'domReady': 'bower_components/domReady/domReady',
         "angular" : "../node_modules/angular/angular.min",
         "uiRouter": "../node_modules/angular-ui-router/release/angular-ui-router.min",
-        "bytepushers": "jspm_packages/github/byte-pushers/bytepushers-common-js@0.0.4"
+        'domReady': 'bower_components/domReady/domReady',
+        "bytepushers": "jspm_packages/github/byte-pushers/bytepushers-common-js@0.0.4/com.bytepushers.base.app"
     },
+
     shim: {
         "angular": {
             exports: "angular"
         },
-        "uiRouter": {
-            deps: ["angular"]
-        },
-        "bytepushers" : {
-            exports: "BytePushers"
+        'uiRouter' : {
+            deps : ['angular']
         }
     },
-    deps: [
-        // kick start application... see bootstrap.js
-        './bootstrap'
-    ]
+
+    deps: ["./bootstrap"]
+});
+
+
+
+//calls object.isArray successfully with expected output
+
+require(["bytepushers", "app"], function(){
+    console.log(Object.isArray([]));
+    console.log(Object.isArray("str"));
+
 });

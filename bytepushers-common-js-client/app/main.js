@@ -17,13 +17,3 @@ requirejs.config({
 
     deps: ["./bootstrap"]
 });
-
-
-
-//calls object.isArray successfully with expected output
-
-require(["bytepushers", "app"], function(){
-    console.log(Object.isArray([]));
-    console.log(Object.isArray("str"));
-
-});

@@ -1,6 +1,6 @@
-require(["controllers/module"], function(controllers) {
+require(["controllers/module", "bytepushers"], function(controllers) {
   controllers.controller('view2Controller', function ($scope) {
-      console.log("View2");
-      /*console.log(Object.isDate(new Date()) + " " + Object.isDate("str"));*/
+      $scope.isArray = Object.isDate(new Date());
+      $scope.isNotArray = Object.isDate("str");
   });
 });

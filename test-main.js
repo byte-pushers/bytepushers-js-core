@@ -21,7 +21,7 @@ require.config({
   paths: {
     /*'jquery': '../lib/jquery',*/
     /*'underscore': 'node_modules/underscore/underscore'*/
-    BytePushers: 'src/main/javascript/com.bytepushers.base.app'
+    BytePushers: 'src/main/javascript/software.bytepushers.base.app.js'
   },
 
   shim: {

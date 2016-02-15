@@ -1,2 +1,2 @@
-require('./com.bytepushers.base.app.js');
+require('./software.bytepushers.base.app.js');
 module.exports = BytePushers;

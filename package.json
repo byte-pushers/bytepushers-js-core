@@ -50,7 +50,9 @@
     "files": [
       "src/main"
     ],
-    "main": "index.js",
-    "registry": "jspm"
+    "main": "index.js"
+  },
+  "dependencies": {
+    "angular": "^1.5.0"
   }
 }

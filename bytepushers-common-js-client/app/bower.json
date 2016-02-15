@@ -5,7 +5,12 @@
   "homepage": "https://github.com/angular/angular-seed",
   "license": "MIT",
   "private": true,
+  "main": "index.html",
+  "ignore": [
+    "**/.*",
+    "libs"
+  ],
   "dependencies": {
-
+    "requirejs-domready": "latest"
   }
 }

@@ -1,7 +1,8 @@
 /**
  * Created by tonte on 1/6/16.
  */
-var BytePushers = BytePushers || {};
+(function (window, document, BytePushers) {
+BytePushers = BytePushers || {};
 BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");
 BytePushers.DateUtility.date_sort_asc = function (date1, date2) {
     // This is a comparison function that will result in dates being sorted in
@@ -19,3 +20,4 @@ BytePushers.DateUtility.date_sort_desc = function (date1, date2) {
     if (date1 < date2) return 1;
     return 0;
 };
+})(window, document, BytePushers);

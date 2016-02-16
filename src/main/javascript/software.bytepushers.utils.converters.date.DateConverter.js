@@ -1,5 +1,6 @@
 /*global*/
-var BytePushers = BytePushers || {};
+(function (window, document, BytePushers) {
+BytePushers = BytePushers || {};
 BytePushers.converters = BytePushers.namespace("software.bytepushers.utils.converters");
 BytePushers.converters.DateConverter = BytePushers.namespace("software.bytepushers.utils.converters.DateConverter");
 BytePushers.converters.DateConverter.MMDDYYYY_DATE_FORMAT = 0;
@@ -251,3 +252,5 @@ BytePushers.models.Month.weekdayNames = [
     {"name": "Friday", "abbr": "Fri."},
     {"name": "Saturday", "abbr": "Sat."}
 ];
+})(window, document, BytePushers);
+

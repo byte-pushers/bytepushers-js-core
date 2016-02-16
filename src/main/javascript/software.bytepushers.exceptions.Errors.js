@@ -1,5 +1,4 @@
-/*global BytePushers*/
-
+(function (window, document, BytePushers) {
 BytePushers = BytePushers || {};
 BytePushers.exceptions = BytePushers.namespace("software.bytepushers.exceptions");
 BytePushers.exceptions.InvalidParameterException = function (message) {
@@ -42,3 +41,4 @@ BytePushers.exceptions.InvalidDateRangeException = function (message) {
 BytePushers.exceptions.InvalidDateRangeException.prototype.toString = function() {
 	return this.name + "(" + this.message + ")";
 };
+})(window, document, BytePushers);

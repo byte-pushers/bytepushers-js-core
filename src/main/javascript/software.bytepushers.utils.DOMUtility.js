@@ -5,7 +5,8 @@
  * Time: 3:31 PM
  * To change this template use File | Settings | File Templates.
  */
-var BytePushers = BytePushers || {};
+(function (window, document, BytePushers) {
+BytePushers = BytePushers || {};
 BytePushers.DOMUtility = BytePushers.namespace("software.bytepushers.utils.DOMUtility");
 BytePushers.DOMUtility.addListener = null;
 BytePushers.DOMUtility.removeListener = null;
@@ -84,3 +85,4 @@ if (typeof document.querySelectorAll === "function") {
 } else {
     throw ("document.querySelectorAll() method is not supported by your browser.  Please contact the administrator for this app.");
 }
+})(window, document, BytePushers);

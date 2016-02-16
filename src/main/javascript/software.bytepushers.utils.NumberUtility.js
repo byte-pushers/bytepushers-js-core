@@ -1,4 +1,5 @@
-var BytePushers = BytePushers || {};
+(function (window, document, BytePushers) {
+BytePushers = BytePushers || {};
 BytePushers.NumberUtility = BytePushers.namespace("software.bytepushers.utils.NumberUtility");
 BytePushers.NumberUtility.padLeft = function padLeft(number, length) {
 	'use strict';
@@ -25,3 +26,4 @@ BytePushers.NumberUtility.isANumber = function isANumber(d) {
     }
 	return !isNaN(d);
 };
+})(window, document, BytePushers);

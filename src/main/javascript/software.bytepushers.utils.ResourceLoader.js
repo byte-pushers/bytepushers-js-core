@@ -6,7 +6,8 @@
  * Time: 8:14 AM
  * To change this template use File | Settings | File Templates.
  */
-var BytePushers = BytePushers || {};
+(function (window, document, BytePushers) {
+BytePushers = BytePushers || {};
 BytePushers.ResourceLoader = BytePushers.namespace("software.bytepushers.utils.ResourceLoader");
 BytePushers.ResourceLoader = function () {
     'use strict';
@@ -97,3 +98,4 @@ BytePushers.ResourceLoader = function () {
     };
 };
 BytePushers.ResourceLoader.loadedResources = [];
+})(window, document, BytePushers);

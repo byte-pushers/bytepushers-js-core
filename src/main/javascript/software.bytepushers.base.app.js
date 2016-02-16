@@ -642,7 +642,7 @@
         else provides = [ data.provides ];
 
         // Create the object that will become the prototype for our class.
-        var proto = new superclass();
+        var proto = new Superclass();
 
         // Delete any noninherited properties of this new prototype object.
         for(var p1 in proto)

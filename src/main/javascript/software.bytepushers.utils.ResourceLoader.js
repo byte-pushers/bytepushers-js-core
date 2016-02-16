@@ -90,10 +90,10 @@ VA_AMS.ResourceLoader = function () {
                 xmlDoc = xmlHttp.responseText;
                 return xmlDoc;
             }
-        }
+        };
         xmlHttp.open("GET", theUrl, false );
         xmlHttp.send();
         return xmlDoc;
-    }
+    };
 };
 VA_AMS.ResourceLoader.loadedResources = [];

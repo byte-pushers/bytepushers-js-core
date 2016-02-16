@@ -1,4 +1,6 @@
-var VA_AMS = VA_AMS || {};
+/*global VA_AMS*/
+
+VA_AMS = VA_AMS || {};
 VA_AMS.exceptions = VA_AMS.namespace("gov.va.iam.acs.ams.exceptions");
 VA_AMS.exceptions.InvalidParameterException = function (message) {
 	"use strict";

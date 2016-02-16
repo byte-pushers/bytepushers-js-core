@@ -10,8 +10,6 @@
     * BEGIN Array Extensions */
     if (!Array.prototype.every) {
         Array.prototype.every = function (fun /*, thisp */) {
-            "use strict";
-
             if (this === null) {
                 throw new TypeError();
             }
@@ -95,8 +93,6 @@
     {
         Array.prototype.some = function(fun /*, thisp */)
         {
-            "use strict";
-
             if (this === null)
                 throw new TypeError();
 
@@ -118,7 +114,6 @@
 
     if (!Array.prototype.isArray) {
         Array.prototype.isArray = function (arg) {
-            "use strict";
             var targetArray = (arg)? arg: this;
             return Object.prototype.toString.call(targetArray) === "[object Array]";
         };
@@ -137,7 +132,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualTo = function (date) {
-        "use strict";
         if (this.getFullYear() === date.getFullYear()) {
             if (this.getMonth() === date.getMonth()) {
                 if (this.getDate() === date.getDate()) {
@@ -156,7 +150,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualToDateAndTime = function (date) {
-        "use strict";
         if (this.getFullYear() === date.getFullYear()) {
             if (this.getMonth() === date.getMonth()) {
                 if (this.getDate() === date.getDate()) {
@@ -179,7 +172,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualToTomorrow = function (date) {
-        "use strict";
         if (this.getFullYear() === date.getFullYear()) {
             if (this.getMonth() === date.getMonth()) {
                 if (this.getDate() + 1 === date.getDate()) {
@@ -208,7 +200,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualToYesterday = function (date) {
-        "use strict";
         if (this.getFullYear() === date.getFullYear()) {
             if (this.getMonth() === date.getMonth()) {
                 if (this.getDate() - 1 === date.getDate()) {
@@ -236,7 +227,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isLastDayInMonth = function () {
-        "use strict";
         var lastDayInMonth = this.getCurrentMonthTotalDays();
         if (this.getDate() === lastDayInMonth) {
             return true;
@@ -251,7 +241,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.getPreviousMonthTotalDays = function () {
-        "use strict";
         if (this.getMonth() === 0) {
             return Date.monthNames[11].getTotalDays(this.getFullYear());
         } else {
@@ -266,7 +255,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.getNextMonthTotalDays = function () {
-        "use strict";
         if (this.getMonth() === 11) {
             return Date.monthNames[0].getTotalDays(this.getFullYear());
         } else {
@@ -281,7 +269,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.getCurrentMonthTotalDays = function () {
-        "use strict";
         if (this.getMonth() === 11) {
             return Date.monthNames[0].getTotalDays(this.getFullYear());
         } else {
@@ -297,7 +284,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.addTime = function (time) {
-        "use strict";
         var newDate = new Date(),
             wholeNumber = (time > 0) ? Math.floor(time) : Math.ceil(time),
             fraction = ((time - wholeNumber).toFixed(2) * 100),
@@ -319,7 +305,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.isLastDayInMonth = function (date) {
-        "use strict";
         var lastDayInMonth = date.getCurrentMonthTotalDays();
         if (date.getDate() === lastDayInMonth) {
             return true;
@@ -338,7 +323,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.getMonthName = function (index, getAbbr) {
-        "use strict";
         if (getAbbr) {
             return this.monthNames[index].abbr;
         } else {
@@ -353,18 +337,18 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.monthNames = [
-        {"name": "January", "abbr": "Jan", "getTotalDays": function (year) { "use strict"; return 31; } },
-        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) { "use strict"; if (year) { return (year % 4 === 0) ? 29 : 28; } else { throw ("Expected parameter(Year) is not defined."); } } },
-        {"name": "March", "abbr": "Mar", "getTotalDays": function (year) { "use strict"; return 31; }},
-        {"name": "April", "abbr": "Apr", "getTotalDays": function (year) { "use strict"; return 30; }},
-        {"name": "May", "abbr": "May", "getTotalDays": function (year) { "use strict"; return 31; }},
-        {"name": "June", "abbr": "Jun", "getTotalDays": function (year) { "use strict"; return 30; }},
-        {"name": "July", "abbr": "Jul", "getTotalDays": function (year) { "use strict"; return 31; }},
-        {"name": "August", "abbr": "Aug", "getTotalDays": function (year) { "use strict"; return 31; }},
-        {"name": "September", "abbr": "Sep", "getTotalDays": function (year) { "use strict"; return 30; }},
-        {"name": "October", "abbr": "Oct", "getTotalDays": function (year) { "use strict"; return 31; }},
-        {"name": "November", "abbr": "Nov", "getTotalDays": function (year) { "use strict"; return 30; }},
-        {"name": "December", "abbr": "Dec", "getTotalDays": function (year) { "use strict"; return 31; }}
+        {"name": "January", "abbr": "Jan", "getTotalDays": function (year) { return 31; } },
+        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) { if (year) { return (year % 4 === 0) ? 29 : 28; } else { throw ("Expected parameter(Year) is not defined."); } } },
+        {"name": "March", "abbr": "Mar", "getTotalDays": function (year) { return 31; }},
+        {"name": "April", "abbr": "Apr", "getTotalDays": function (year) { return 30; }},
+        {"name": "May", "abbr": "May", "getTotalDays": function (year) { return 31; }},
+        {"name": "June", "abbr": "Jun", "getTotalDays": function (year) { return 30; }},
+        {"name": "July", "abbr": "Jul", "getTotalDays": function (year) { return 31; }},
+        {"name": "August", "abbr": "Aug", "getTotalDays": function (year) { return 31; }},
+        {"name": "September", "abbr": "Sep", "getTotalDays": function (year) { return 30; }},
+        {"name": "October", "abbr": "Oct", "getTotalDays": function (year) { return 31; }},
+        {"name": "November", "abbr": "Nov", "getTotalDays": function (year) { return 30; }},
+        {"name": "December", "abbr": "Dec", "getTotalDays": function (year) { return 31; }}
     ];
     /* END Date Extensions *
      ****************************************************************************************************/
@@ -379,7 +363,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isArray = function (someArray) {
-        "use strict";
         var result = false;
         if (Object.isDefined(someArray)) {
             if (someArray.constructor.toString().indexOf("Array") > -1) {
@@ -398,7 +381,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isDate = function (someDate) {
-        "use strict";
         var result = false;
         if (Object.isDefined(someDate)) {
             if (typeof someDate === "object" && someDate instanceof Date) {
@@ -416,7 +398,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isString = function (someString) {
-        "use strict";
         var result = false;
         if (Object.isDefined(someString)) {
             if (typeof someString === "string" || (typeof someString === "object" && someString instanceof String)) {
@@ -435,7 +416,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isNumeric = function (someNumber) {
-        "use strict";
         var result = false;
         if (Object.isDefined(someNumber)) {
             if (typeof someNumber === "number" || (typeof someNumber === "object" && someNumber instanceof Number)) {
@@ -454,7 +434,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isBoolean = function (someBoolean) {
-        "use strict";
         var result = false;
         if (Object.isDefined(someBoolean)) {
             if (typeof someBoolean === "boolean" || (typeof someBoolean === "object" && someBoolean instanceof Boolean)) {
@@ -473,7 +452,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Object.isDefined = function (target) {
-        "use strict";
         var result = false;
         if (target !== undefined && target !== null) {
             result = true;
@@ -492,7 +470,6 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     String.prototype.trim = function () {
-        "use strict";
         return this.replace(/^\s+|\s+$/g, '');
     };
 
@@ -504,7 +481,7 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     if (!String.prototype.includes) {
-        String.prototype.includes = function() {'use strict';
+        String.prototype.includes = function() {
             return String.prototype.indexOf.apply(this, arguments) !== -1;
         };
     }
@@ -566,7 +543,6 @@
     var BytePushers = window.BytePushers || (window.BytePushers = {});
 
     BytePushers.namespace = function (ns_string) {
-        'use strict';
         var parts = ns_string.split('.'), parent = BytePushers;
         // strip redundant leading global
         if (parts[0] === "BytePushers") {

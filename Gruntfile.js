@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                 unused: false,
                 nonbsp: true
             },
-            files: ['Gruntfile.js', 'src/main/javascript/**/*.js']
+            files: ['src/main/javascript/**/*.js']
         },
         jslint: {
             javascript: {
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                     edition: 'latest',
                     errorsOnly: true
                 },
-                src: ['Gruntfile.js', 'src/main/javascript/**/*.js']
+                src: ['src/main/javascript/**/*.js']
             }
         },
         karma: {

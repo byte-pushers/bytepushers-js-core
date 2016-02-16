@@ -6,9 +6,9 @@
  * Time: 8:14 AM
  * To change this template use File | Settings | File Templates.
  */
-var VA_AMS = VA_AMS || {};
-VA_AMS.ResourceLoader = VA_AMS.namespace("gov.va.iam.acs.ams.utils.ResourceLoader");
-VA_AMS.ResourceLoader = function () {
+var BytePushers = BytePushers || {};
+BytePushers.ResourceLoader = BytePushers.namespace("software.bytepushers.utils.ResourceLoader");
+BytePushers.ResourceLoader = function () {
     'use strict';
     var that = this;
     function isResourceNotLoaded(fileName) {
@@ -96,4 +96,4 @@ VA_AMS.ResourceLoader = function () {
         return xmlDoc;
     };
 };
-VA_AMS.ResourceLoader.loadedResources = [];
+BytePushers.ResourceLoader.loadedResources = [];

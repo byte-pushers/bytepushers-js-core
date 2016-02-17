@@ -523,7 +523,7 @@ var document = document || {};
     Object.hasProperty = function (obj, p) {
         var hasProperty = false;
 
-        if(typeof obj.hasOwnProperty === "function"){
+        if(typeof obj.hasOwnProperty(p) === "function"){
             if (obj.hasOwnProperty(p)) {
                 hasProperty = true;
             }

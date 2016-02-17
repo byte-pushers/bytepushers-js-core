@@ -168,8 +168,30 @@ describe("Object extension tests:", function() {
             expect(actualResult2).toBe(expectedResult);
         });
     });
+    describe('Object.hasProperty',function(){
+        it('can determine if it has the property', function(){
+            var car = {
+                    model: undefined,
+                    getVin: function(){
+                        return "7asdf";
+                    }
+                },
+            expectedResult = true;
+            var actualResult= Object.hasProperty(car,"model");
+            var actualResult1= Object.hasProperty(car, "vin");
+            expect(actualResult).toBe(expectedResult);
+            expect(actualResult1).toBe(expectedResult);
+        });
+        it('can determine if it does not have a property', function(){
+           var car = {
 
+               },
+               expectedResult = false,
+               actualResult = Object.hasProperty(car,"model");
+            expect(actualResult).toBe(expectedResult);
+        });
 
+    });
 });
 
 

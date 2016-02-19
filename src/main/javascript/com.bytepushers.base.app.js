@@ -523,15 +523,24 @@ var document = document || {};
     Object.hasProperty = function (obj, p) {
         var hasProperty = false;
 
-        if(typeof obj.hasOwnProperty(p) === "function"){
-            if (obj.hasOwnProperty(p)) {
-                hasProperty = true;
-            }
-        } else if (p in obj) {
+        if (obj.hasOwnProperty(p)) {
             hasProperty = true;
         }
 
         return hasProperty;
+    };
+    Object.hasFunction = function (obj,p){
+        var hasFunction = false;
+        var pSetFunction = "set" + p.substring(0,1).toUpperCase() + p.substring(1);
+        var pGetFunction = "get" + p.substring(0,1).toUpperCase() + p.substring(1);
+
+        if(typeof obj[pSetFunction] === "function"){
+            hasFunction = true;
+        } else if (typeof obj[pGetFunction] === "function") {
+            hasFunction = true;
+        }
+
+        return hasFunction;
     };
     /* END Object Extensions *
      ****************************************************************************************************/

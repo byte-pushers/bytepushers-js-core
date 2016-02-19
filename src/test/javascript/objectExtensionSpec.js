@@ -173,12 +173,12 @@ describe("Object extension tests:", function() {
             var car = {
                     model: undefined,
                     getVin: function(){
-                        return "7asdf";
+                        return "coolKid";
                     }
                 },
             expectedResult = true;
             var actualResult= Object.hasProperty(car,"model");
-            var actualResult1= Object.hasProperty(car, "vin");
+            var actualResult1= Object.hasFunction(car, "vin");
             expect(actualResult).toBe(expectedResult);
             expect(actualResult1).toBe(expectedResult);
         });

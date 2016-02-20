@@ -1,3 +1,4 @@
+/*global window, document*/
 /*jslint bitwise: true, unparam: true, regexp: true*/
 
 
@@ -22,7 +23,6 @@
                 len = t.length >>> 0,
                 i;
 
-
             if (this === null) {
                 throw new TypeError();
             }
@@ -30,7 +30,6 @@
             if (typeof fun !== "function") {
                 throw new TypeError();
             }
-
 
             for (i = 0; i < len; i = i + 1) {
                 if (t.hasOwnProperty(i) && !fun.call(funParameter, t[i], i, t)) {
@@ -561,12 +560,41 @@
         }
         parts.forEach(function (part, index) {
             // create a property if it doesn't exist
-            if (typeof parent[part] === "undefined") {
+            if (parent[part] === undefined) {
                 parent[part] = {};
             }
             parent = parent[part];
         });
         return parent;
+    };
+
+    /**
+     * inherit() returns a newly created object that inherits properties from the prototype object p.
+     * It uses the ECMAScript 5 function Object.create() if it is defined, and otherwise falls.
+     *
+     * @param p
+     * @returns {*}
+     */
+    BytePushers.inherit = function (p) {
+        var t;
+        if (p === null) { // p must be non-null object
+            throw new TypeError();
+        }
+        if (Object.create) {            // if Object.create() is defined...
+            return Object.create(p);    //      then just use it.
+        }
+
+        t = typeof p;               // Otherwise do some more type checking
+
+        if (t !== "object" && t !== "function") {
+            throw new TypeError();
+        }
+
+        function F() {// Define a dummy constructor function.
+            return;
+        }
+        F.prototype = p;                // Set its prototype property to p.
+        return new F();                 // Use f() to create an "heir" of p.
     };
 
     /**
@@ -634,67 +662,93 @@
     BytePushers.defineClass = function (data) {
         // Extract the fields we'll use from the argument object.
         // Set up default values.
-        var classname = data.name;
-        var superclass = data.extend || Object;
-        var constructor = data.construct || function() {};
-        var methods = data.methods || {};
-        var statics = data.statics || {};
-        var borrows;
-        var provides;
+        var classname = data.name,
+            Superclass = data.extend || Object,
+            constructor = data.construct || function () {return; },
+            methods = data.methods || {},
+            statics = data.statics || {},
+            borrows,
+            provides,
+            proto,
+            i1,
+            i2,
+            c1,
+            c2,
+            p1,
+            p2,
+            p3,
+            p4,
+            p5;
 
         // Borrows may be a single constructor or an array of them.
-        if (!data.borrows) borrows = [];
-        else if (data.borrows instanceof Array) borrows = data.borrows;
-        else borrows = [ data.borrows ];
+        if (!data.borrows) {
+            borrows = [];
+        } else if (data.borrows instanceof Array) {
+            borrows = data.borrows;
+        } else {
+            borrows = [ data.borrows ];
+        }
 
         // Ditto for the provides property.
-        if (!data.provides) provides = [];
-        else if (data.provides instanceof Array) provides = data.provides;
-        else provides = [ data.provides ];
+        if (!data.provides) {
+            provides = [];
+        } else if (data.provides instanceof Array) {
+            provides = data.provides;
+        } else {
+            provides = [ data.provides ];
+        }
 
         // Create the object that will become the prototype for our class.
-        var proto = new Superclass();
+        proto = new Superclass();
 
         // Delete any noninherited properties of this new prototype object.
-        for(var p1 in proto)
-            if (proto.hasOwnProperty(p1)) delete proto[p1];
+        for (p1 in proto) {
+            if (proto.hasOwnProperty(p1)) {
+                delete proto[p1];
+            }
+        }
 
         // Borrow methods from "mixin" classes by copying to our prototype.
-        for(var i1 = 0; i1 < borrows.length; i1++) {
-            var c1 = data.borrows[i1];
+        for (i1 = 0; i1 < borrows.length; i1 = i1 + 1) {
+            c1 = data.borrows[i1];
             borrows[i1] = c1;
             // Copy method properties from prototype of c to our prototype
-            for(var p2 in c1.prototype) {
-                if (typeof c1.prototype[p2] != "function") continue;
-                proto[p2] = c1.prototype[p2];
+            for (p2 in c1.prototype) {
+                if (typeof c1.prototype[p2] === "function") {
+                    proto[p2] = c1.prototype[p2];
+                }
             }
         }
 
         // Copy instance methods to the prototype object
         // This may overwrite methods of the mixin classes
-        for(var p3 in methods) proto[p3] = methods[p3];
+        for (p3 in methods) {
+            if (methods.hasOwnProperty(p3)) {
+                proto[p3] = methods[p3];
+            }
+        }
 
         // Set up the reserved "constructor", "superclass", and "classname"
         // properties of the prototype.
         proto.constructor = constructor;
-        proto.superclass = superclass;
+        proto.Superclass = Superclass;
         // classname is set only if a name was actually specified.
-        if (classname) proto.classname = classname;
+        if (classname) {
+            proto.classname = classname;
+        }
 
         // Verify that our prototype provides all of the methods it is supposed to.
-        for(var i2 = 0; i2 < provides.length; i2++) {  // for each class
-            var c2 = provides[i2];
-            for(var p4 in c2.prototype) {   // for each property
-                if (typeof c2.prototype[p4] != "function") continue;  // methods only
-                if (p4 == "constructor" || p4 == "superclass") continue;
-                // Check that we have a method with the same name and that
-                // it has the same number of declared arguments.  If so, move on
-                if (p4 in proto &&
-                    typeof proto[p4] == "function" &&
-                    proto[p4].length == c2.prototype[p4].length) continue;
-                // Otherwise, throw an exception
-                throw new Error("Class " + classname + " does not provide method "+
-                    c2.classname + "." + p4);
+        for (i2 = 0; i2 < provides.length; i2 = i2 + 1) {  // for each class
+            c2 = provides[i2];
+            for (p4 in c2.prototype) {   // for each property
+                if (typeof c2.prototype[p4] === "function" && (p4 === "constructor" || p4 === "superclass")) { //methods only
+                    // Check that we have a method with the same name and that
+                    // it has the same number of declared arguments.  If so, move on
+                    if (proto.hasOwnProperty(p4) && typeof proto[p4] !== "function" && proto[p4].length !== c2.prototype[p4].length) {
+                        // Otherwise, throw an exception
+                        throw new Error("Class " + classname + " does not provide method " + c2.classname + "." + p4);
+                    }
+                }
             }
         }
 
@@ -702,21 +756,35 @@
         constructor.prototype = proto;
 
         // Copy static properties to the constructor
-        for(var p5 in statics) constructor[p5] = statics[p5];
+        for (p5 in statics) {
+            if (statics.hasOwnProperty(p5)) {
+                constructor[p5] = statics[p5];
+            }
+        }
 
         // Finally, return the constructor function
         return constructor;
     };
 
     BytePushers.isArrayLike = function (x) {
-        if (x instanceof Array) return true; // Real arrays are array-like
-        if (!("length" in x)) return false;  // Arrays must have a length property
-        if (typeof x.length != "number") return false;  // Length must be a number
-        if (x.length < 0) return false;                 // and nonnegative
+        if (x instanceof Array) { // Real arrays are array-like
+            return true;
+        }
+        if (!x.hasOwnProperty("length")) { // Arrays must have a length property
+            return false;
+        }
+        if (typeof x.length !== "number") { // Length must be a number
+            return false;
+        }
+        if (x.length < 0) { // and nonnegative
+            return false;
+        }
         if (x.length > 0) {
             // If the array is nonempty, it must at a minimum
             // have a property defined whose name is the number length-1
-            if (!((x.length-1) in x)) return false;
+            if (!x.hasOwnProperty((x.length - 1))) {
+                return false;
+            }
         }
         return true;
     };
@@ -725,30 +793,42 @@
     // methods in I.prototype. Otherwise, return false.  Throws an exception
     // if I is a built-in type with nonenumerable methods.
     BytePushers.provides = function (O, I) {
+        var proto = I.prototype,
+            p6;
         // If O actually is an instance of I, it obviously looks like I
-        if (O instanceof I) return true;
+        if (O instanceof I) {
+            return true;
+        }
 
         // If a constructor was passed instead of an object, use its prototype
-        if (typeof O == "function") O = O.prototype;
+        if (typeof O === "function") {
+            O = O.prototype;
+        }
 
         // The methods of built-in types are not enumerable, and we return
         // undefined.  Otherwise any object would appear to provide any of
         // the built-in types.
-        if (I == Array || I == Boolean || I == Date || I == Error ||
-            I == Function || I == Number || I == RegExp || I == String)
+        if (I === Array || I === Boolean || I === Date || I === Error || I === Function || I === Number || I === RegExp || I === String) {
             return undefined;
+        }
 
-        var proto = I.prototype;
-        for(var p6 in proto) {  // Loop through all properties in I.prototype
+        for (p6 in proto) {  // Loop through all properties in I.prototype
             // Ignore properties that are not functions
-            if (typeof proto[p6] != "function") continue;
-            // If O does not have a property by the same name return false
-            if (!(p6 in O)) return false;
-            // If that property is not a function, return false
-            if (typeof O[p6] != "function") return false;
-            // If the two functions are not declared with the same number
-            // of arguments return false.
-            if (O[p6].length != proto[p6].length) return false;
+            if (typeof proto[p6] === "function") {
+                // If O does not have a property by the same name return false
+                if (!(O.hasOwnProperty(p6))) {
+                    return false;
+                }
+                // If that property is not a function, return false
+                if (typeof O[p6] !== "function") {
+                    return false;
+                }
+                // If the two functions are not declared with the same number
+                // of arguments return false.
+                if (O[p6].length !== proto[p6].length) {
+                    return false;
+                }
+            }
         }
         // If all the methods check out, we can finally return true.
         return true;
@@ -760,31 +840,39 @@
     // instances of the type. The returned constructor has properties that // map the name of a value to the value itself, and also a values array, // a foreach() iterator function
     BytePushers.enumeration = function (namesToValues) {
         // This is the dummy constructor function that will be the return value.
-        var enumeration = function() { throw "Can't Instantiate Enumerations"; };
-        // Enumerated values inherit from this object.
-        var proto = enumeration.prototype = {
-            constructor: enumeration, // Identify type
-            toString: function() { return this.name;}, // Return name
-            valueOf: function() { return this.value; }, // Return value
-            toJSON: function() { return this.name; } // For serialization
-        };
+        var name,
+            e,
+            i3,
+            enumeration = function () { throw "Can't Instantiate Enumerations"; },
+            proto;
 
+        enumeration.prototype = { // Enumerated values inherit from this object.
+            constructor: enumeration, // Identify type
+            toString: function () { return this.name; }, // Return name
+            valueOf: function () { return this.value; }, // Return value
+            toJSON: function () { return this.name; } // For serialization
+        };
+        proto = enumeration;
         enumeration.values = []; // An array of the enumerated value objects
 
         // Now create the instances of this new type.
-        for (var name in namesToValues) {        // For each value
-            var e = inherit(proto);         // Create an object to represent it
-            e.name = name;                  // Give it a name
-            e.value = namesToValues[name];  // And a value
-            enumeration[name] = e;          // Make it a property of constructor
-            enumeration.values.push(e);     // And store in the values array
+        for (name in namesToValues) {        // For each value
+            if (namesToValues.hasOwnProperty(name)) {
+                e = BytePushers.inherit(proto);         // Create an object to represent it
+                e.name = name;                  // Give it a name
+                e.value = namesToValues[name];  // And a value
+                enumeration[name] = e;          // Make it a property of constructor
+                enumeration.values.push(e);     // And store in the values array
+            }
         }
 
         // A class method for iterating the instances of the class
-        enumeration.foreach = function(f,c) {
-            for(var i3 = 0; i3 < this.values.length; i3++) f.call(c,this.values[i3]);
+        enumeration.foreach = function (f, c) {
+            for (i3 = 0; i3 < this.values.length; i3 = i3 + 1) {
+                f.call(c, this.values[i3]);
+            }
         };
         // Return the constructor that identifies the new type
         return enumeration;
     };
-})(window, document);
+}(window, document));

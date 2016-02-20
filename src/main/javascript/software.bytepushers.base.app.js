@@ -1,20 +1,18 @@
 /**
  * Created by tonte on 11/29/15.
  */
-//console.info("************************************************************");
-//console.info("inside app.js");
-(function(window, document, undefined) {
+(function (window, document) {
     'use strict';
 
     /****************************************************************************************************
     * BEGIN Array Extensions */
     if (!Array.prototype.every) {
-        Array.prototype.every = function (fun /*, thisp */) {
+        Array.prototype.every = function (fun) {
             if (this === null) {
                 throw new TypeError();
             }
 
-            var t = Object(this);
+            var t = Object.create(this);
             var len = t.length >>> 0;
             if (typeof fun !== "function") {
                 throw new TypeError();
@@ -777,5 +775,3 @@
         return enumeration;
     };
 })(window, document);
-//console.info("end of app.js");
-//console.info("************************************************************");

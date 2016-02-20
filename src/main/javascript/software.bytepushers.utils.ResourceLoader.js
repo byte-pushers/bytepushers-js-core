@@ -98,4 +98,4 @@ BytePushers.ResourceLoader = function () {
     };
 };
 BytePushers.ResourceLoader.loadedResources = [];
-})(window, document, BytePushers);
+}(window, document, BytePushers));

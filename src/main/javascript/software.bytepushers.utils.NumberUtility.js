@@ -26,4 +26,4 @@ BytePushers.NumberUtility.isANumber = function isANumber(d) {
     }
 	return !isNaN(d);
 };
-})(window, document, BytePushers);
+}(window, document, BytePushers));

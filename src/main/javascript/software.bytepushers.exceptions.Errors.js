@@ -38,4 +38,4 @@
 	BytePushers.exceptions.InvalidDateRangeException.prototype.toString = function() {
 		return this.name + "(" + this.message + ")";
 	};
-})(window, document, BytePushers);
+}(window, document, BytePushers));

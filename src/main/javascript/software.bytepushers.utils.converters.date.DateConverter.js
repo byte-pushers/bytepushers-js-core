@@ -252,5 +252,5 @@ BytePushers.models.Month.weekdayNames = [
     {"name": "Friday", "abbr": "Fri."},
     {"name": "Saturday", "abbr": "Sat."}
 ];
-})(window, document, BytePushers);
+}(window, document, BytePushers));
 

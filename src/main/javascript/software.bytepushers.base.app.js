@@ -1,27 +1,41 @@
+/*jslint bitwise: true, unparam: true, regexp: true*/
+
+
 /**
  * Created by tonte on 11/29/15.
  */
 (function (window, document) {
     'use strict';
+    var BytePushers;
 
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
     /****************************************************************************************************
     * BEGIN Array Extensions */
     if (!Array.prototype.every) {
-        Array.prototype.every = function (fun) {
+        Array.prototype.every = function (fun, funParameter) {
+            var t = Object.create(this),
+                len = t.length >>> 0,
+                i;
+
+
             if (this === null) {
                 throw new TypeError();
             }
 
-            var t = Object.create(this);
-            var len = t.length >>> 0;
             if (typeof fun !== "function") {
                 throw new TypeError();
             }
 
-            var thisp = arguments[1];
-            for (var i = 0; i < len; i++) {
-                if (i in t && !fun.call(thisp, t[i], i, t))
+
+            for (i = 0; i < len; i = i + 1) {
+                if (t.hasOwnProperty(i) && !fun.call(funParameter, t[i], i, t)) {
                     return false;
+                }
             }
 
             return true;
@@ -30,31 +44,31 @@
 
     // Production steps of ECMA-262, Edition 5, 15.4.4.18
     // Reference: http://es5.github.com/#x15.4.4.18
-    if ( !Array.prototype.forEach ) {
+    if (!Array.prototype.forEach) {
 
-        Array.prototype.forEach = function forEach ( callback, thisArg ) {
+        Array.prototype.forEach = function forEach(callback, thisArg) {
 
-            var T, k;
+            var T, k, O, len, obj = {}, kValue;
 
-            if ( this === null ) {
-                throw new TypeError( "this is null or not defined" );
+            if (this === null) {
+                throw new TypeError("this is null or not defined");
             }
 
             // 1. Let O be the result of calling ToObject passing the |this| value as the argument.
-            var O = Object(this);
+            O = Object.create(this);
 
             // 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".
             // 3. Let len be ToUint32(lenValue).
-            var len = O.length >>> 0; // Hack to convert O.length to a UInt32
+            len = O.length >>> 0; // Hack to convert O.length to a UInt32
 
             // 4. If IsCallable(callback) is false, throw a TypeError exception.
             // See: http://es5.github.com/#x9.11
-            if ( {}.toString.call(callback) !== "[object Function]" ) {
-                throw new TypeError( callback + " is not a function" );
+            if (obj.toString.call(callback) !== "[object Function]") {
+                throw new TypeError(callback + " is not a function");
             }
 
             // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
-            if ( thisArg ) {
+            if (thisArg) {
                 T = thisArg;
             }
 
@@ -62,48 +76,46 @@
             k = 0;
 
             // 7. Repeat, while k < len
-            while( k < len ) {
-
-                var kValue;
-
+            while (k < len) {
                 // a. Let Pk be ToString(k).
                 //   This is implicit for LHS operands of the in operator
                 // b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.
                 //   This step can be combined with c
                 // c. If kPresent is true, then
-                if ( Object.prototype.hasOwnProperty.call(O, k) ) {
+                if (Object.prototype.hasOwnProperty.call(O, k)) {
 
                     // i. Let kValue be the result of calling the Get internal method of O with argument Pk.
-                    kValue = O[ k ];
+                    kValue = O[k];
 
                     // ii. Call the Call internal method of callback with T as the this value and
                     // argument list containing kValue, k, and O.
-                    callback.call( T, kValue, k, O );
+                    callback.call(T, kValue, k, O);
                 }
                 // d. Increase k by 1.
-                k++;
+                k = k + 1;
             }
             // 8. return undefined
         };
     }
 
-    if (!Array.prototype.some)
-    {
-        Array.prototype.some = function(fun /*, thisp */)
-        {
-            if (this === null)
-                throw new TypeError();
+    if (!Array.prototype.some) {
+        Array.prototype.some = function (fun, functionParameter) {
+            var t = Object.create(this),
+                len = t.length >>> 0,
+                i;
 
-            var t = Object(this);
-            var len = t.length >>> 0;
-            if (typeof fun != "function")
+            if (this === null) {
                 throw new TypeError();
+            }
 
-            var thisp = arguments[1];
-            for (var i = 0; i < len; i++)
-            {
-                if (i in t && fun.call(thisp, t[i], i, t))
+            if (typeof fun !== "function") {
+                throw new TypeError();
+            }
+
+            for (i = 0; i < len; i = i + 1) {
+                if (t.hasOwnProperty(i) && fun.call(functionParameter, t[i], i, t)) {
                     return true;
+                }
             }
 
             return false;
@@ -112,7 +124,7 @@
 
     if (!Array.prototype.isArray) {
         Array.prototype.isArray = function (arg) {
-            var targetArray = (arg)? arg: this;
+            var targetArray = (arg === true) ? arg : this;
             return Object.prototype.toString.call(targetArray) === "[object Array]";
         };
     }
@@ -241,9 +253,9 @@
     Date.prototype.getPreviousMonthTotalDays = function () {
         if (this.getMonth() === 0) {
             return Date.monthNames[11].getTotalDays(this.getFullYear());
-        } else {
-            return Date.monthNames[this.getMonth() - 1].getTotalDays(this.getFullYear());
         }
+
+        return Date.monthNames[this.getMonth() - 1].getTotalDays(this.getFullYear());
     };
 
     /**
@@ -255,9 +267,9 @@
     Date.prototype.getNextMonthTotalDays = function () {
         if (this.getMonth() === 11) {
             return Date.monthNames[0].getTotalDays(this.getFullYear());
-        } else {
-            return Date.monthNames[this.getMonth() + 1].getTotalDays(this.getFullYear());
         }
+
+        return Date.monthNames[this.getMonth() + 1].getTotalDays(this.getFullYear());
     };
 
     /**
@@ -269,9 +281,9 @@
     Date.prototype.getCurrentMonthTotalDays = function () {
         if (this.getMonth() === 11) {
             return Date.monthNames[0].getTotalDays(this.getFullYear());
-        } else {
-            return Date.monthNames[this.getMonth()].getTotalDays(this.getFullYear());
         }
+
+        return Date.monthNames[this.getMonth()].getTotalDays(this.getFullYear());
     };
 
     /**
@@ -285,8 +297,8 @@
         var newDate = new Date(),
             wholeNumber = (time > 0) ? Math.floor(time) : Math.ceil(time),
             fraction = ((time - wholeNumber).toFixed(2) * 100),
-            hourInMilliseconds = (1000 * 60 * 60) * wholeNumber,
-            minutesInMilliseconds = (1000 * 60) * (fraction);
+            hourInMilliseconds = 1000 * 60 * 60 * wholeNumber,
+            minutesInMilliseconds = 1000 * 60 * fraction;
 
         newDate.setTime(this.getTime());
         newDate.setTime(newDate.getTime() + hourInMilliseconds);
@@ -323,9 +335,9 @@
     Date.getMonthName = function (index, getAbbr) {
         if (getAbbr) {
             return this.monthNames[index].abbr;
-        } else {
-            return this.monthNames[index].name;
         }
+
+        return this.monthNames[index].name;
     };
 
     /**
@@ -335,18 +347,24 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.monthNames = [
-        {"name": "January", "abbr": "Jan", "getTotalDays": function (year) { return 31; } },
-        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) { if (year) { return (year % 4 === 0) ? 29 : 28; } else { throw ("Expected parameter(Year) is not defined."); } } },
-        {"name": "March", "abbr": "Mar", "getTotalDays": function (year) { return 31; }},
-        {"name": "April", "abbr": "Apr", "getTotalDays": function (year) { return 30; }},
-        {"name": "May", "abbr": "May", "getTotalDays": function (year) { return 31; }},
-        {"name": "June", "abbr": "Jun", "getTotalDays": function (year) { return 30; }},
-        {"name": "July", "abbr": "Jul", "getTotalDays": function (year) { return 31; }},
-        {"name": "August", "abbr": "Aug", "getTotalDays": function (year) { return 31; }},
-        {"name": "September", "abbr": "Sep", "getTotalDays": function (year) { return 30; }},
-        {"name": "October", "abbr": "Oct", "getTotalDays": function (year) { return 31; }},
-        {"name": "November", "abbr": "Nov", "getTotalDays": function (year) { return 30; }},
-        {"name": "December", "abbr": "Dec", "getTotalDays": function (year) { return 31; }}
+        {"name": "January", "abbr": "Jan", "getTotalDays": function () { return 31; } },
+        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) {
+            if (year) {
+                return (year % 4 === 0) ? 29 : 28;
+            }
+
+            throw ("Expected parameter(Year) is not defined.");
+        }},
+        {"name": "March", "abbr": "Mar", "getTotalDays": function () { return 31; }},
+        {"name": "April", "abbr": "Apr", "getTotalDays": function () { return 30; }},
+        {"name": "May", "abbr": "May", "getTotalDays": function () { return 31; }},
+        {"name": "June", "abbr": "Jun", "getTotalDays": function () { return 30; }},
+        {"name": "July", "abbr": "Jul", "getTotalDays": function () { return 31; }},
+        {"name": "August", "abbr": "Aug", "getTotalDays": function () { return 31; }},
+        {"name": "September", "abbr": "Sep", "getTotalDays": function () { return 30; }},
+        {"name": "October", "abbr": "Oct", "getTotalDays": function () { return 31; }},
+        {"name": "November", "abbr": "Nov", "getTotalDays": function () { return 30; }},
+        {"name": "December", "abbr": "Dec", "getTotalDays": function () { return 31; }}
     ];
     /* END Date Extensions *
      ****************************************************************************************************/
@@ -479,7 +497,7 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     if (!String.prototype.includes) {
-        String.prototype.includes = function() {
+        String.prototype.includes = function () {
             return String.prototype.indexOf.apply(this, arguments) !== -1;
         };
     }
@@ -490,9 +508,11 @@
      * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted to camel case.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
-    String.prototype.toCamelCase = function() {
-        return this.replace(/^([A-Z])|\s(\w)/g, function(match, p1, p2, offset) {
-            if (p2) return p2.toUpperCase();
+    String.prototype.toCamelCase = function () {
+        return this.replace(/^([A-Z])|\s(\w)/g, function (match, p1, p2) {
+            if (p2) {
+                return p2.toUpperCase();
+            }
             return p1.toLowerCase();
         });
     };
@@ -503,8 +523,8 @@
      * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted to a normal sentence format.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
-    String.prototype.toNormalCase = function() {
-        return this.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([A-Z])([A-Z])/g, '$1 $2').replace(/^./, function(str){ return str.toUpperCase(); });
+    String.prototype.toNormalCase = function () {
+        return this.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([A-Z])([A-Z])/g, '$1 $2').replace(/^./, function (str) {return str.toUpperCase(); });
     };
 
     /**
@@ -515,30 +535,23 @@
      * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
-    String.format = function() {
+    String.format = function (someString) {
         // The string containing the format items (e.g. "{0}")
         // will and always has to be the first argument.
-        var theString = arguments[0];
+        var theString = someString, i, regEx;
 
         // start with the second argument (i = 1)
-        for (var i = 0; i < arguments.length; i++) {
+        for (i = 0; i < arguments.length; i = i + 1) {
             // "gm" = RegEx options for Global search (more than one instance)
             // and for Multiline search
-            var regEx = new RegExp("\\{" + (i) + "\\}", "gm");
+            regEx = new RegExp("\\{" + i + "\\}", "gm");
             theString = theString.replace(regEx, arguments[i]);
         }
 
         return theString;
     };
-    /* END String Extensions *
-     ****************************************************************************************************/
+    /* END String Extensions *****************************************************************************************************/
 
-    /* We need to tell jshint what variables are being exported */
-    /* global BytePushers: true
-     *
-     */
-
-    var BytePushers = window.BytePushers || (window.BytePushers = {});
 
     BytePushers.namespace = function (ns_string) {
         var parts = ns_string.split('.'), parent = BytePushers;

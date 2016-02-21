@@ -1,6 +1,3 @@
-/**
- * Created by tonte on 1/6/16.
- */
 (function (window, document, BytePushers) {
 BytePushers = BytePushers || {};
 BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");

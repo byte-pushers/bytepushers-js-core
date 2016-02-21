@@ -2,6 +2,15 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        concat: {
+            options: {
+                separator: ';',
+            },
+            dist: {
+                src: ['src/main/javascript/software.bytepushers*.js'],
+                dest: 'dist/built.js'
+            }
+        },
         clean: {
             build: ["build"],
             release: ["dist"]
@@ -72,6 +81,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     grunt.registerTask('default', ['build']);
     grunt.registerTask('build', ['clean:' + target, 'lint', 'test', 'package']);

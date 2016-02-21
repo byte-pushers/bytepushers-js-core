@@ -2,15 +2,6 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        concat: {
-            options: {
-                separator: ';',
-            },
-            dist: {
-                src: ['src/main/javascript/software.bytepushers*.js'],
-                dest: 'dist/built.js'
-            }
-        },
         clean: {
             build: ["build"],
             release: ["dist"]
@@ -33,7 +24,7 @@ module.exports = function (grunt) {
             }
         },
         karma: {
-            unit: {
+            server: {
                 configFile: 'karma.conf.js'
             },
             ci: {
@@ -74,7 +65,7 @@ module.exports = function (grunt) {
     });
 
     var clean_build = grunt.option('target') || 'build';
-    var karma_unit = grunt.option('target') || 'unit';
+    var karma_server = grunt.option('target') || 'server';
     var karma_ci = grunt.option('target') || 'ci';
 
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -86,13 +77,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-concat');
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['clean:' + clean_build, 'lint', 'test', 'package']);
+    grunt.registerTask('build', ['clean:' + clean_build, 'validate', 'test_ci', 'package']);
 
-    grunt.registerTask('lint', ['jshint', 'jslint']);
-    grunt.registerTask('test', ['karma:' + karma_unit]);
+    grunt.registerTask('validate', ['jshint', 'jslint']);
+    grunt.registerTask('test', ['karma:' + karma_server]);
     grunt.registerTask('test_ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy', 'jsdoc', 'uglify']);
 };

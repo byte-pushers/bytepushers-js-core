@@ -1,10 +1,6 @@
 /*global window, document*/
 /*jslint bitwise: true, unparam: true, regexp: true*/
 
-
-/**
- * Created by tonte on 11/29/15.
- */
 (function (window, document) {
     'use strict';
     var BytePushers;

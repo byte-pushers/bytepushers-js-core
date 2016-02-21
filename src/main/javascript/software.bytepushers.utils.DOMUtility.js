@@ -1,11 +1,4 @@
-/*global $*/
-/**
- * Created with IntelliJ IDEA.
- * User: pouncilt
- * Date: 3/24/13
- * Time: 3:31 PM
- * To change this template use File | Settings | File Templates.
- */
+/*global $, window, document, BytePushers*/
 (function (window, document, BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
@@ -41,7 +34,6 @@
             el['on' + type] = null;
         };
     }
-
     if (typeof document.querySelector === "function") {
         BytePushers.DOMUtility.querySelector = function (selector) {
             return document.querySelector(selector);
@@ -57,7 +49,6 @@
     } else {
         throw ("document.querySelector() method is not supported by your browser.  Please contact the administrator for this app.");
     }
-    
     if (typeof document.querySelectorAll === "function") {
         BytePushers.DOMUtility.querySelectorAll = function (selector) {
             return document.querySelectorAll(selector);

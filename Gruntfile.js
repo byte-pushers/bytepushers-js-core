@@ -35,6 +35,9 @@ module.exports = function (grunt) {
         karma: {
             unit: {
                 configFile: 'karma.conf.js'
+            },
+            ci: {
+                configFile: 'karma.conf.ci.js'
             }
         },
         copy: {
@@ -70,7 +73,9 @@ module.exports = function (grunt) {
         }
     });
 
-    var target = grunt.option('target') || 'build';
+    var clean_build = grunt.option('target') || 'build';
+    var karma_unit = grunt.option('target') || 'unit';
+    var karma_ci = grunt.option('target') || 'ci';
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -84,9 +89,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['clean:' + target, 'lint', 'test', 'package']);
+    grunt.registerTask('build', ['clean:' + clean_build, 'lint', 'test', 'package']);
 
     grunt.registerTask('lint', ['jshint', 'jslint']);
-    grunt.registerTask('test', ['karma']);
+    grunt.registerTask('test', ['karma:' + karma_unit]);
+    grunt.registerTask('test_ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy', 'jsdoc', 'uglify']);
 };

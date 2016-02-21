@@ -1,42 +1,42 @@
-var VA_AMS = VA_AMS || {};
-VA_AMS.exceptions = VA_AMS.namespace("gov.va.iam.acs.ams.exceptions");
-VA_AMS.exceptions.InvalidParameterException = function (message) {
-	"use strict";
-	Error.call(this, message);
-	VA_AMS.exceptions.InvalidParameterException.prototype = new Error();
-	this.name = "VA_AMS.exceptions.InvalidParameterException";
-	this.message = message;
-};
-VA_AMS.exceptions.InvalidParameterException.prototype.toString = function() {
-	return this.name + "(" + this.message + ")";
-};
-VA_AMS.exceptions.NullPointerException = function (message) {
-	"use strict";
-	Error.call(this, message);
-	VA_AMS.exceptions.NullPointerException.prototype = new Error();
-	this.name = "VA_AMS.exceptions.NullPointerException";
-	this.message = message;
-};
-VA_AMS.exceptions.NullPointerException.prototype.toString = function() {
-	return this.name + "(" + this.message + ")";
-};
-VA_AMS.exceptions.ExpectedArrayIsEmptyException = function (message) {
-	"use strict";
-	Error.call(this, message);
-	VA_AMS.exceptions.ExpectedArrayIsEmptyException.prototype = new Error();
-	this.name = "VA_AMS.exceptions.ExpectedArrayIsEmptyException";
-	this.message = message;
-};
-VA_AMS.exceptions.ExpectedArrayIsEmptyException.prototype.toString = function() {
-	return this.name + "(" + this.message + ")";
-};
-VA_AMS.exceptions.InvalidDateRangeException = function (message) {
-	"use strict";
-	Error.call(this, message);
-	VA_AMS.exceptions.InvalidDateRangeException.prototype = new Error();
-	this.name = "VA_AMS.exceptions.InvalidDateRangeException";
-	this.message = message;
-};
-VA_AMS.exceptions.InvalidDateRangeException.prototype.toString = function() {
-	return this.name + "(" + this.message + ")";
-};
+/*global BytePushers*/
+(function (BytePushers) {
+    "use strict";
+    BytePushers = BytePushers || {};
+    BytePushers.exceptions = BytePushers.namespace("software.bytepushers.exceptions");
+    BytePushers.exceptions.InvalidParameterException = function (message) {
+        Error.call(this, message);
+        BytePushers.exceptions.InvalidParameterException.prototype = new Error();
+        this.name = "BytePushers.exceptions.InvalidParameterException";
+        this.message = message;
+    };
+    BytePushers.exceptions.InvalidParameterException.prototype.toString = function () {
+        return this.name + "(" + this.message + ")";
+    };
+    BytePushers.exceptions.NullPointerException = function (message) {
+        Error.call(this, message);
+        BytePushers.exceptions.NullPointerException.prototype = new Error();
+        this.name = "BytePushers.exceptions.NullPointerException";
+        this.message = message;
+    };
+    BytePushers.exceptions.NullPointerException.prototype.toString = function () {
+        return this.name + "(" + this.message + ")";
+    };
+    BytePushers.exceptions.ExpectedArrayIsEmptyException = function (message) {
+        Error.call(this, message);
+        BytePushers.exceptions.ExpectedArrayIsEmptyException.prototype = new Error();
+        this.name = "BytePushers.exceptions.ExpectedArrayIsEmptyException";
+        this.message = message;
+    };
+    BytePushers.exceptions.ExpectedArrayIsEmptyException.prototype.toString = function () {
+        return this.name + "(" + this.message + ")";
+    };
+    BytePushers.exceptions.InvalidDateRangeException = function (message) {
+        Error.call(this, message);
+        BytePushers.exceptions.InvalidDateRangeException.prototype = new Error();
+        this.name = "BytePushers.exceptions.InvalidDateRangeException";
+        this.message = message;
+    };
+    BytePushers.exceptions.InvalidDateRangeException.prototype.toString = function () {
+        return this.name + "(" + this.message + ")";
+    };
+}(BytePushers));

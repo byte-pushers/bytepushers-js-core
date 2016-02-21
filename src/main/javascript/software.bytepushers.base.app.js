@@ -1,29 +1,36 @@
-/**
- * Created by tonte on 11/29/15.
- */
-//console.info("************************************************************");
-//console.info("inside app.js");
-(function(window, document, undefined) {
-    'use strict';
+/*global window, document*/
+/*jslint bitwise: true, unparam: true, regexp: true*/
 
+(function (window, document) {
+    'use strict';
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
     /****************************************************************************************************
     * BEGIN Array Extensions */
     if (!Array.prototype.every) {
-        Array.prototype.every = function (fun /*, thisp */) {
+        Array.prototype.every = function (fun, funParameter) {
+            var t = Object.create(this),
+                len = t.length >>> 0,
+                i;
+
             if (this === null) {
                 throw new TypeError();
             }
 
-            var t = Object(this);
-            var len = t.length >>> 0;
             if (typeof fun !== "function") {
                 throw new TypeError();
             }
 
-            var thisp = arguments[1];
-            for (var i = 0; i < len; i++) {
-                if (i in t && !fun.call(thisp, t[i], i, t))
+            for (i = 0; i < len; i = i + 1) {
+                if (t.hasOwnProperty(i) && !fun.call(funParameter, t[i], i, t)) {
                     return false;
+                }
             }
 
             return true;
@@ -32,31 +39,31 @@
 
     // Production steps of ECMA-262, Edition 5, 15.4.4.18
     // Reference: http://es5.github.com/#x15.4.4.18
-    if ( !Array.prototype.forEach ) {
+    if (!Array.prototype.forEach) {
 
-        Array.prototype.forEach = function forEach ( callback, thisArg ) {
+        Array.prototype.forEach = function forEach(callback, thisArg) {
 
-            var T, k;
+            var T, k, O, len, obj = {}, kValue;
 
-            if ( this === null ) {
-                throw new TypeError( "this is null or not defined" );
+            if (this === null) {
+                throw new TypeError("this is null or not defined");
             }
 
             // 1. Let O be the result of calling ToObject passing the |this| value as the argument.
-            var O = Object(this);
+            O = Object.create(this);
 
             // 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".
             // 3. Let len be ToUint32(lenValue).
-            var len = O.length >>> 0; // Hack to convert O.length to a UInt32
+            len = O.length >>> 0; // Hack to convert O.length to a UInt32
 
             // 4. If IsCallable(callback) is false, throw a TypeError exception.
             // See: http://es5.github.com/#x9.11
-            if ( {}.toString.call(callback) !== "[object Function]" ) {
-                throw new TypeError( callback + " is not a function" );
+            if (obj.toString.call(callback) !== "[object Function]") {
+                throw new TypeError(callback + " is not a function");
             }
 
             // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
-            if ( thisArg ) {
+            if (thisArg) {
                 T = thisArg;
             }
 
@@ -64,48 +71,46 @@
             k = 0;
 
             // 7. Repeat, while k < len
-            while( k < len ) {
-
-                var kValue;
-
+            while (k < len) {
                 // a. Let Pk be ToString(k).
                 //   This is implicit for LHS operands of the in operator
                 // b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.
                 //   This step can be combined with c
                 // c. If kPresent is true, then
-                if ( Object.prototype.hasOwnProperty.call(O, k) ) {
+                if (Object.prototype.hasOwnProperty.call(O, k)) {
 
                     // i. Let kValue be the result of calling the Get internal method of O with argument Pk.
-                    kValue = O[ k ];
+                    kValue = O[k];
 
                     // ii. Call the Call internal method of callback with T as the this value and
                     // argument list containing kValue, k, and O.
-                    callback.call( T, kValue, k, O );
+                    callback.call(T, kValue, k, O);
                 }
                 // d. Increase k by 1.
-                k++;
+                k = k + 1;
             }
             // 8. return undefined
         };
     }
 
-    if (!Array.prototype.some)
-    {
-        Array.prototype.some = function(fun /*, thisp */)
-        {
-            if (this === null)
-                throw new TypeError();
+    if (!Array.prototype.some) {
+        Array.prototype.some = function (fun, functionParameter) {
+            var t = Object.create(this),
+                len = t.length >>> 0,
+                i;
 
-            var t = Object(this);
-            var len = t.length >>> 0;
-            if (typeof fun != "function")
+            if (this === null) {
                 throw new TypeError();
+            }
 
-            var thisp = arguments[1];
-            for (var i = 0; i < len; i++)
-            {
-                if (i in t && fun.call(thisp, t[i], i, t))
+            if (typeof fun !== "function") {
+                throw new TypeError();
+            }
+
+            for (i = 0; i < len; i = i + 1) {
+                if (t.hasOwnProperty(i) && fun.call(functionParameter, t[i], i, t)) {
                     return true;
+                }
             }
 
             return false;
@@ -114,7 +119,7 @@
 
     if (!Array.prototype.isArray) {
         Array.prototype.isArray = function (arg) {
-            var targetArray = (arg)? arg: this;
+            var targetArray = (arg === true) ? arg : this;
             return Object.prototype.toString.call(targetArray) === "[object Array]";
         };
     }
@@ -243,9 +248,9 @@
     Date.prototype.getPreviousMonthTotalDays = function () {
         if (this.getMonth() === 0) {
             return Date.monthNames[11].getTotalDays(this.getFullYear());
-        } else {
-            return Date.monthNames[this.getMonth() - 1].getTotalDays(this.getFullYear());
         }
+
+        return Date.monthNames[this.getMonth() - 1].getTotalDays(this.getFullYear());
     };
 
     /**
@@ -257,9 +262,9 @@
     Date.prototype.getNextMonthTotalDays = function () {
         if (this.getMonth() === 11) {
             return Date.monthNames[0].getTotalDays(this.getFullYear());
-        } else {
-            return Date.monthNames[this.getMonth() + 1].getTotalDays(this.getFullYear());
         }
+
+        return Date.monthNames[this.getMonth() + 1].getTotalDays(this.getFullYear());
     };
 
     /**
@@ -271,9 +276,9 @@
     Date.prototype.getCurrentMonthTotalDays = function () {
         if (this.getMonth() === 11) {
             return Date.monthNames[0].getTotalDays(this.getFullYear());
-        } else {
-            return Date.monthNames[this.getMonth()].getTotalDays(this.getFullYear());
         }
+
+        return Date.monthNames[this.getMonth()].getTotalDays(this.getFullYear());
     };
 
     /**
@@ -287,8 +292,8 @@
         var newDate = new Date(),
             wholeNumber = (time > 0) ? Math.floor(time) : Math.ceil(time),
             fraction = ((time - wholeNumber).toFixed(2) * 100),
-            hourInMilliseconds = (1000 * 60 * 60) * wholeNumber,
-            minutesInMilliseconds = (1000 * 60) * (fraction);
+            hourInMilliseconds = 1000 * 60 * 60 * wholeNumber,
+            minutesInMilliseconds = 1000 * 60 * fraction;
 
         newDate.setTime(this.getTime());
         newDate.setTime(newDate.getTime() + hourInMilliseconds);
@@ -325,9 +330,9 @@
     Date.getMonthName = function (index, getAbbr) {
         if (getAbbr) {
             return this.monthNames[index].abbr;
-        } else {
-            return this.monthNames[index].name;
         }
+
+        return this.monthNames[index].name;
     };
 
     /**
@@ -337,18 +342,24 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.monthNames = [
-        {"name": "January", "abbr": "Jan", "getTotalDays": function (year) { return 31; } },
-        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) { if (year) { return (year % 4 === 0) ? 29 : 28; } else { throw ("Expected parameter(Year) is not defined."); } } },
-        {"name": "March", "abbr": "Mar", "getTotalDays": function (year) { return 31; }},
-        {"name": "April", "abbr": "Apr", "getTotalDays": function (year) { return 30; }},
-        {"name": "May", "abbr": "May", "getTotalDays": function (year) { return 31; }},
-        {"name": "June", "abbr": "Jun", "getTotalDays": function (year) { return 30; }},
-        {"name": "July", "abbr": "Jul", "getTotalDays": function (year) { return 31; }},
-        {"name": "August", "abbr": "Aug", "getTotalDays": function (year) { return 31; }},
-        {"name": "September", "abbr": "Sep", "getTotalDays": function (year) { return 30; }},
-        {"name": "October", "abbr": "Oct", "getTotalDays": function (year) { return 31; }},
-        {"name": "November", "abbr": "Nov", "getTotalDays": function (year) { return 30; }},
-        {"name": "December", "abbr": "Dec", "getTotalDays": function (year) { return 31; }}
+        {"name": "January", "abbr": "Jan", "getTotalDays": function () { return 31; } },
+        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) {
+            if (year) {
+                return (year % 4 === 0) ? 29 : 28;
+            }
+
+            throw ("Expected parameter(Year) is not defined.");
+        }},
+        {"name": "March", "abbr": "Mar", "getTotalDays": function () { return 31; }},
+        {"name": "April", "abbr": "Apr", "getTotalDays": function () { return 30; }},
+        {"name": "May", "abbr": "May", "getTotalDays": function () { return 31; }},
+        {"name": "June", "abbr": "Jun", "getTotalDays": function () { return 30; }},
+        {"name": "July", "abbr": "Jul", "getTotalDays": function () { return 31; }},
+        {"name": "August", "abbr": "Aug", "getTotalDays": function () { return 31; }},
+        {"name": "September", "abbr": "Sep", "getTotalDays": function () { return 30; }},
+        {"name": "October", "abbr": "Oct", "getTotalDays": function () { return 31; }},
+        {"name": "November", "abbr": "Nov", "getTotalDays": function () { return 30; }},
+        {"name": "December", "abbr": "Dec", "getTotalDays": function () { return 31; }}
     ];
     /* END Date Extensions *
      ****************************************************************************************************/
@@ -481,7 +492,7 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     if (!String.prototype.includes) {
-        String.prototype.includes = function() {
+        String.prototype.includes = function () {
             return String.prototype.indexOf.apply(this, arguments) !== -1;
         };
     }
@@ -492,9 +503,11 @@
      * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted to camel case.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
-    String.prototype.toCamelCase = function() {
-        return this.replace(/^([A-Z])|\s(\w)/g, function(match, p1, p2, offset) {
-            if (p2) return p2.toUpperCase();
+    String.prototype.toCamelCase = function () {
+        return this.replace(/^([A-Z])|\s(\w)/g, function (match, p1, p2) {
+            if (p2) {
+                return p2.toUpperCase();
+            }
             return p1.toLowerCase();
         });
     };
@@ -505,8 +518,8 @@
      * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted to a normal sentence format.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
-    String.prototype.toNormalCase = function() {
-        return this.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([A-Z])([A-Z])/g, '$1 $2').replace(/^./, function(str){ return str.toUpperCase(); });
+    String.prototype.toNormalCase = function () {
+        return this.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([A-Z])([A-Z])/g, '$1 $2').replace(/^./, function (str) {return str.toUpperCase(); });
     };
 
     /**
@@ -517,30 +530,23 @@
      * @return <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp">String</a> The value of the string after it has been formatted.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
-    String.format = function() {
+    String.format = function (someString) {
         // The string containing the format items (e.g. "{0}")
         // will and always has to be the first argument.
-        var theString = arguments[0];
+        var theString = someString, i, regEx;
 
         // start with the second argument (i = 1)
-        for (var i = 0; i < arguments.length; i++) {
+        for (i = 0; i < arguments.length; i = i + 1) {
             // "gm" = RegEx options for Global search (more than one instance)
             // and for Multiline search
-            var regEx = new RegExp("\\{" + (i) + "\\}", "gm");
+            regEx = new RegExp("\\{" + i + "\\}", "gm");
             theString = theString.replace(regEx, arguments[i]);
         }
 
         return theString;
     };
-    /* END String Extensions *
-     ****************************************************************************************************/
+    /* END String Extensions *****************************************************************************************************/
 
-    /* We need to tell jshint what variables are being exported */
-    /* global BytePushers: true
-     *
-     */
-
-    var BytePushers = window.BytePushers || (window.BytePushers = {});
 
     BytePushers.namespace = function (ns_string) {
         var parts = ns_string.split('.'), parent = BytePushers;
@@ -550,12 +556,41 @@
         }
         parts.forEach(function (part, index) {
             // create a property if it doesn't exist
-            if (typeof parent[part] === "undefined") {
+            if (parent[part] === undefined) {
                 parent[part] = {};
             }
             parent = parent[part];
         });
         return parent;
+    };
+
+    /**
+     * inherit() returns a newly created object that inherits properties from the prototype object p.
+     * It uses the ECMAScript 5 function Object.create() if it is defined, and otherwise falls.
+     *
+     * @param p
+     * @returns {*}
+     */
+    BytePushers.inherit = function (p) {
+        var t;
+        if (p === null) { // p must be non-null object
+            throw new TypeError();
+        }
+        if (Object.create) {            // if Object.create() is defined...
+            return Object.create(p);    //      then just use it.
+        }
+
+        t = typeof p;               // Otherwise do some more type checking
+
+        if (t !== "object" && t !== "function") {
+            throw new TypeError();
+        }
+
+        function F() {// Define a dummy constructor function.
+            return;
+        }
+        F.prototype = p;                // Set its prototype property to p.
+        return new F();                 // Use f() to create an "heir" of p.
     };
 
     /**
@@ -623,67 +658,93 @@
     BytePushers.defineClass = function (data) {
         // Extract the fields we'll use from the argument object.
         // Set up default values.
-        var classname = data.name;
-        var superclass = data.extend || Object;
-        var constructor = data.construct || function() {};
-        var methods = data.methods || {};
-        var statics = data.statics || {};
-        var borrows;
-        var provides;
+        var classname = data.name,
+            Superclass = data.extend || Object,
+            constructor = data.construct || function () {return; },
+            methods = data.methods || {},
+            statics = data.statics || {},
+            borrows,
+            provides,
+            proto,
+            i1,
+            i2,
+            c1,
+            c2,
+            p1,
+            p2,
+            p3,
+            p4,
+            p5;
 
         // Borrows may be a single constructor or an array of them.
-        if (!data.borrows) borrows = [];
-        else if (data.borrows instanceof Array) borrows = data.borrows;
-        else borrows = [ data.borrows ];
+        if (!data.borrows) {
+            borrows = [];
+        } else if (data.borrows instanceof Array) {
+            borrows = data.borrows;
+        } else {
+            borrows = [ data.borrows ];
+        }
 
         // Ditto for the provides property.
-        if (!data.provides) provides = [];
-        else if (data.provides instanceof Array) provides = data.provides;
-        else provides = [ data.provides ];
+        if (!data.provides) {
+            provides = [];
+        } else if (data.provides instanceof Array) {
+            provides = data.provides;
+        } else {
+            provides = [ data.provides ];
+        }
 
         // Create the object that will become the prototype for our class.
-        var proto = new Superclass();
+        proto = new Superclass();
 
         // Delete any noninherited properties of this new prototype object.
-        for(var p1 in proto)
-            if (proto.hasOwnProperty(p1)) delete proto[p1];
+        for (p1 in proto) {
+            if (proto.hasOwnProperty(p1)) {
+                delete proto[p1];
+            }
+        }
 
         // Borrow methods from "mixin" classes by copying to our prototype.
-        for(var i1 = 0; i1 < borrows.length; i1++) {
-            var c1 = data.borrows[i1];
+        for (i1 = 0; i1 < borrows.length; i1 = i1 + 1) {
+            c1 = data.borrows[i1];
             borrows[i1] = c1;
             // Copy method properties from prototype of c to our prototype
-            for(var p2 in c1.prototype) {
-                if (typeof c1.prototype[p2] != "function") continue;
-                proto[p2] = c1.prototype[p2];
+            for (p2 in c1.prototype) {
+                if (typeof c1.prototype[p2] === "function") {
+                    proto[p2] = c1.prototype[p2];
+                }
             }
         }
 
         // Copy instance methods to the prototype object
         // This may overwrite methods of the mixin classes
-        for(var p3 in methods) proto[p3] = methods[p3];
+        for (p3 in methods) {
+            if (methods.hasOwnProperty(p3)) {
+                proto[p3] = methods[p3];
+            }
+        }
 
         // Set up the reserved "constructor", "superclass", and "classname"
         // properties of the prototype.
         proto.constructor = constructor;
-        proto.superclass = superclass;
+        proto.Superclass = Superclass;
         // classname is set only if a name was actually specified.
-        if (classname) proto.classname = classname;
+        if (classname) {
+            proto.classname = classname;
+        }
 
         // Verify that our prototype provides all of the methods it is supposed to.
-        for(var i2 = 0; i2 < provides.length; i2++) {  // for each class
-            var c2 = provides[i2];
-            for(var p4 in c2.prototype) {   // for each property
-                if (typeof c2.prototype[p4] != "function") continue;  // methods only
-                if (p4 == "constructor" || p4 == "superclass") continue;
-                // Check that we have a method with the same name and that
-                // it has the same number of declared arguments.  If so, move on
-                if (p4 in proto &&
-                    typeof proto[p4] == "function" &&
-                    proto[p4].length == c2.prototype[p4].length) continue;
-                // Otherwise, throw an exception
-                throw new Error("Class " + classname + " does not provide method "+
-                    c2.classname + "." + p4);
+        for (i2 = 0; i2 < provides.length; i2 = i2 + 1) {  // for each class
+            c2 = provides[i2];
+            for (p4 in c2.prototype) {   // for each property
+                if (typeof c2.prototype[p4] === "function" && (p4 === "constructor" || p4 === "superclass")) { //methods only
+                    // Check that we have a method with the same name and that
+                    // it has the same number of declared arguments.  If so, move on
+                    if (proto.hasOwnProperty(p4) && typeof proto[p4] !== "function" && proto[p4].length !== c2.prototype[p4].length) {
+                        // Otherwise, throw an exception
+                        throw new Error("Class " + classname + " does not provide method " + c2.classname + "." + p4);
+                    }
+                }
             }
         }
 
@@ -691,21 +752,35 @@
         constructor.prototype = proto;
 
         // Copy static properties to the constructor
-        for(var p5 in statics) constructor[p5] = statics[p5];
+        for (p5 in statics) {
+            if (statics.hasOwnProperty(p5)) {
+                constructor[p5] = statics[p5];
+            }
+        }
 
         // Finally, return the constructor function
         return constructor;
     };
 
     BytePushers.isArrayLike = function (x) {
-        if (x instanceof Array) return true; // Real arrays are array-like
-        if (!("length" in x)) return false;  // Arrays must have a length property
-        if (typeof x.length != "number") return false;  // Length must be a number
-        if (x.length < 0) return false;                 // and nonnegative
+        if (x instanceof Array) { // Real arrays are array-like
+            return true;
+        }
+        if (!x.hasOwnProperty("length")) { // Arrays must have a length property
+            return false;
+        }
+        if (typeof x.length !== "number") { // Length must be a number
+            return false;
+        }
+        if (x.length < 0) { // and nonnegative
+            return false;
+        }
         if (x.length > 0) {
             // If the array is nonempty, it must at a minimum
             // have a property defined whose name is the number length-1
-            if (!((x.length-1) in x)) return false;
+            if (!x.hasOwnProperty((x.length - 1))) {
+                return false;
+            }
         }
         return true;
     };
@@ -714,30 +789,42 @@
     // methods in I.prototype. Otherwise, return false.  Throws an exception
     // if I is a built-in type with nonenumerable methods.
     BytePushers.provides = function (O, I) {
+        var proto = I.prototype,
+            p6;
         // If O actually is an instance of I, it obviously looks like I
-        if (O instanceof I) return true;
+        if (O instanceof I) {
+            return true;
+        }
 
         // If a constructor was passed instead of an object, use its prototype
-        if (typeof O == "function") O = O.prototype;
+        if (typeof O === "function") {
+            O = O.prototype;
+        }
 
         // The methods of built-in types are not enumerable, and we return
         // undefined.  Otherwise any object would appear to provide any of
         // the built-in types.
-        if (I == Array || I == Boolean || I == Date || I == Error ||
-            I == Function || I == Number || I == RegExp || I == String)
+        if (I === Array || I === Boolean || I === Date || I === Error || I === Function || I === Number || I === RegExp || I === String) {
             return undefined;
+        }
 
-        var proto = I.prototype;
-        for(var p6 in proto) {  // Loop through all properties in I.prototype
+        for (p6 in proto) {  // Loop through all properties in I.prototype
             // Ignore properties that are not functions
-            if (typeof proto[p6] != "function") continue;
-            // If O does not have a property by the same name return false
-            if (!(p6 in O)) return false;
-            // If that property is not a function, return false
-            if (typeof O[p6] != "function") return false;
-            // If the two functions are not declared with the same number
-            // of arguments return false.
-            if (O[p6].length != proto[p6].length) return false;
+            if (typeof proto[p6] === "function") {
+                // If O does not have a property by the same name return false
+                if (!(O.hasOwnProperty(p6))) {
+                    return false;
+                }
+                // If that property is not a function, return false
+                if (typeof O[p6] !== "function") {
+                    return false;
+                }
+                // If the two functions are not declared with the same number
+                // of arguments return false.
+                if (O[p6].length !== proto[p6].length) {
+                    return false;
+                }
+            }
         }
         // If all the methods check out, we can finally return true.
         return true;
@@ -749,33 +836,39 @@
     // instances of the type. The returned constructor has properties that // map the name of a value to the value itself, and also a values array, // a foreach() iterator function
     BytePushers.enumeration = function (namesToValues) {
         // This is the dummy constructor function that will be the return value.
-        var enumeration = function() { throw "Can't Instantiate Enumerations"; };
-        // Enumerated values inherit from this object.
-        var proto = enumeration.prototype = {
-            constructor: enumeration, // Identify type
-            toString: function() { return this.name;}, // Return name
-            valueOf: function() { return this.value; }, // Return value
-            toJSON: function() { return this.name; } // For serialization
-        };
+        var name,
+            e,
+            i3,
+            enumeration = function () { throw "Can't Instantiate Enumerations"; },
+            proto;
 
+        enumeration.prototype = { // Enumerated values inherit from this object.
+            constructor: enumeration, // Identify type
+            toString: function () { return this.name; }, // Return name
+            valueOf: function () { return this.value; }, // Return value
+            toJSON: function () { return this.name; } // For serialization
+        };
+        proto = enumeration;
         enumeration.values = []; // An array of the enumerated value objects
 
         // Now create the instances of this new type.
-        for (var name in namesToValues) {        // For each value
-            var e = inherit(proto);         // Create an object to represent it
-            e.name = name;                  // Give it a name
-            e.value = namesToValues[name];  // And a value
-            enumeration[name] = e;          // Make it a property of constructor
-            enumeration.values.push(e);     // And store in the values array
+        for (name in namesToValues) {        // For each value
+            if (namesToValues.hasOwnProperty(name)) {
+                e = BytePushers.inherit(proto);         // Create an object to represent it
+                e.name = name;                  // Give it a name
+                e.value = namesToValues[name];  // And a value
+                enumeration[name] = e;          // Make it a property of constructor
+                enumeration.values.push(e);     // And store in the values array
+            }
         }
 
         // A class method for iterating the instances of the class
-        enumeration.foreach = function(f,c) {
-            for(var i3 = 0; i3 < this.values.length; i3++) f.call(c,this.values[i3]);
+        enumeration.foreach = function (f, c) {
+            for (i3 = 0; i3 < this.values.length; i3 = i3 + 1) {
+                f.call(c, this.values[i3]);
+            }
         };
         // Return the constructor that identifies the new type
         return enumeration;
     };
-})(window, document);
-//console.info("end of app.js");
-//console.info("************************************************************");
+}(window, document));

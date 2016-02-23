@@ -50,16 +50,17 @@ module.exports = function (grunt) {
                     mangle: true
                 },
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['build/src/main/javascript/*.js']
+                    'dist/<%= pkg.name %>@<%= pkg.version %>.min.js': ['build/src/main/javascript/*.js']
                 }
+            }
+        },
+        concat: {
+            options: {
+                separator: ';'
             },
             build: {
-                options: {
-                    beautify: true
-                },
-                files: {
-                    'dist/<%= pkg.name %>.js': ['build/src/main/javascript/*.js']
-                }
+                src: ['build/src/main/javascript/*.js'],
+                dest: 'dist/<%= pkg.name %>@<%= pkg.version %>.js'
             }
         }
     });
@@ -75,6 +76,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     grunt.loadNpmTasks('grunt-contrib-watch');
 
@@ -84,5 +86,5 @@ module.exports = function (grunt) {
     grunt.registerTask('validate', ['jshint', 'jslint']);
     grunt.registerTask('test', ['karma:' + karma_server]);
     grunt.registerTask('test_ci', ['karma:' + karma_ci]);
-    grunt.registerTask('package', ['copy', 'jsdoc', 'uglify']);
+    grunt.registerTask('package', ['copy', 'jsdoc', 'uglify', 'concat']);
 };

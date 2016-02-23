@@ -180,7 +180,7 @@
      * <p>Static field that is used to get calendar total calendar days of the previous month.</p>
      * @static
      * @function
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Date</a>} date Represents some arbitrary calendar date.
+     * @param {@link <a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Date</a>} date Represents some arbitrary calendar date.
      * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the previous month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
@@ -196,7 +196,7 @@
      * <p>Static function that is used to get the total calendar days of the next month.</p>
      * @static
      * @function
-     * @param {<a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Date</a>} date Represents some arbitrary calendar date.
+     * @param <a href="http://www.w3schools.com/jsref/jsref_obj_date.asp">Date</a> date Represents some arbitrary calendar date.
      * @returns {@link <a href="http://www.w3schools.com/jsref/jsref_obj_number.asp">Number</a>} The total days in the next month.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
@@ -234,7 +234,7 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     BytePushers.models.Month.weekdayNames = [
-        {"name": "Sunday", "abbr": "Sun."},
+        {"name": "Sundays", "abbr": "Sun."},
         {"name": "Monday", "abbr": "Mon."},
         {"name": "Tuesday", "abbr": "Tue."},
         {"name": "Wednesday", "abbr": "Wed."},

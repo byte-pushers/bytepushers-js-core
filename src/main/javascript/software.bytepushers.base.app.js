@@ -151,7 +151,7 @@
      * <p>Function that is used to determine if two dates objects have the same date and time.</p>
      * @function
      * @param {@link Date} The date to evaluate against this object.
-     * @return <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a> True if the date passed in is equal the date object; otherwise return false.
+     * @return {@link <a href="http://www.w3schools.com/jsref/jsref_obj_boolean.asp">Boolean</a>} True if the date passed in is equal the date object; otherwise return false.
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     Date.prototype.isDateEqualToDateAndTime = function (date) {

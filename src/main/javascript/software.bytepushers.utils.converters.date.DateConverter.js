@@ -32,9 +32,9 @@
         if (BytePushers.NumberUtility.isNotANumber(d)) {
             throw new BytePushers.exceptions.InvalidParameterException("Date String: " + d + " must be numeric.");
         }
-        month = Number(d.substring(0, 1));
-        day = Number(d.substring(1, 3));
-        year = Number(d.substring(3));
+        month = Number(d.substring(0, 2)) - 1;
+        day = Number(d.substring(2, 4));
+        year = Number(d.substring(4));
         date.setFullYear(year, month, day);
         date.setHours(0, 0, 0, 0);
         return date;

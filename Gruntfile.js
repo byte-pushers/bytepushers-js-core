@@ -10,7 +10,8 @@ module.exports = function (grunt) {
             options: {
                 undef: false,
                 unused: false,
-                nonbsp: true
+                nonbsp: true,
+                reporter: require('jshint-stylish')
             },
             files: ['src/main/javascript/**/*.js']
         },

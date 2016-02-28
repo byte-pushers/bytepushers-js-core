@@ -1,4 +1,4 @@
-define(['BytePushers'], function(BytePushers) {
+define(['bytepushers'], function(BytePushers) {
     describe("bytepushers tests", function() {
         it('should defined BytePushers module', function() {
             expect(BytePushers).toBeDefined();

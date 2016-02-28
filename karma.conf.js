@@ -15,9 +15,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test-main.js',
+
       {pattern: 'src/main/javascript/**/*.js', included: false},
-      {pattern: 'src/test/javascript/**/*.js', included: false}
+      {pattern: 'src/test/javascript/**/*.js', included: false},
+      'test-main.js'
     ],
 
 
@@ -51,7 +52,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
 
-    // enable / disable watching file and executing tests whenever any file changes
+    // enable / false watching file and executing tests whenever any file changes
     autoWatch: true,
 
 

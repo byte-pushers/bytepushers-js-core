@@ -1,16 +1,11 @@
 {
-  "name": "angular-seed",
+  "name": "bytepushers-common-js-client",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "Byte Pushers Common JS Client",
   "license": "MIT",
-  "dependencies": {
-    "angular": "^1.5.0",
-    "angular-ui-router": "^0.2.18"
-  },
   "devDependencies": {
-    "bower": "^1.3.1",
+    "bower": "^1.7.7",
     "http-server": "^0.6.1",
     "protractor": "^2.1.0",
     "shelljs": "^0.2.6",
@@ -18,8 +13,8 @@
     "requirejs": "^2.1.22"
   },
   "scripts": {
-    "postinstall": "bower install",
-    "prestart": "npm install && jspm install",
+    "postinstall": "bower install && jspm install",
+    "prestart": "npm install",
     "start": "http-server -a localhost -p 8000 -c-1",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
@@ -29,9 +24,8 @@
   },
   "jspm": {
     "directories": {
-      "baseURL": "app"
+      "baseURL": "src/main/webapp"
     },
-    "dependencies": {},
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",

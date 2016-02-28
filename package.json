@@ -12,6 +12,9 @@
     "lib": "src/main/javascript"
   },
   "main": "index.js",
+  "dependencies": {
+    "angular": "^1.5.0"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.7.0",
@@ -50,11 +53,8 @@
   },
   "jspm": {
     "files": [
-      "src/main"
+      "src/main/javascript"
     ],
     "main": "index.js"
-  },
-  "dependencies": {
-    "angular": "^1.5.0"
   }
 }

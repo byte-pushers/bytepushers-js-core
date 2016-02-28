@@ -1,4 +1,4 @@
-define(["controllers/module", 'bytepushers'], function(controllers, BytePushers) {
+define(["/module", 'bytepushers'], function(controllers, BytePushers) {
   controllers.controller('view2Controller', function ($scope) {
       $scope.isArray = Object.isDate(new Date());
       $scope.isNotArray = Object.isDate("str");

@@ -1,4 +1,4 @@
-require(["/module"], function(controllers) {
+require(["controllers/module"], function(controllers) {
     controllers.controller("view1Controller", function($scope) {
         $scope.firstName = "Jared";
         $scope.lastName = "Ramirez";

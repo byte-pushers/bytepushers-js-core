@@ -13,7 +13,8 @@
     "requirejs": "^2.1.22"
   },
   "scripts": {
-    "postinstall": "bower install && jspm install",
+    "preinstall": "bower install && jspm install",
+    "postinstall": "grunt ",
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8000 -c-1",
     "preupdate-webdriver": "npm install",

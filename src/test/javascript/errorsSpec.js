@@ -5,6 +5,7 @@ define(['bytepushers', 'bytepushersErrors'], function (BytePushers) {
         });
 
         it("should throw an exception", function() {
+            throw new BytePushers.exceptions.InvalidParameterException();
             function testError() {
                 throw new BytePushers.exceptions.InvalidParameterException();
             }

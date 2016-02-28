@@ -4,9 +4,6 @@
   "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
   "license": "MIT",
   "private": true,
-  "directories": {
-    "lib": "src/main/javascript"
-  },
   "dependencies": {
     "angular": "^1.5.0",
     "requirejs": "^2.1.22",

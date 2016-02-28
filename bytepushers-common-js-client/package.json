@@ -7,14 +7,14 @@
   "devDependencies": {
     "bower": "^1.7.7",
     "http-server": "^0.6.1",
-    "protractor": "^2.1.0",
-    "shelljs": "^0.2.6",
+    "jshint-stylish": "^2.1.0",
     "jspm": "*",
-    "requirejs": "^2.1.22"
+    "protractor": "^2.1.0",
+    "requirejs": "^2.1.22",
+    "shelljs": "^0.2.6"
   },
   "scripts": {
     "preinstall": "bower install && jspm install",
-    "postinstall": "grunt ",
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8000 -c-1",
     "preupdate-webdriver": "npm install",

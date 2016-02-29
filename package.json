@@ -39,7 +39,8 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "postinstall": "bower install ",
+    "preinstall": "",
+    "postinstall": "grunt build",
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8000 -c-1",
     "pretest": "npm install",

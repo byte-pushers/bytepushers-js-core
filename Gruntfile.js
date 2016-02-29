@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ["build"],
+            build: ["build/doc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"],
             release: ["dist"]
         },
         jshint: {
@@ -51,7 +51,7 @@ module.exports = function (grunt) {
                     mangle: true
                 },
                 files: {
-                    'dist/<%= pkg.name %>@<%= pkg.version %>.min.js': ['build/src/main/javascript/*.js']
+                    'dist/<%= pkg.name %>.min.js': ['build/src/main/javascript/software.bytepushers.*.js']
                 }
             }
         },
@@ -60,8 +60,8 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             build: {
-                src: ['build/src/main/javascript/*.js'],
-                dest: 'dist/<%= pkg.name %>@<%= pkg.version %>.js'
+                src: ['build/src/main/javascript/software.bytepushers.*.js'],
+                dest: 'dist/<%= pkg.name %>.js'
             }
         }
     });

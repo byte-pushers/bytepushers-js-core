@@ -44,6 +44,11 @@ module.exports = function (grunt) {
                 }
             }
         },
+        shell: {
+            docs : {
+                command: './docs.sh'
+            }
+        },
         uglify: {
             build_min: {
                 options: {
@@ -75,6 +80,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
 

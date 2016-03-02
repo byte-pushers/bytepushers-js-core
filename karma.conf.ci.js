@@ -10,6 +10,7 @@ module.exports = function(config){
     // Override base config
     config.set({
         singleRun: true,
-        autoWatch: false
+        autoWatch: false,
+        browsers: ['PhantomJS']
     });
 };

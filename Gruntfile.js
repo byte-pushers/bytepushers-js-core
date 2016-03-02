@@ -3,8 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ["build/doc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"],
-            release: ["dist"]
+            build: ["build/doc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"]
         },
         jshint: {
             options: {
@@ -41,7 +40,7 @@ module.exports = function (grunt) {
             dist: {
                 src: ['build/src/main/javascript/*.js'],
                 options: {
-                    destination: 'dist/doc'
+                    destination : 'dist/doc'
                 }
             }
         },
@@ -82,10 +81,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['clean:' + clean_build, 'validate', 'test_ci', 'package']);
+    grunt.registerTask('build', ['clean', 'validate', 'test', 'package']);
 
     grunt.registerTask('validate', ['jshint', 'jslint']);
-    grunt.registerTask('test', ['karma:' + karma_server]);
-    grunt.registerTask('test_ci', ['karma:' + karma_ci]);
+    grunt.registerTask('test', ['test-karma-ci']);
+    grunt.registerTask('test-karma', ['karma:' + karma_server]);
+    grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy', 'jsdoc', 'uglify', 'concat']);
 };

@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-common-js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -26,10 +26,9 @@
     "grunt-jsdoc": "^1.1.0",
     "grunt-jslint": "^1.1.14",
     "grunt-karma": "^0.12.1",
-    "grunt-shell": "^1.2.1",
+    "grunt-publish": "0.0.5",
+    "grunt-release": "^0.13.0",
     "jasmine": "^2.4.1",
-    "jsdoc": "^3.4.0",
-    "jsdoc-toolkit": "0.0.2",
     "jshint-stylish": "^2.1.0",
     "karma": "^0.13.21",
     "karma-chrome-launcher": "^0.2.2",

@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ["build/doc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"]
+            build: ["build/jsdoc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"]
         },
         jshint: {
             options: {
@@ -36,19 +36,6 @@ module.exports = function (grunt) {
                 files: [{expanded: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
             }
         },
-        jsdoc: {
-            dist: {
-                src: ['build/src/main/javascript/*.js'],
-                options: {
-                    destination : 'dist/doc'
-                }
-            }
-        },
-        shell: {
-            docs : {
-                command: './docs.sh'
-            }
-        },
         uglify: {
             build_min: {
                 options: {
@@ -67,6 +54,14 @@ module.exports = function (grunt) {
                 src: ['build/src/main/javascript/software.bytepushers.*.js'],
                 dest: 'dist/<%= pkg.name %>.js'
             }
+        },
+        release: {
+            options: {
+                github: {
+                    repo: 'byte-pushers/bytepushers-common-js',
+                    accessTokenVar: 'GITHUB_ACCESS_TOKE_'
+                }
+            }
         }
     });
 
@@ -79,11 +74,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-
+    grunt.loadNpmTasks('grunt-release');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['build']);
@@ -93,5 +86,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['test-karma-ci']);
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
-    grunt.registerTask('package', ['copy', 'jsdoc', 'uglify', 'concat']);
+    grunt.registerTask('package', ['copy', 'uglify', 'concat']);
 };

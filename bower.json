@@ -1,7 +1,7 @@
 {
   "name": "bytepushers-common-js",
   "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "private": true,
   "homepage": "https://github.com/angular/angular-seed",
   "license": "MIT",

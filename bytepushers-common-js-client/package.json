@@ -1,7 +1,6 @@
 {
   "name": "bytepushers-common-js-client",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.8",
   "description": "Byte Pushers Common JS Client",
   "license": "MIT",
   "devDependencies": {

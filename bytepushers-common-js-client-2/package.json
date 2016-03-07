@@ -1,12 +1,11 @@
 {
   "name": "bytepushers-common-js-client",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.8",
   "description": "Byte Pushers Common JS Client",
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.7.7",
-    "bytepuhsers-common-js": "0.0.2",
+    "bytepuhsers-common-js": "0.0.8",
     "http-server": "^0.6.1",
     "jshint-stylish": "^2.1.0",
     "protractor": "^2.1.0",

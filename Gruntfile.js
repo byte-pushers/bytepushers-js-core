@@ -3,7 +3,13 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ["build/jsdoc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"]
+            build: ["build/jsdoc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"],
+            release: {
+                options: {
+                    force: true
+                },
+                src: ['jsdoc/**', 'bytepushers-common-js.js', 'bytepushers-common-js.min.js']
+            },
         },
         jshint: {
             options: {
@@ -32,8 +38,11 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            main: {
+            build: {
                 files: [{expanded: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
+            },
+            release: {
+                files: [{expand: true, cwd: 'dist/', src: ['**'], dest: ''}]
             }
         },
         uglify: {
@@ -57,7 +66,10 @@ module.exports = function (grunt) {
         },
         release: {
             options: {
+                commitMessage: 'release <%= version %>',
+                tagMessage: 'version <%= version %>',
                 github: {
+
                     repo: 'byte-pushers/bytepushers-common-js',
                     accessTokenVar: 'GITHUB_ACCESS_TOKE_'
                 }
@@ -65,7 +77,8 @@ module.exports = function (grunt) {
         }
     });
 
-    var clean_build = grunt.option('target') || 'build';
+    var build = grunt.option('target') || 'build';
+    var release = grunt.option('target') || 'release';
     var karma_server = grunt.option('target') || 'server';
     var karma_ci = grunt.option('target') || 'ci';
 
@@ -80,11 +93,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['clean', 'validate', 'test', 'package']);
+    grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
 
     grunt.registerTask('validate', ['jshint', 'jslint']);
     grunt.registerTask('test', ['test-karma-ci']);
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
-    grunt.registerTask('package', ['copy', 'uglify', 'concat']);
+    grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
+    grunt.registerTask('deploy', ['copy:' + release, 'release', 'clean:' + release]);
 };

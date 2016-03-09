@@ -8,6 +8,7 @@
     "bytepuhsers-common-js": "0.0.21",
     "http-server": "^0.6.1",
     "jshint-stylish": "^2.1.0",
+    "karma-coverage": "^0.5.5",
     "protractor": "^2.1.0",
     "requirejs": "^2.1.22",
     "shelljs": "^0.2.6"

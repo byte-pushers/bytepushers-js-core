@@ -8,7 +8,7 @@ module.exports = function (grunt) {
                 options: {
                     force: true
                 },
-                src: ['jsdoc/**', 'bytepushers-common-js.js', 'bytepushers-common-js.min.js']
+                src: ['jsdoc/**', 'reports/**', 'bytepushers-common-js.js', 'bytepushers-common-js.min.js']
             },
         },
         jshint: {

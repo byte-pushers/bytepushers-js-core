@@ -1,17 +1,17 @@
 {
-  "name": "bytepushers-common-js",
-  "version": "0.0.13",
+  "name": "bytepuhsers-common-js",
+  "version": "0.0.14",
   "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/byte-pushers/bytepushers-common-js"
-  },
-  "license": "MIT",
-  "author": "Tonté Pouncil <pouncilt.developer@gmail.com>",
+  "main": "index.js",
   "directories": {
     "lib": "src/main/javascript"
   },
-  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byte-pushers/bytepushers-common-js.git"
+  },
+  "license": "MIT",
+  "author": "Tonté Pouncil <pouncilt.developer@gmail.com>",
   "dependencies": {
     "angular": "^1.5.0"
   },
@@ -42,7 +42,6 @@
   },
   "scripts": {
     "preinstall": "",
-    "postinstall": "grunt build",
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8000 -c-1",
     "pretest": "npm install",

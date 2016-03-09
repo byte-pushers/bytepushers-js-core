@@ -1,6 +1,6 @@
 {
   "name": "bytepuhsers-common-js",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
   "main": "index.js",
   "directories": {
@@ -12,9 +12,6 @@
   },
   "license": "MIT",
   "author": "Tonté Pouncil <pouncilt.developer@gmail.com>",
-  "dependencies": {
-    "angular": "^1.5.0"
-  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.7.0",

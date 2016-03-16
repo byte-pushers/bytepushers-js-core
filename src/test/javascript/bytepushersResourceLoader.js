@@ -8,7 +8,7 @@ define(['bytepushers', 'bytepushersResourceLoader'], function(BytePushers) {
         });
 
         it("undefined", function(){
-
+            BytePushers.loadResource("../test.js", "js");
         });
     });
 });

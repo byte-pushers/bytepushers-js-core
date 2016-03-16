@@ -1,3 +1,6 @@
+/**
+ * Created by tonte on 2/28/16.
+ */
 define([
     'require',
     'angular',

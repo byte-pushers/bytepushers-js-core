@@ -1,4 +1,4 @@
 define([
     'controllers/view1Controller',
-    'controllers/view2controller'
+    'controllers/view2Controller'
 ], function () {});

@@ -1,6 +1,6 @@
 {
-  "name": "bytepushers-common-js",
-  "version": "0.0.22",
+  "name": "bytepushers-js-core",
+  "version": "0.0.23",
   "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/byte-pushers/bytepushers-common-js.git"
+    "url": "git+https://github.com/byte-pushers/bytepushers-js-core.git"
   },
   "license": "MIT",
   "author": "Tonté Pouncil <pouncilt.developer@gmail.com>",

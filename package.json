@@ -1,13 +1,17 @@
 {
-  "name": "bytepushers-common-js",
+  "name": "bytepushers-js-core",
   "version": "0.0.4",
-  "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
+  "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/byte-pushers/bytepushers-common-js"
+    "url": "https://github.com/byte-pushers/bytepushers-js-core"
   },
   "license": "MIT",
-  "author": "Tonté Pouncil <pouncilt.developer@gmail.com>",
+  "author": "Tonté Pouncil <tonte.pouncil@bytepushers.software>",
+  "contributors": [
+    "Jared Ramirez <jaredramirez@me.com> ",
+    "Tonté Pouncil <pouncilt.developer@gmail.com> "
+  ],
   "directories": {
     "lib": "src/main/javascript"
   },

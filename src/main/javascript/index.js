@@ -1,6 +1,6 @@
 /*global require, module, BytePushers */
 
-require('./software.bytepushers.base.app');
+require('./software.bytepushers.BytePushers.js');
 require('./software.bytepushers.exceptions.Errors');
 require('./software.bytepushers.utils.converters.date.DateConverter');
 require('./software.bytepushers.utils.DateUtility');

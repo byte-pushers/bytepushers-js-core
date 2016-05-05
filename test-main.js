@@ -24,7 +24,7 @@ require.config({
   baseUrl: '/base',
 
   paths: {
-      'bytepushers': 'src/main/javascript/software.bytepushers.base.app',
+      'bytepushers': 'src/main/javascript/software.bytepushers.BytePushers.js',
       'bytepushersErrors': 'src/main/javascript/software.bytepushers.exceptions.Errors',
       'bytepushersDateConverter': 'src/main/javascript/software.bytepushers.utils.converters.date.DateConverter',
       'bytepushersDateUtility': 'src/main/javascript/software.bytepushers.utils.DateUtility',

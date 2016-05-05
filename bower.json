@@ -1,15 +1,61 @@
 {
-  "name": "bytepushers-common-js",
-  "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
-  "version": "0.0.0",
-  "private": true,
-  "homepage": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "name": "bytepushers-js-core",
+  "version": "0.0.4",
+  "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/byte-pushers/bytepushers-common-js"
+    "url": "https://github.com/byte-pushers/bytepushers-js-core"
   },
-  "dependencies": {
-
+  "license": "MIT",
+  "author": "Tonté Pouncil <tonte.pouncil@bytepushers.software>",
+  "contributors": [
+    "Jared Ramirez <jaredramirez@me.com> ",
+    "Tonté Pouncil <pouncilt.developer@gmail.com> "
+  ],
+  "directories": {
+    "lib": "src/main/javascript"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsdoc": "^1.1.0",
+    "grunt-jslint": "^1.1.14",
+    "grunt-karma": "^0.12.1",
+    "jasmine": "^2.4.1",
+    "jshint-stylish": "^2.1.0",
+    "karma": "^0.13.21",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-junit-reporter": "^0.3.8",
+    "karma-phantomjs-launcher": "^0.2.2",
+    "karma-requirejs": "^0.2.2",
+    "phantomjs": "^1.9.19",
+    "requirejs": "^2.1.22",
+    "underscore": "^1.8.3"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 8000 -c-1",
+    "pretest": "npm install",
+    "test": "karma start karma.conf.js ",
+    "test-single-run": "karma start karma.conf.js --log-level debug --single-run",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor e2e-tests/protractor.conf.js",
+    "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
+  },
+  "jspm": {
+    "files": [
+      "src/main"
+    ],
+    "main": "index.js"
   }
 }

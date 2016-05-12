@@ -16,6 +16,6 @@
     "lib": "src/main/javascript"
   },
   "main": [
-    "src/main/javascript/software.bytepushers.BytePushers.js"
+    "src/main/javascript/*.js"
   ]
 }

@@ -69,8 +69,7 @@ module.exports = function (grunt) {
                 commitMessage: 'release <%= version %>',
                 tagMessage: 'version <%= version %>',
                 github: {
-
-                    repo: 'byte-pushers/bytepushers-common-js',
+                    repo: 'byte-pushers/bytepushers-js-core',
                     accessTokenVar: 'GITHUB_ACCESS_TOKE_'
                 }
             }

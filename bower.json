@@ -1,15 +1,27 @@
 {
-  "name": "bytepushers-common-js",
-  "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
-  "version": "0.0.8",
-  "private": true,
-  "homepage": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "name": "bytepushers-js-core",
+  "version": "0.0.31",
+  "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/byte-pushers/bytepushers-common-js"
+    "url": "https://github.com/byte-pushers/bytepushers-js-core"
   },
-  "dependencies": {
-
-  }
+  "license": "MIT",
+  "author": "Tonté Pouncil <tonte.pouncil@bytepushers.software>",
+  "contributors": [
+    "Jared Ramirez <jaredramirez@me.com> ",
+    "Tonté Pouncil <pouncilt.developer@gmail.com> "
+  ],
+  "directories": {
+    "lib": "src/main/javascript"
+  },
+  "main": [
+    "src/main/javascript/software.bytepushers.BytePushers.js",
+    "src/main/javascript/software.bytepushers.exceptions.Error.js",
+    "src/main/javascript/software.bytepushers.utils.converters.date.DateConverter.js",
+    "src/main/javascript/software.bytepushers.utils.DateUtility.js",
+    "src/main/javascript/software.bytepushers.utils.DOMUtility.js",
+    "src/main/javascript/software.bytepushers.utils.NumberUtility.js",
+    "src/main/javascript/software.bytepushers.utils.ResourceLoader.js"
+  ]
 }

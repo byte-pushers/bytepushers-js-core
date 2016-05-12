@@ -1,17 +1,21 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.28",
-  "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
-  "main": "index.js",
-  "directories": {
-    "lib": "src/main/javascript"
-  },
+  "version": "0.0.30",
+  "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/byte-pushers/bytepushers-js-core.git"
   },
   "license": "MIT",
-  "author": "Tonté Pouncil <pouncilt.developer@gmail.com>",
+  "author": "Tonté Pouncil <tonte.pouncil@bytepushers.software>",
+  "contributors": [
+    "Jared Ramirez <jaredramirez@me.com> ",
+    "Tonté Pouncil <pouncilt.developer@gmail.com> "
+  ],
+  "directories": {
+    "lib": "src/main/javascript"
+  },
+  "main": "index.js",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.7.0",
@@ -38,7 +42,7 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "preinstall": "",
+    "postinstall": "bower install",
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8000 -c-1",
     "pretest": "npm install",

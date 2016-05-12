@@ -73,7 +73,8 @@ module.exports = function (grunt) {
                     accessTokenVar: 'GITHUB_ACCESS_TOKE_'
                 }
             }
-        }
+        },
+        bumpup: './bower.json'
     });
 
     var build = grunt.option('target') || 'build';
@@ -89,6 +90,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-release');
+    grunt.loadNpmTasks('grunt-bumpup');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['build']);
@@ -99,5 +101,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('deploy', ['copy:' + release, 'release', 'clean:' + release]);
+    grunt.registerTask('deploy', ['copy:' + release, 'bumpup', 'release', 'clean:' + release]);
 };

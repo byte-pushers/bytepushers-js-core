@@ -1,16 +1,16 @@
 requirejs.config({
     paths: {
-        'angular' : 'bower_components/angular/angular.min',
-        'uiRouter': 'bower_components/angular-ui-router/release/angular-ui-router.min',
-        'domReady': 'bower_components/domReady/domReady',
-        'bytepushers': '../../../node_modules/bytepuhsers-common-js/bytepushers-common-js.min'
+        angular : 'bower_components/angular/angular.min',
+        uiRouter: 'bower_components/angular-ui-router/release/angular-ui-router.min',
+        domReady: 'bower_components/domReady/domReady',
+        bytepushers: '../../../node_modules/bytepushers-js-core/bytepushers-js-core.min'
     },
 
     shim: {
-        'angular': {
+        angular: {
             exports: 'angular'
         },
-        'uiRouter' : {
+        uiRouter : {
             deps : ['angular']
         },
         bytepushers: {

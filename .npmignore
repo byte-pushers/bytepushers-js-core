@@ -1,5 +1,3 @@
-/bytepushers-common-js-client
-
 ### Java template
 *.class
 
@@ -7,7 +5,8 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-/bytepushers-common-js-client-2
+/bytepushers-js-core-client-2
+/bytepushers-js-core-client
 /build
 /.idea
 /target

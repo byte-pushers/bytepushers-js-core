@@ -1,5 +1,5 @@
 {
-  "name": "bytepushers-common-js-client",
+  "name": "bytepushers-js-core-client",
   "version": "0.0.8",
   "description": "Byte Pushers Common JS Client",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "bytepushers-common-js": "github:byte-pushers/bytepushers-common-js@0.0.4",
+      "bytepushers-common-js": "github:byte-pushers/bytepushers-js-core@0.0.4",
       "core-js": "npm:core-js@^1.1.4"
     }
   }

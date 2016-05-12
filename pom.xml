@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>software.bytepushsers.bytepushers-common-js</groupId>
-    <artifactId>bytepushers-common-js</artifactId>
+    <groupId>software.bytepushers.bytepushers-js-core</groupId>
+    <artifactId>bytepushers-js-core</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>bytepushers-common-js</name>
+    <name>bytepushers-js-core</name>
     <url>http://maven.apache.org</url>
     <build>
         <plugins>
@@ -54,8 +54,8 @@
     </reporting>
 
     <modules>
-        <module>bytepushers-common-js-client</module>
-        <module>bytepushers-common-js-client-2</module>
+        <module>bytepushers-js-core-client</module>
+        <module>bytepushers-js-core-client-2</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

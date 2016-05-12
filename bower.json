@@ -16,12 +16,12 @@
     "lib": "src/main/javascript"
   },
   "main": [
-    "software.bytepushers.BytePushers.js",
-    "software.bytepushers.exceptions.Error.js",
-    "software.bytepushers.utils.converters.date.DateConverter.js",
-    "software.bytepushers.utils.DateUtility.js",
-    "software.bytepushers.utils.DOMUtility.js",
-    "software.bytepushers.utils.NumberUtility.js",
-    "software.bytepushers.utils.ResourceLoader.js"
+    "src/main/javascript/software.bytepushers.BytePushers.js",
+    "src/main/javascript/software.bytepushers.exceptions.Error.js",
+    "src/main/javascript/software.bytepushers.utils.converters.date.DateConverter.js",
+    "src/main/javascript/software.bytepushers.utils.DateUtility.js",
+    "src/main/javascript/software.bytepushers.utils.DOMUtility.js",
+    "src/main/javascript/software.bytepushers.utils.NumberUtility.js",
+    "src/main/javascript/software.bytepushers.utils.ResourceLoader.js"
   ]
 }

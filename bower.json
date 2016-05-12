@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -15,5 +15,13 @@
   "directories": {
     "lib": "src/main/javascript"
   },
-  "main": "index.js"
+  "main": [
+    "software.bytepushers.BytePushers.js",
+    "software.bytepushers.exceptions.Error.js",
+    "software.bytepushers.utils.converters.date.DateConverter.js",
+    "software.bytepushers.utils.DateUtility.js",
+    "software.bytepushers.utils.DOMUtility.js",
+    "software.bytepushers.utils.NumberUtility.js",
+    "software.bytepushers.utils.ResourceLoader.js"
+  ]
 }

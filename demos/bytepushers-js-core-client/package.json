@@ -7,7 +7,7 @@
     "bower": "^1.7.7",
     "http-server": "^0.6.1",
     "jshint-stylish": "^2.1.0",
-    "jspm": "*",
+    "jspm": "^0.16.34",
     "protractor": "^2.1.0",
     "requirejs": "^2.1.22",
     "shelljs": "^0.2.6"

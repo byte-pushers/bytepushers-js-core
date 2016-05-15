@@ -5,8 +5,8 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-/bytepushers-js-core-client-2
-/bytepushers-js-core-client
+/demos/bytepushers-js-core-client-2
+/demos/bytepushers-js-core-client
 /build
 /.idea
 /target
@@ -26,7 +26,7 @@ hs_err_pid*
 ## Directory-based project format:
 .idea/
 /.npmignore
-/dist
+
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:

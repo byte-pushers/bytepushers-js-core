@@ -7,19 +7,6 @@ for (var file in window.__karma__.files) {
     }
 }
 
-//TODO find out how this works
-/*Object.keys(window.__karma__.files).forEach(function(file) {
- if (TEST_REGEXP.test(file)) {
- // Normalize paths to RequireJS module names.
- // If you require sub-dependencies of test files to be loaded as-is (requiring file extension)
- // then do not normalize the paths
- var normalizedTestModule = file.replace(/^\/base\/|\.js$/g, '');
- console.info("file: " + file.toString());
- console.info("normalizedTestModule: " + normalizedTestModule);
- allTestFiles.push(normalizedTestModule);
- }
- });*/
-
 require.config({
   baseUrl: '/base',
 

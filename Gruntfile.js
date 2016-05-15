@@ -40,9 +40,6 @@ module.exports = function (grunt) {
         copy: {
             build: {
                 files: [{expanded: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
-            },
-            release: {
-                files: [{expand: true, cwd: 'dist/', src: ['**'], dest: ''}]
             }
         },
         uglify: {
@@ -51,7 +48,7 @@ module.exports = function (grunt) {
                     mangle: true
                 },
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['build/src/main/javascript/software.bytepushers.*.js']
+                    'release/<%= pkg.name %>.min.js': ['build/src/main/javascript/software.bytepushers.*.js']
                 }
             }
         },
@@ -61,7 +58,7 @@ module.exports = function (grunt) {
             },
             build: {
                 src: ['build/src/main/javascript/software.bytepushers.*.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: 'release/<%= pkg.name %>.js'
             }
         },
         release: {
@@ -101,5 +98,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('deploy', ['copy:' + release, 'bumpup', 'release', 'clean:' + release]);
+    grunt.registerTask('deploy', ['bumpup', 'release']);
 };

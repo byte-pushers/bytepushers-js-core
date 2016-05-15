@@ -1,5 +1,5 @@
 {
-  "name": "bytepushers-js-core",
+  "name": "bytepushers-js-core-client",
   "version": "0.0.8",
   "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
   "license": "MIT",

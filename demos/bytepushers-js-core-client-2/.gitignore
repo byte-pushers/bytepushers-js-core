@@ -4,6 +4,6 @@
 /node_modules
 /app/bower_components
 /app/jspm_packages
-
+/target
 /.idea
 *.iml

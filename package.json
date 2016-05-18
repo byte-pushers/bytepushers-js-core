@@ -1,10 +1,10 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.31",
+  "version": "0.0.39",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/byte-pushers/bytepushers-js-core"
+    "url": "git+https://github.com/byte-pushers/bytepushers-js-core.git"
   },
   "license": "MIT",
   "author": "Tonté Pouncil <tonte.pouncil@bytepushers.software>",
@@ -18,6 +18,8 @@
   "main": "index.js",
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-bower-release": "0.0.5",
+    "grunt-bumpup": "^0.6.3",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.2",
@@ -27,10 +29,12 @@
     "grunt-jsdoc": "^1.1.0",
     "grunt-jslint": "^1.1.14",
     "grunt-karma": "^0.12.1",
+    "grunt-release": "^0.13.0",
     "jasmine": "^2.4.1",
     "jshint-stylish": "^2.1.0",
     "karma": "^0.13.21",
     "karma-chrome-launcher": "^0.2.2",
+    "karma-coverage": "^0.5.5",
     "karma-jasmine": "^0.3.6",
     "karma-junit-reporter": "^0.3.8",
     "karma-phantomjs-launcher": "^0.2.2",
@@ -54,7 +58,7 @@
   },
   "jspm": {
     "files": [
-      "src/main"
+      "src/main/javascript"
     ],
     "main": "index.js"
   }

@@ -1,16 +1,16 @@
-/target
-/dist
-/build
-/node_modules
-/demos/bytepushers-js-core-client/target
-/demos/bytepushers-js-core-client-2/target
-npm-debug.log
 ### Java template
 *.class
 
+/src
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+/demos/bytepushers-js-core-client-2
+/demos/bytepushers-js-core-client
+/build
+/.idea
+/target
+/node_modules
 # Package Files #
 *.jar
 *.war
@@ -25,12 +25,24 @@ hs_err_pid*
 
 ## Directory-based project format:
 .idea/
+/.npmignore
+
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
 # .idea/workspace.xml
 # .idea/tasks.xml
 # .idea/dictionaries
+/bytepushers-common-js.iml
+/.jshintrc
+/.bowerrc
+/karma.conf.ci.js
+/test-main.js
+/.gitignore
+/.travis.yml
+/pom.xml
+/karma.conf.js
+/Gruntfile.js
 
 # Sensitive or high-churn files:
 # .idea/dataSources.ids

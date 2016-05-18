@@ -469,6 +469,19 @@
         }
         return result;
     };
+
+    Object.getProperty = function (target, property) {
+        var result = false, tmp;
+        if (Object.isDefined(target)) {
+            if (Object.isString(target)) {
+                tmp = JSON.parse(target);
+            } else {
+                tmp = target;
+            }
+            result = tmp[property];
+        }
+        return result;
+    };
     /* END Object Extensions *
      ****************************************************************************************************/
 

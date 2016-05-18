@@ -3,15 +3,20 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ["build"],
-            release: ["dist"]
+            build: ["build/jsdoc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"],
+            release: {
+                options: {
+                    force: true
+                },
+                src: ['jsdoc/**', 'reports/**', 'bytepushers-common-js.js', 'bytepushers-common-js.min.js']
+            },
         },
         jshint: {
             options: {
                 undef: false,
                 unused: false,
-                nonbsp: true,
-                reporter: require('jshint-stylish')
+                nonbsp: true/*,
+                reporter: require('jshint-stylish')*/
             },
             files: ['src/main/javascript/**/*.js']
         },
@@ -33,16 +38,8 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            main: {
+            build: {
                 files: [{expanded: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
-            }
-        },
-        jsdoc: {
-            dist: {
-                src: ['build/src/main/javascript/*.js'],
-                options: {
-                    destination: 'dist/doc'
-                }
             }
         },
         uglify: {
@@ -51,7 +48,7 @@ module.exports = function (grunt) {
                     mangle: true
                 },
                 files: {
-                    'dist/<%= pkg.name %>@<%= pkg.version %>.min.js': ['build/src/main/javascript/*.js']
+                    'release/<%= pkg.name %>.min.js': ['build/src/main/javascript/software.bytepushers.*.js']
                 }
             }
         },
@@ -60,13 +57,63 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             build: {
-                src: ['build/src/main/javascript/*.js'],
-                dest: 'dist/<%= pkg.name %>@<%= pkg.version %>.js'
+                src: ['build/src/main/javascript/software.bytepushers.*.js'],
+                dest: 'release/<%= pkg.name %>.js'
+            }
+        },
+        release: {
+            options: {
+                commitMessage: 'release <%= version %>',
+                tagMessage: 'version <%= version %>',
+                github: {
+                    repo: 'byte-pushers/bytepushers-js-core',
+                    accessTokenVar: 'GITHUB_ACCESS_TOKE_'
+                }
+            }
+        },
+        bumpup: './bower.json',
+        bowerRelease: {
+            options: {
+                main: 'release/bytepushers-js-core.min.js',
+                dependencies: {
+                    
+                }
+            },
+            stable: {
+                options: {
+                    endpoint: 'https://github.com/byte-pushers/bytepushers-js-core.git',
+                    packageName: 'bytepushers-js-core',
+                    stageDir: 'staging-stable/'
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'build/stable/',
+                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js'],
+                    }
+                ]
+            },
+            devel: {
+                options: {
+                    endpoint: 'https://github.com/byte-pushers/bytepushers-js-core/tree/develop',
+                    packageName: 'bytepushers-js-core',
+                    stageDir: 'staging-devel/'
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'build/devel/',
+                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js'],
+                    }
+                ]
             }
         }
     });
+    
+    
 
-    var clean_build = grunt.option('target') || 'build';
+    var build = grunt.option('target') || 'build';
+    var release = grunt.option('target') || 'release';
     var karma_server = grunt.option('target') || 'server';
     var karma_ci = grunt.option('target') || 'ci';
 
@@ -75,17 +122,20 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-
+    grunt.loadNpmTasks('grunt-release');
+    grunt.loadNpmTasks('grunt-bumpup');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-bower-release');
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['clean:' + clean_build, 'validate', 'test_ci', 'package']);
+    grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
 
     grunt.registerTask('validate', ['jshint', 'jslint']);
-    grunt.registerTask('test', ['karma:' + karma_server]);
-    grunt.registerTask('test_ci', ['karma:' + karma_ci]);
-    grunt.registerTask('package', ['copy', 'jsdoc', 'uglify', 'concat']);
+    grunt.registerTask('test', ['test-karma-ci']);
+    grunt.registerTask('test-karma', ['karma:' + karma_server]);
+    grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
+    grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
+    grunt.registerTask('deploy', ['bumpup', 'release', 'bowerRelease']);
 };

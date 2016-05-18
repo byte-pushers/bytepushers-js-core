@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.34",
+  "version": "0.0.39",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -13,9 +13,9 @@
     "Tonté Pouncil <pouncilt.developer@gmail.com> "
   ],
   "directories": {
-    "lib": "src/main/javascript"
+    "lib": "release"
   },
   "main": [
-    "src/main/javascript/*.js"
+    "release/bytepushers-js-core.min.js"
   ]
 }

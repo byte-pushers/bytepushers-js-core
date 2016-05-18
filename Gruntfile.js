@@ -71,8 +71,46 @@ module.exports = function (grunt) {
                 }
             }
         },
-        bumpup: './bower.json'
+        bumpup: './bower.json',
+        bowerRelease: {
+            options: {
+                main: 'release/bytepushers-js-core.min.js',
+                dependencies: {
+                    
+                }
+            },
+            stable: {
+                options: {
+                    endpoint: 'https://github.com/byte-pushers/bytepushers-js-core.git',
+                    packageName: 'bytepushers-js-core',
+                    stageDir: 'staging-stable/'
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'build/stable/',
+                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js'],
+                    }
+                ]
+            },
+            devel: {
+                options: {
+                    endpoint: 'https://github.com/byte-pushers/bytepushers-js-core/tree/develop',
+                    packageName: 'bytepushers-js-core',
+                    stageDir: 'staging-devel/'
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'build/devel/',
+                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js'],
+                    }
+                ]
+            }
+        }
     });
+    
+    
 
     var build = grunt.option('target') || 'build';
     var release = grunt.option('target') || 'release';
@@ -89,6 +127,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-release');
     grunt.loadNpmTasks('grunt-bumpup');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-bower-release');
 
     grunt.registerTask('default', ['build']);
     grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
@@ -98,5 +137,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('deploy', ['bumpup', 'release']);
+    grunt.registerTask('deploy', ['bumpup', 'release', 'bowerRelease']);
 };

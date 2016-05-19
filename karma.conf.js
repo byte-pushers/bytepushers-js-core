@@ -39,7 +39,7 @@ module.exports = function(config) {
     reporters: ['progress', 'coverage'],
 
     coverageReporter: {
-        dir: 'release/reports/coverage'
+        dir: 'build/reports/coverage'
     },
 
     port: 9876,

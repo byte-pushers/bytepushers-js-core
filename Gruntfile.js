@@ -3,13 +3,13 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ["build/jsdoc", "build/bytepushers-common-js.js", "build/bytepushers-common-js.min.js"],
+            build: ["build"],
             release: {
                 options: {
                     force: true
                 },
-                src: ['jsdoc/**', 'reports/**', 'bytepushers-common-js.js', 'bytepushers-common-js.min.js']
-            },
+                src: ['release']
+            }
         },
         jshint: {
             options: {
@@ -39,7 +39,31 @@ module.exports = function (grunt) {
         },
         copy: {
             build: {
-                files: [{expanded: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
+                files: [{expand: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
+            },
+            release: {
+                files: [
+                    {
+                        expand: true,
+                        src: [
+                            'build/<%= pkg.name %>.min.js',
+                            'build/<%= pkg.name %>.js',
+                            'build/src/main/javascript/index.js'
+                        ],
+                        dest: 'release/',
+                        filter: 'isFile',
+                        flatten: true
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            'build/reports/**'
+                        ],
+                        dest: 'release/reports/',
+                        filter: 'isFile',
+                        flatten: false
+                    }
+                ]
             }
         },
         uglify: {
@@ -48,7 +72,7 @@ module.exports = function (grunt) {
                     mangle: true
                 },
                 files: {
-                    'release/<%= pkg.name %>.min.js': ['build/src/main/javascript/software.bytepushers.*.js']
+                    'build/<%= pkg.name %>.min.js': ['build/src/main/javascript/software.bytepushers.*.js']
                 }
             }
         },
@@ -58,7 +82,7 @@ module.exports = function (grunt) {
             },
             build: {
                 src: ['build/src/main/javascript/software.bytepushers.*.js'],
-                dest: 'release/<%= pkg.name %>.js'
+                dest: 'build/<%= pkg.name %>.js'
             }
         },
         release: {
@@ -83,13 +107,13 @@ module.exports = function (grunt) {
                 options: {
                     endpoint: 'https://github.com/byte-pushers/bytepushers-js-core.git',
                     packageName: 'bytepushers-js-core',
-                    stageDir: 'staging-stable/'
+                    stageDir: 'releases/'
                 },
                 files: [
                     {
                         expand: true,
-                        cwd: 'build/stable/',
-                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js'],
+                        cwd: 'release/',
+                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js']
                     }
                 ]
             },
@@ -97,13 +121,13 @@ module.exports = function (grunt) {
                 options: {
                     endpoint: 'https://github.com/byte-pushers/bytepushers-js-core/tree/develop',
                     packageName: 'bytepushers-js-core',
-                    stageDir: 'staging-devel/'
+                    stageDir: 'tags/'
                 },
                 files: [
                     {
                         expand: true,
-                        cwd: 'build/devel/',
-                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js'],
+                        cwd: 'release/',
+                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js']
                     }
                 ]
             }
@@ -131,7 +155,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['build']);
     grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
-
+    grunt.registerTask('release', ['clean:' + release, 'build', 'copy:release']);
     grunt.registerTask('validate', ['jshint', 'jslint']);
     grunt.registerTask('test', ['test-karma-ci']);
     grunt.registerTask('test-karma', ['karma:' + karma_server]);

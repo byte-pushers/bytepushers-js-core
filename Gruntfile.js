@@ -86,58 +86,61 @@ module.exports = function (grunt) {
             }
         },
         release: {
-            options: {
-                commitMessage: 'release <%= version %>',
-                tagMessage: 'version <%= version %>',
-                github: {
-                    repo: 'byte-pushers/bytepushers-js-core',
-                    accessTokenVar: 'GITHUB_ACCESS_TOKE_'
-                }
-            }
-        },
-        bumpup: './bower.json',
-        bowerRelease: {
-            options: {
-                main: 'release/bytepushers-js-core.min.js',
-                dependencies: {
-                    
+            npm: {
+                options: {
+                    additionalFiles: ['bower.json'],
+                    commitMessage: 'release <%= version %>',
+                    tagMessage: 'version <%= version %>',
+                    github: {
+                        repo: 'byte-pushers/bytepushers-js-core',
+                        accessTokenVar: 'GITHUB_ACCESS_TOKE_'
+                    }
                 }
             },
-            stable: {
+            bower: {
                 options: {
-                    endpoint: 'https://github.com/byte-pushers/bytepushers-js-core.git',
-                    packageName: 'bytepushers-js-core',
-                    stageDir: 'releases/'
-                },
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'release/',
-                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js']
+                    main: 'release/bytepushers-js-core.min.js',
+                    dependencies: {
+
                     }
-                ]
-            }/*,
-            devel: {
-                options: {
-                    endpoint: 'https://github.com/byte-pushers/bytepushers-js-core/tree/develop',
-                    packageName: 'bytepushers-js-core',
-                    stageDir: 'tags/'
                 },
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'release/',
-                        src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js']
-                    }
-                ]
-            }*/
-        }
+                stable: {
+                    options: {
+                        endpoint: 'https://github.com/byte-pushers/bytepushers-js-core.git',
+                        packageName: 'bytepushers-js-core',
+                        stageDir: 'releases/'
+                    },
+                    files: [
+                        {
+                            expand: true,
+                            cwd: 'release/',
+                            src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js', 'index.js', 'reports/**', 'jsdoc/**']
+                        }
+                    ]
+                }/*,
+                 devel: {
+                 options: {
+                 endpoint: 'https://github.com/byte-pushers/bytepushers-js-core/tree/develop',
+                 packageName: 'bytepushers-js-core',
+                 stageDir: 'tags/'
+                 },
+                 files: [
+                 {
+                 expand: true,
+                 cwd: 'release/',
+                 src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js']
+                 }
+                 ]
+                 }*/
+            }
+        },
+        //bumpup: './bower.json'
     });
     
     
 
     var build = grunt.option('target') || 'build';
-    var npmRelease = grunt.option('target') || 'release';
+    //var release = grunt.option('target') || 'release';
     var karma_server = grunt.option('target') || 'server';
     var karma_ci = grunt.option('target') || 'ci';
 
@@ -149,7 +152,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-release');
-    grunt.loadNpmTasks('grunt-bumpup');
+    //grunt.loadNpmTasks('grunt-bumpup');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bower-release');
 
@@ -159,7 +162,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('packageRelease', ['bumpup', 'npmRelease', 'bowerRelease']);
+    grunt.registerTask('release-package', [/*'bumpup', */'release:npm', 'release:bower']);
     grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
-    grunt.registerTask('release', ['clean:release', 'build', 'copy:release', 'packageRelease']);
+    grunt.registerTask('release-pkg', ['clean:release', 'build', 'copy:release', 'release-package']);
 };

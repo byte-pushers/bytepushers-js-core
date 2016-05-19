@@ -134,7 +134,7 @@ module.exports = function (grunt) {
                  }*/
             }
         },
-        //bumpup: './bower.json'
+        bumpup: './bower.json'
     });
     
     
@@ -152,7 +152,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-release');
-    //grunt.loadNpmTasks('grunt-bumpup');
+    grunt.loadNpmTasks('grunt-bumpup');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bower-release');
 
@@ -162,7 +162,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('release-package', [/*'bumpup', */'release:npm', 'release:bower']);
+    grunt.registerTask('release-package', ['bumpup', 'release:npm', 'release:bower']);
     grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
     grunt.registerTask('release-pkg', ['clean:release', 'build', 'copy:release', 'release-package']);
 };

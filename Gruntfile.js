@@ -116,7 +116,7 @@ module.exports = function (grunt) {
                         src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js']
                     }
                 ]
-            },
+            }/*,
             devel: {
                 options: {
                     endpoint: 'https://github.com/byte-pushers/bytepushers-js-core/tree/develop',
@@ -130,7 +130,7 @@ module.exports = function (grunt) {
                         src: ['bytepushers-js-core.js', 'bytepushers-js-core.min.js']
                     }
                 ]
-            }
+            }*/
         }
     });
     

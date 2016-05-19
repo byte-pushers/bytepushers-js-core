@@ -137,7 +137,7 @@ module.exports = function (grunt) {
     
 
     var build = grunt.option('target') || 'build';
-    var release = grunt.option('target') || 'release';
+    var npmRelease = grunt.option('target') || 'release';
     var karma_server = grunt.option('target') || 'server';
     var karma_ci = grunt.option('target') || 'ci';
 
@@ -154,12 +154,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-bower-release');
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
-    grunt.registerTask('release', ['clean:' + release, 'build', 'copy:release']);
     grunt.registerTask('validate', ['jshint', 'jslint']);
     grunt.registerTask('test', ['test-karma-ci']);
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('deploy', ['bumpup', 'release', 'bowerRelease']);
+    grunt.registerTask('packageRelease', ['bumpup', 'npmRelease', 'bowerRelease']);
+    grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
+    grunt.registerTask('release', ['clean:release', 'build', 'copy:release', 'packageRelease']);
 };

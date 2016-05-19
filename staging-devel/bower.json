@@ -15,7 +15,7 @@
   "directories": {
     "lib": "release"
   },
-  "main": [
-    "release/bytepushers-js-core.min.js"
-  ]
+  "main": "release/bytepushers-js-core.min.js",
+  "endpoint": "https://github.com/byte-pushers/bytepushers-js-core/tree/develop",
+  "dependencies": {}
 }

@@ -103,6 +103,16 @@ module.exports = function (grunt) {
                 metadata: '',
                 regExp: false
             }
+        },
+        'npm-publish': {
+            options: {
+                // list of tasks that are required before publishing
+                //requires: ['build'],
+                // if the workspace is dirty, abort publishing (to avoid publishing local changes)
+                abortIfDirty: true,
+                // can also be a function that returns NPM tag (eg. to determine canary/latest tag based on the version)
+                tag: '<%= pkg.version %>'
+            }
         }
     });
     
@@ -122,6 +132,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bump');
+    grunt.loadNpmTasks('grunt-npm');
 
     grunt.registerTask('default', ['build']);
     grunt.registerTask('validate', ['jshint', 'jslint']);
@@ -130,5 +141,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
     grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
-    grunt.registerTask('release', ['clean:release', 'build', 'copy:release', 'bump']);
+    grunt.registerTask('release', ['clean:release', 'build', 'copy:release', 'bump', 'npm-publish']);
 };

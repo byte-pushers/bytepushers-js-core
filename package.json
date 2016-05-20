@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.55",
+  "version": "0.0.56",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -28,6 +28,8 @@
     "grunt-jsdoc": "^1.1.0",
     "grunt-jslint": "^1.1.14",
     "grunt-karma": "^0.12.1",
+    "grunt-npm": "0.0.2",
+    "grunt-publish": "^1.0.0",
     "jasmine": "^2.4.1",
     "jshint-stylish": "^2.1.0",
     "karma": "^0.13.21",

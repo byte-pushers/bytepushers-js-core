@@ -1,10 +1,10 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.53",
+  "version": "0.0.54",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/byte-pushers/bytepushers-js-core.git"
+    "url": "https://github.com/byte-pushers/bytepushers-js-core.git"
   },
   "license": "MIT",
   "author": "Tonté Pouncil <tonte.pouncil@bytepushers.software>",

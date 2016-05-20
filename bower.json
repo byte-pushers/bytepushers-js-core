@@ -16,6 +16,6 @@
     "lib": "release"
   },
   "main": [
-    "release/bytepushers-js-core.js"
+    "release/*.js"
   ]
 }

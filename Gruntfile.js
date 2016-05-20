@@ -111,7 +111,7 @@ module.exports = function (grunt) {
                 // if the workspace is dirty, abort publishing (to avoid publishing local changes)
                 abortIfDirty: true,
                 // can also be a function that returns NPM tag (eg. to determine canary/latest tag based on the version)
-                tag: '<%= pkg.version %>'
+                tag: 'latest'
             }
         }
     });

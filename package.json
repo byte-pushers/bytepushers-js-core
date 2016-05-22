@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.57",
+  "version": "0.0.58",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "directories": {
     "lib": "src/main/javascript"
   },
-  "main": "index.js",
+  "main": "release/index.js",
   "devDependencies": {
     "grunt": "~1.0.1",
     "grunt-bump": "^0.8.0",

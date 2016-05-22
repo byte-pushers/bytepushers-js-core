@@ -925,7 +925,228 @@
     BytePushers.exceptions.InvalidDateRangeException.prototype.toString = function () {
         return this.name + "(" + this.message + ")";
     };
-}(BytePushers));;/*global BytePushers*/
+}(BytePushers));;/*global $, window, document, BytePushers*/
+(function (window, document, BytePushers) {
+    'use strict';
+    BytePushers = BytePushers || {};
+    BytePushers.DOMUtility = BytePushers.namespace("software.bytepushers.utils.DOMUtility");
+    BytePushers.DOMUtility.addListener = null;
+    BytePushers.DOMUtility.removeListener = null;
+    BytePushers.DOMUtility.querySelector = null;
+    BytePushers.DOMUtility.querySelectorAll = null;
+    BytePushers.DOMUtility.filterMetaData = function (data) {
+        data = data.replace(/<meta\s[\w\W]*>/gi, "");
+        return data;
+    };
+    // the implementation
+    if (typeof window.addEventListener === 'function') {
+        BytePushers.DOMUtility.addListener = function (el, type, fn) {
+            el.addEventListener(type, fn, false);
+        };
+        BytePushers.DOMUtility.removeListener = function (el, type, fn) {
+            el.removeEventListener(type, fn, false);
+        };
+    } else if (typeof document.attachEvent === 'function') { // IE
+        BytePushers.DOMUtility.addListener = function (el, type, fn) {
+            el.attachEvent('on' + type, fn);
+        };
+        BytePushers.DOMUtility.removeListener = function (el, type, fn) {
+            el.detachEvent('on' + type, fn);
+        };
+    } else { // older browsers
+        BytePushers.DOMUtility.addListener = function (el, type, fn) {
+            el['on' + type] = fn;
+        };
+        BytePushers.DOMUtility.removeListener = function (el, type) {
+            el['on' + type] = null;
+        };
+    }
+    if (typeof document.querySelector === "function") {
+        BytePushers.DOMUtility.querySelector = function (selector) {
+            return document.querySelector(selector);
+        };
+    } else if (typeof document.getElementsByClassName === "function") {
+        BytePushers.DOMUtility.querySelector = function (selector) {
+            return document.getElementsByClassName(selector);
+        };
+    } else if (typeof $ === "function") {
+        BytePushers.DOMUtility.querySelector = function (selector) {
+            return $(selector);
+        };
+    } else {
+        throw ("document.querySelector() method is not supported by your browser.  Please contact the administrator for this app.");
+    }
+    if (typeof document.querySelectorAll === "function") {
+        BytePushers.DOMUtility.querySelectorAll = function (selector) {
+            return document.querySelectorAll(selector);
+        };
+    } else if (typeof document.getElementsByClassName === "function") {
+        BytePushers.DOMUtility.querySelectorAll = function (selector) {
+            return document.getElementsByClassName(selector);
+        };
+    } else if (typeof $ === "function") {
+        BytePushers.DOMUtility.querySelector = function (selector) {
+            return $(selector);
+        };
+    } else {
+        throw ("document.querySelectorAll() method is not supported by your browser.  Please contact the administrator for this app.");
+    }
+}(window, document, BytePushers));;/*global window, document, BytePushers*/
+/*jslint unparam: true*/
+(function (window, document, BytePushers) {
+    'use strict';
+    BytePushers = BytePushers || {};
+    BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");
+    BytePushers.DateUtility.date_sort_asc = function (date1, date2) {
+        // This is a comparison function that will result in dates being sorted in
+        // ASCENDING order. As you can see, JavaScript's native comparison operators
+        // can be used to compare dates. This was news to me.
+        if (date1 > date2) {
+            return 1;
+        }
+        if (date1 < date2) {
+            return -1;
+        }
+        return 0;
+    };
+    BytePushers.DateUtility.date_sort_desc = function (date1, date2) {
+        // This is a comparison function that will result in dates being sorted in
+        // DESCENDING order.
+        if (date1 > date2) {
+            return -1;
+        }
+        if (date1 < date2) {
+            return 1;
+        }
+        return 0;
+    };
+}(window, document, BytePushers));
+/*jslint unparam: false*/;/*global window, document, BytePushers*/
+/*jslint unparam: true*/
+(function (window, document, BytePushers) {
+    'use strict';
+    BytePushers = BytePushers || {};
+    BytePushers.NumberUtility = BytePushers.namespace("software.bytepushers.utils.NumberUtility");
+    BytePushers.NumberUtility.padLeft = function padLeft(number, length) {
+        number = (number === undefined || number === null) ? "" : number;
+        return (number.length >= length) ? number : padLeft("0" + number, length);
+    };
+    BytePushers.NumberUtility.padRight = function padRight(number, length) {
+        number = (number === undefined || number === null) ? "" : number;
+        return (number.length >= length) ? number : padRight(number + "0", length);
+    };
+    BytePushers.NumberUtility.isSingleDigit = function isSingleDigit(number) {
+        return (0 < number && number <= 9) ? true : false;
+    };
+    BytePushers.NumberUtility.isNotANumber = function isNotANumber(d) {
+        return isNaN(d);
+    };
+    BytePushers.NumberUtility.isANumber = function isANumber(d) {
+        if (d === "") {
+            return false;
+        }
+        return !isNaN(d);
+    };
+}(window, document, BytePushers));
+/*jslint unparam: false*/;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject*/
+/**
+ * Created with IntelliJ IDEA.
+ * User: pouncilt
+ * Date: 4/30/13
+ * Time: 8:14 AM
+ * To change this template use File | Settings | File Templates.
+ */
+(function (window, document, BytePushers) {
+    'use strict';
+    BytePushers = BytePushers || {};
+    BytePushers.ResourceLoader = BytePushers.namespace("software.bytepushers.utils.ResourceLoader");
+    BytePushers.ResourceLoader = function () {
+        function isResourceNotLoaded() {/*fileName*/
+            return;
+        }
+        this.loadResource = function (fileName, fileType) {
+            if (isResourceNotLoaded(fileName)) {
+                var fileref;
+
+                if (fileType === "js") { //if filename is a external JavaScript file
+                    fileref = document.createElement('script');
+                    fileref.setAttribute("type", "text/javascript");
+                    fileref.setAttribute("src", fileName);
+                } else if (fileType === "css") { //if filename is an external CSS file
+                    fileref = document.createElement("link");
+                    fileref.setAttribute("rel", "stylesheet");
+                    fileref.setAttribute("type", "text/css");
+                    fileref.setAttribute("href", fileName);
+                }
+                if (fileref !== undefined) {
+                    document.getElementsByTagName("head")[0].appendChild(fileref);
+                }
+            }
+        };
+        this.createResource = function (filename, filetype) {
+            var fileref = null;
+            if (filetype === "js") { //if filename is a external JavaScript file
+                fileref = document.createElement('script');
+                fileref.setAttribute("type", "text/javascript");
+                fileref.setAttribute("src", filename);
+            } else if (filetype === "css") { //if filename is an external CSS file
+                fileref = document.createElement("link");
+                fileref.setAttribute("rel", "stylesheet");
+                fileref.setAttribute("type", "text/css");
+                fileref.setAttribute("href", filename);
+            }
+            return fileref;
+        };
+        this.replaceResource = function (oldfilename, newfilename, filetype) {
+            var targetelement = (filetype === "js") ? "script" : (filetype === "css") ? "link" : "none", //determine element type to create nodelist using
+                targetattr = (filetype === "js") ? "src" : (filetype === "css") ? "href" : "none", //determine corresponding attribute to test for
+                allsuspects = document.getElementsByTagName(targetelement),
+                i,
+                newelement;
+            for (i = allsuspects.length; i >= 0; i = i - 1) { //search backwards within nodelist for matching elements to remove
+                if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) !== null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename) !== -1) {
+                    newelement = this.createResource(newfilename, filetype);
+                    allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i]);
+                }
+            }
+        };
+        this.removeResource = function (oldfilename, filetype) {
+            var targetelement = (filetype === "js") ? "script" : (filetype === "css") ? "link" : "none", //determine element type to create nodelist using
+                targetattr = (filetype === "js") ? "src" : (filetype === "css") ? "href" : "none", //determine corresponding attribute to test for
+                allsuspects = document.getElementsByTagName(targetelement),
+                i,
+                newelement;
+            for (i = allsuspects.length; i >= 0; i = 1 - 1) { //search backwards within nodelist for matching elements to remove
+                if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) !== null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename) !== -1) {
+                    newelement = this.createResource("js/blank.js", filetype);
+                    allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i]);
+                }
+            }
+        };
+        this.loadXMLDoc = function (theUrl) {
+            var xmlHttp, xmlDoc;
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlHttp = new XMLHttpRequest();
+            } else {
+                // code for IE6, IE5
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                    //callbackFunction(xmlhttp.responseText);
+                    xmlDoc = xmlHttp.responseText;
+                    return xmlDoc;
+                }
+            };
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.send();
+            return xmlDoc;
+        };
+    };
+    BytePushers.ResourceLoader.loadedResources = [];
+}(window, document, BytePushers));;/*global BytePushers*/
 (function (BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
@@ -1171,225 +1392,3 @@
     ];
 }(BytePushers));
 
-;/*global window, document, BytePushers*/
-/*jslint unparam: true*/
-(function (window, document, BytePushers) {
-    'use strict';
-    BytePushers = BytePushers || {};
-    BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");
-    BytePushers.DateUtility.date_sort_asc = function (date1, date2) {
-        // This is a comparison function that will result in dates being sorted in
-        // ASCENDING order. As you can see, JavaScript's native comparison operators
-        // can be used to compare dates. This was news to me.
-        if (date1 > date2) {
-            return 1;
-        }
-        if (date1 < date2) {
-            return -1;
-        }
-        return 0;
-    };
-    BytePushers.DateUtility.date_sort_desc = function (date1, date2) {
-        // This is a comparison function that will result in dates being sorted in
-        // DESCENDING order.
-        if (date1 > date2) {
-            return -1;
-        }
-        if (date1 < date2) {
-            return 1;
-        }
-        return 0;
-    };
-}(window, document, BytePushers));
-/*jslint unparam: false*/;/*global $, window, document, BytePushers*/
-(function (window, document, BytePushers) {
-    'use strict';
-    BytePushers = BytePushers || {};
-    BytePushers.DOMUtility = BytePushers.namespace("software.bytepushers.utils.DOMUtility");
-    BytePushers.DOMUtility.addListener = null;
-    BytePushers.DOMUtility.removeListener = null;
-    BytePushers.DOMUtility.querySelector = null;
-    BytePushers.DOMUtility.querySelectorAll = null;
-    BytePushers.DOMUtility.filterMetaData = function (data) {
-        data = data.replace(/<meta\s[\w\W]*>/gi, "");
-        return data;
-    };
-    // the implementation
-    if (typeof window.addEventListener === 'function') {
-        BytePushers.DOMUtility.addListener = function (el, type, fn) {
-            el.addEventListener(type, fn, false);
-        };
-        BytePushers.DOMUtility.removeListener = function (el, type, fn) {
-            el.removeEventListener(type, fn, false);
-        };
-    } else if (typeof document.attachEvent === 'function') { // IE
-        BytePushers.DOMUtility.addListener = function (el, type, fn) {
-            el.attachEvent('on' + type, fn);
-        };
-        BytePushers.DOMUtility.removeListener = function (el, type, fn) {
-            el.detachEvent('on' + type, fn);
-        };
-    } else { // older browsers
-        BytePushers.DOMUtility.addListener = function (el, type, fn) {
-            el['on' + type] = fn;
-        };
-        BytePushers.DOMUtility.removeListener = function (el, type) {
-            el['on' + type] = null;
-        };
-    }
-    if (typeof document.querySelector === "function") {
-        BytePushers.DOMUtility.querySelector = function (selector) {
-            return document.querySelector(selector);
-        };
-    } else if (typeof document.getElementsByClassName === "function") {
-        BytePushers.DOMUtility.querySelector = function (selector) {
-            return document.getElementsByClassName(selector);
-        };
-    } else if (typeof $ === "function") {
-        BytePushers.DOMUtility.querySelector = function (selector) {
-            return $(selector);
-        };
-    } else {
-        throw ("document.querySelector() method is not supported by your browser.  Please contact the administrator for this app.");
-    }
-    if (typeof document.querySelectorAll === "function") {
-        BytePushers.DOMUtility.querySelectorAll = function (selector) {
-            return document.querySelectorAll(selector);
-        };
-    } else if (typeof document.getElementsByClassName === "function") {
-        BytePushers.DOMUtility.querySelectorAll = function (selector) {
-            return document.getElementsByClassName(selector);
-        };
-    } else if (typeof $ === "function") {
-        BytePushers.DOMUtility.querySelector = function (selector) {
-            return $(selector);
-        };
-    } else {
-        throw ("document.querySelectorAll() method is not supported by your browser.  Please contact the administrator for this app.");
-    }
-}(window, document, BytePushers));;/*global window, document, BytePushers*/
-/*jslint unparam: true*/
-(function (window, document, BytePushers) {
-    'use strict';
-    BytePushers = BytePushers || {};
-    BytePushers.NumberUtility = BytePushers.namespace("software.bytepushers.utils.NumberUtility");
-    BytePushers.NumberUtility.padLeft = function padLeft(number, length) {
-        number = (number === undefined || number === null) ? "" : number;
-        return (number.length >= length) ? number : padLeft("0" + number, length);
-    };
-    BytePushers.NumberUtility.padRight = function padRight(number, length) {
-        number = (number === undefined || number === null) ? "" : number;
-        return (number.length >= length) ? number : padRight(number + "0", length);
-    };
-    BytePushers.NumberUtility.isSingleDigit = function isSingleDigit(number) {
-        return (0 < number && number <= 9) ? true : false;
-    };
-    BytePushers.NumberUtility.isNotANumber = function isNotANumber(d) {
-        return isNaN(d);
-    };
-    BytePushers.NumberUtility.isANumber = function isANumber(d) {
-        if (d === "") {
-            return false;
-        }
-        return !isNaN(d);
-    };
-}(window, document, BytePushers));
-/*jslint unparam: false*/;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject*/
-/**
- * Created with IntelliJ IDEA.
- * User: pouncilt
- * Date: 4/30/13
- * Time: 8:14 AM
- * To change this template use File | Settings | File Templates.
- */
-(function (window, document, BytePushers) {
-    'use strict';
-    BytePushers = BytePushers || {};
-    BytePushers.ResourceLoader = BytePushers.namespace("software.bytepushers.utils.ResourceLoader");
-    BytePushers.ResourceLoader = function () {
-        function isResourceNotLoaded() {/*fileName*/
-            return;
-        }
-        this.loadResource = function (fileName, fileType) {
-            if (isResourceNotLoaded(fileName)) {
-                var fileref;
-
-                if (fileType === "js") { //if filename is a external JavaScript file
-                    fileref = document.createElement('script');
-                    fileref.setAttribute("type", "text/javascript");
-                    fileref.setAttribute("src", fileName);
-                } else if (fileType === "css") { //if filename is an external CSS file
-                    fileref = document.createElement("link");
-                    fileref.setAttribute("rel", "stylesheet");
-                    fileref.setAttribute("type", "text/css");
-                    fileref.setAttribute("href", fileName);
-                }
-                if (fileref !== undefined) {
-                    document.getElementsByTagName("head")[0].appendChild(fileref);
-                }
-            }
-        };
-        this.createResource = function (filename, filetype) {
-            var fileref = null;
-            if (filetype === "js") { //if filename is a external JavaScript file
-                fileref = document.createElement('script');
-                fileref.setAttribute("type", "text/javascript");
-                fileref.setAttribute("src", filename);
-            } else if (filetype === "css") { //if filename is an external CSS file
-                fileref = document.createElement("link");
-                fileref.setAttribute("rel", "stylesheet");
-                fileref.setAttribute("type", "text/css");
-                fileref.setAttribute("href", filename);
-            }
-            return fileref;
-        };
-        this.replaceResource = function (oldfilename, newfilename, filetype) {
-            var targetelement = (filetype === "js") ? "script" : (filetype === "css") ? "link" : "none", //determine element type to create nodelist using
-                targetattr = (filetype === "js") ? "src" : (filetype === "css") ? "href" : "none", //determine corresponding attribute to test for
-                allsuspects = document.getElementsByTagName(targetelement),
-                i,
-                newelement;
-            for (i = allsuspects.length; i >= 0; i = i - 1) { //search backwards within nodelist for matching elements to remove
-                if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) !== null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename) !== -1) {
-                    newelement = this.createResource(newfilename, filetype);
-                    allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i]);
-                }
-            }
-        };
-        this.removeResource = function (oldfilename, filetype) {
-            var targetelement = (filetype === "js") ? "script" : (filetype === "css") ? "link" : "none", //determine element type to create nodelist using
-                targetattr = (filetype === "js") ? "src" : (filetype === "css") ? "href" : "none", //determine corresponding attribute to test for
-                allsuspects = document.getElementsByTagName(targetelement),
-                i,
-                newelement;
-            for (i = allsuspects.length; i >= 0; i = 1 - 1) { //search backwards within nodelist for matching elements to remove
-                if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) !== null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename) !== -1) {
-                    newelement = this.createResource("js/blank.js", filetype);
-                    allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i]);
-                }
-            }
-        };
-        this.loadXMLDoc = function (theUrl) {
-            var xmlHttp, xmlDoc;
-            if (window.XMLHttpRequest) {
-                // code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlHttp = new XMLHttpRequest();
-            } else {
-                // code for IE6, IE5
-                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-
-            xmlHttp.onreadystatechange = function () {
-                if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-                    //callbackFunction(xmlhttp.responseText);
-                    xmlDoc = xmlHttp.responseText;
-                    return xmlDoc;
-                }
-            };
-            xmlHttp.open("GET", theUrl, false);
-            xmlHttp.send();
-            return xmlDoc;
-        };
-    };
-    BytePushers.ResourceLoader.loadedResources = [];
-}(window, document, BytePushers));

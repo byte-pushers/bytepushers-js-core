@@ -17,6 +17,7 @@
   },
   "main": "index.js",
   "devDependencies": {
+    "graceful-fs": "^4.1.4",
     "grunt": "~1.0.1",
     "grunt-bump": "^0.8.0",
     "grunt-contrib-clean": "^0.7.0",
@@ -31,7 +32,7 @@
     "grunt-npm": "0.0.2",
     "grunt-publish": "^1.0.0",
     "jasmine": "^2.4.1",
-    "jshint-stylish": "^2.1.0",
+    "jshint-stylish": "^2.2.0",
     "karma": "^0.13.21",
     "karma-chrome-launcher": "^0.2.2",
     "karma-coverage": "^0.5.5",

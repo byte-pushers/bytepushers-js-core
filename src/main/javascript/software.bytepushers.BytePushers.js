@@ -867,7 +867,17 @@
         // Now create the instances of this new type.
         for (name in namesToValues) {        // For each value
             if (namesToValues.hasOwnProperty(name)) {
-                e = BytePushers.inherit(proto);         // Create an object to represent it
+                e = BytePushers.inherit(proto); // Create an object to represent it
+                Object.defineProperties(e, {
+                    "name": {
+                        value: null,
+                        writable: true
+                    },
+                    "value": {
+                        value: null,
+                        writable: true
+                    }
+                });
                 e.name = name;                  // Give it a name
                 e.value = namesToValues[name];  // And a value
                 enumeration[name] = e;          // Make it a property of constructor

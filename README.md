@@ -35,3 +35,9 @@ Let people know how they can dive into the project, include important links to t
 ## License
 
 A short snippet describing the license (MIT, Apache, etc.)
+
+
+
+In order to build successfully, ensure the following:
+  1.  Use either minified version of modules or normal version of modules in the Gruntfile.js and Karma.conf.js files;
+      but not both and not mixed matched.

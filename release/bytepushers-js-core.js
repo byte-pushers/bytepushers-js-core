@@ -879,7 +879,7 @@
                     }
                 });
                 e.name = name;                  // Give it a name
-                e.value = namesToValues[name];  // And a value
+                e.value = namesToValues[name].value;  // And a value
                 enumeration[name] = e;          // Make it a property of constructor
                 enumeration.values.push(e);     // And store in the values array
             }

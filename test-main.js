@@ -13,6 +13,7 @@ require.config({
   paths: {
       'bytepushers': 'src/main/javascript/software.bytepushers.BytePushers',
       'bytepushersErrors': 'src/main/javascript/software.bytepushers.exceptions.Errors',
+      'bytepushersFiltersProptery': 'src/main/javascript/software.bytepushers.filters.GenericPropertyFilter',
       'bytepushersDateConverter': 'src/main/javascript/software.bytepushers.utils.converters.date.DateConverter',
       'bytepushersDateUtility': 'src/main/javascript/software.bytepushers.utils.DateUtility',
       'bytepushersDOMUtility': 'src/main/javascript/software.bytepushers.utils.DOMUtility',
@@ -25,6 +26,9 @@ require.config({
           exports: 'BytePushers'
       },
       bytepushersErrors: {
+          deps: ['bytepushers']
+      },
+      bytepushersFiltersProptery: {
           deps: ['bytepushers']
       },
       bytepushersDateConverter: {

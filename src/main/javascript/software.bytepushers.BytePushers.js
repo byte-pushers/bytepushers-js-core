@@ -412,7 +412,9 @@
         var result = false;
         if (Object.isDefined(someString)) {
             if (typeof someString === "string" || (typeof someString === "object" && someString instanceof String)) {
-                result = true;
+                if (someString.trim().length > 0) {
+                    result = true;
+                }
             }
         }
 
@@ -428,7 +430,7 @@
      */
     Object.isNumeric = function (someNumber) {
         var result = false;
-        if (Object.isDefined(someNumber)) {
+        if (Object.isDefined(someNumber) && !isNaN(someNumber)) {
             if (typeof someNumber === "number" || (typeof someNumber === "object" && someNumber instanceof Number)) {
                 result = true;
             }
@@ -469,18 +471,64 @@
         }
         return result;
     };
+    Object.isRegEx = function (someRegEx) {
+        var result = false;
 
-    Object.getProperty = function (target, property) {
-        var result = false, tmp;
-        if (Object.isDefined(target)) {
-            if (Object.isString(target)) {
-                tmp = JSON.parse(target);
-            } else {
-                tmp = target;
+        if (Object.isDefined(someRegEx)) {
+            if ((typeof someRegEx === "object" ||  someRegEx instanceof RegExp)) {
+                result = true;
             }
-            result = tmp[property];
         }
+
         return result;
+    };
+    Object.getProperty = function (obj, p) {
+        var pFunction = "get" + p.substring(0, 1).toUpperCase() + p.substring(1),
+            value = null;
+
+        if (Object.isString(obj)) {
+            obj = JSON.parse(obj);
+            value = obj[p];
+        } else {
+            if (Object.hasProperty(obj, p)) {
+                value = obj[p];
+            } else if (typeof obj[pFunction] === "function") {
+                value = obj[pFunction]();
+            }
+        }
+
+        return value;
+    };
+    Object.setProperty = function (obj, p, v) {
+        var pFunction = "set" + p.substring(0, 1).toUpperCase() + p.substring(1);
+
+        if (Object.hasProperty(obj, p)) {
+            obj[p] = v;
+        } else if (typeof obj[pFunction] === "function") {
+            obj[pFunction](v);
+        }
+    };
+    Object.hasProperty = function (obj, p) {
+        var hasProperty = false;
+
+        if (obj.hasOwnProperty(p)) {
+            hasProperty = true;
+        }
+
+        return hasProperty;
+    };
+    Object.hasFunction = function (obj, p) {
+        var hasFunction = false,
+            pSetFunction = "set" + p.substring(0, 1).toUpperCase() + p.substring(1),
+            pGetFunction = "get" + p.substring(0, 1).toUpperCase() + p.substring(1);
+
+        if (typeof obj[pSetFunction] === "function") {
+            hasFunction = true;
+        } else if (typeof obj[pGetFunction] === "function") {
+            hasFunction = true;
+        }
+
+        return hasFunction;
     };
     /* END Object Extensions *
      ****************************************************************************************************/

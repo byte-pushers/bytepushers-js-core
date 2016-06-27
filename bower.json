@@ -1,15 +1,21 @@
 {
-  "name": "bytepushers-common-js",
-  "description": "A collection of common object extensions and general utilities that can be used as base foundational classes.",
-  "version": "0.0.0",
-  "private": true,
-  "homepage": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "name": "bytepushers-js-core",
+  "version": "0.0.61",
+  "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/byte-pushers/bytepushers-common-js"
+    "url": "https://github.com/byte-pushers/bytepushers-js-core.git"
   },
-  "dependencies": {
-
-  }
+  "license": "MIT",
+  "author": "Tonté Pouncil <tonte.pouncil@bytepushers.software>",
+  "contributors": [
+    "Jared Ramirez <jaredramirez@me.com> ",
+    "Tonté Pouncil <pouncilt.developer@gmail.com> "
+  ],
+  "directories": {
+    "lib": "release"
+  },
+  "main": [
+    "release/bytepushers-js-core.js"
+  ]
 }

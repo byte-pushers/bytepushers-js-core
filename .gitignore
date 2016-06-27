@@ -1,6 +1,10 @@
+/target
 /dist
 /build
 /node_modules
+/demos/bytepushers-js-core-client/target
+/demos/bytepushers-js-core-client-2/target
+npm-debug.log
 ### Java template
 *.class
 

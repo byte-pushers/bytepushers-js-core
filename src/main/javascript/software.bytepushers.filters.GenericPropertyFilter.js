@@ -19,16 +19,16 @@
         return filteredDates;
     };
 
-    BytePushers.filters.GenericProptertyFilter.StringPropteryFilter = function(values, searchText, propertyName) {
+    BytePushers.filters.GenericProptertyFilter.StringPropteryFilter = function (values, searchText, propertyName) {
         if (!Object.isArray(values)) { return; }
         var filtered = [];
         searchText = searchText.toLowerCase();
 
         values.forEach(function (value, index, values) {
-            if(value[propertyName].toLowerCase().indexOf(searchText) >= 0 ) filtered.push(value);
+            if (value[propertyName].toLowerCase().indexOf(searchText) >= 0) { filtered.push(value); }
         });
 
         return filtered;
-   };
+    };
 }(BytePushers));
 /*jslint unparam: false*/

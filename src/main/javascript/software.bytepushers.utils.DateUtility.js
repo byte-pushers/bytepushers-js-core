@@ -28,7 +28,7 @@
         return 0;
     };
     /*checks if string passed in is valid MM/DD/YYYY date*/
-    BytePushers.DateUtility.isValidDateString = function (dateString) {
+    BytePushers.DateUtility.isDateString_MMDDYYYY = function (dateString) {
         /*credit: https://stackoverflow.com/questions/6177975/how-to-validate-date-with-format-mm-dd-yyyy-in-javascript/6178341#6178341*/
 
         /* First check for the pattern */
@@ -49,18 +49,6 @@
 
         /* Check the range of the day */
         return day > 0 && day <= monthLength[month - 1];
-    };
-    /*formats date to string in DD/MM/YYYY*/
-    BytePushers.DateUtility.formatDateToString =  function (date) {
-        var d = new Date(date),
-            month = String((d.getMonth() + 1)),
-            day = String(d.getDate()),
-            year = d.getFullYear();
-
-        if (month.length < 2) { month = '0' + month; }
-        if (day.length < 2) { day = '0' + day; }
-
-        return [month, day, year].join('/');
     };
 }(window, document, BytePushers));
 /*jslint unparam: false*/

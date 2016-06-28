@@ -1097,6 +1097,18 @@
     BytePushers.converters.DateConverter.convertToDate_YYYYMMDDThhmmsssTZD = function (iso8601DateString) {
         return BytePushers.converters.DateConverter.convertToISO8601Date(iso8601DateString);
     };
+    BytePushers.converters.DateConverter.convertToString_MMDDYYY = function (d, delimeter) {
+        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+        var date = new Date(d),
+            month = String((date.getMonth() + 1)),
+            day = String(date.getDate()),
+            year = date.getFullYear();
+
+        if (month.length < 2) { month = '0' + month; }
+        if (day.length < 2) { day = '0' + day; }
+
+        return [month, day, year].join(delimeter);
+    };
     BytePushers.converters.DateConverter.convertToString_YYYYMMDD = function (d, delimeter) {
         delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
         if (!Object.isDate(d)) {
@@ -1166,6 +1178,9 @@
     BytePushers.converters.DateConverter.convertToString = function (d, dateFormat, delimeter) {
         var date = null;
         switch (dateFormat) {
+        case BytePushers.converters.DateConverter.MMDDYYYY_DATE_FORMAT:
+            date = BytePushers.converters.DateConverter.convertToString_MMDDYYY(d, delimeter);
+            break;
         case BytePushers.converters.DateConverter.YYYYMMDD_DATE_FORMAT:
             date = BytePushers.converters.DateConverter.convertToString_YYYYMMDD(d, delimeter);
             break;
@@ -1262,7 +1277,6 @@
         {"name": "Saturday", "abbr": "Sat."}
     ];
 }(BytePushers));
-
 ;/*global window, document, BytePushers*/
 /*jslint unparam: true*/
 (function (window, document, BytePushers) {
@@ -1293,7 +1307,7 @@
         return 0;
     };
     /*checks if string passed in is valid MM/DD/YYYY date*/
-    BytePushers.DateUtility.isValidDateString = function (dateString) {
+    BytePushers.DateUtility.isDateString_MMDDYYYY = function (dateString) {
         /*credit: https://stackoverflow.com/questions/6177975/how-to-validate-date-with-format-mm-dd-yyyy-in-javascript/6178341#6178341*/
 
         /* First check for the pattern */
@@ -1314,18 +1328,6 @@
 
         /* Check the range of the day */
         return day > 0 && day <= monthLength[month - 1];
-    };
-    /*formats date to string in DD/MM/YYYY*/
-    BytePushers.DateUtility.formatDateToString =  function (date) {
-        var d = new Date(date),
-            month = String((d.getMonth() + 1)),
-            day = String(d.getDate()),
-            year = d.getFullYear();
-
-        if (month.length < 2) { month = '0' + month; }
-        if (day.length < 2) { day = '0' + day; }
-
-        return [month, day, year].join('/');
     };
 }(window, document, BytePushers));
 /*jslint unparam: false*/

@@ -8,5 +8,12 @@ define(['bytepushers', 'bytepushersDateUtility'], function(BytePushers) {
             var date1 = new Date(97,2,30), date2 = new Date(99, 6, 23);
             expect(BytePushers.DateUtility.date_sort_asc(date1, date2)).toEqual(-1);
         });
+
+        it("validate date string", function(){
+            var date = '11/17/2000';
+            expect(BytePushers.DateUtility.isDateString_MMDDYYYY(date)).toEqual(true);
+            date = '11/17/20000';
+            expect(BytePushers.DateUtility.isDateString_MMDDYYYY(date)).toEqual(false);
+        });
     });
 });

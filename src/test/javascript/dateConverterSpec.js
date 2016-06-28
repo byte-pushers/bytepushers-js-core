@@ -17,5 +17,11 @@ define(['bytepushers', 'bytepushersDateConverter'], function(BytePushers) {
             var date = BytePushers.converters.DateConverter.convertToDate_YYYYMMDD("19970330");
             expect(date).toEqual(new Date(97,2,30));
         });
+
+        it('should convert date to string', function () {
+          var dateString = '03/30/1997';
+          var date = new Date(dateString);
+          expect(BytePushers.converters.DateConverter.convertToString(date, 0, '/')).toEqual(dateString);
+        });
     });
 });

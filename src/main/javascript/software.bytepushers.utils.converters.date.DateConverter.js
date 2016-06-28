@@ -78,6 +78,18 @@
     BytePushers.converters.DateConverter.convertToDate_YYYYMMDDThhmmsssTZD = function (iso8601DateString) {
         return BytePushers.converters.DateConverter.convertToISO8601Date(iso8601DateString);
     };
+    BytePushers.converters.DateConverter.convertToString_MMDDYYY = function (d, delimeter) {
+        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+        var date = new Date(d),
+            month = String((date.getMonth() + 1)),
+            day = String(date.getDate()),
+            year = date.getFullYear();
+
+        if (month.length < 2) { month = '0' + month; }
+        if (day.length < 2) { day = '0' + day; }
+
+        return [month, day, year].join(delimeter);
+    };
     BytePushers.converters.DateConverter.convertToString_YYYYMMDD = function (d, delimeter) {
         delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
         if (!Object.isDate(d)) {
@@ -147,6 +159,9 @@
     BytePushers.converters.DateConverter.convertToString = function (d, dateFormat, delimeter) {
         var date = null;
         switch (dateFormat) {
+        case BytePushers.converters.DateConverter.MMDDYYYY_DATE_FORMAT:
+            date = BytePushers.converters.DateConverter.convertToString_MMDDYYY(d, delimeter);
+            break;
         case BytePushers.converters.DateConverter.YYYYMMDD_DATE_FORMAT:
             date = BytePushers.converters.DateConverter.convertToString_YYYYMMDD(d, delimeter);
             break;
@@ -243,4 +258,3 @@
         {"name": "Saturday", "abbr": "Sat."}
     ];
 }(BytePushers));
-

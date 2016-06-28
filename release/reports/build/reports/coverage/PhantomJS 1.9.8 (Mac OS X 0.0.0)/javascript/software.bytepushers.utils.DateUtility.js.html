@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">53.33% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>8/15</span>
+        <span class='fraction'>16/24</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">56% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/10</span>
+        <span class='fraction'>14/25</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">66.67% </span>
-        <span class="quiet">Functions</span>
-        <span class='fraction'>2/3</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">53.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/15</span>
+        <span class='fraction'>14/21</span>
       </div>
     </div>
   </div>
@@ -73,7 +73,31 @@
 28
 29
 30
-31</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -101,6 +125,30 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*global window, document, BytePushers*/
@@ -132,14 +180,38 @@
         }
 <span class="cstat-no" title="statement not covered" >        return 0;</span>
     };
+    /*checks if string passed in is valid MM/DD/YYYY date*/
+    BytePushers.DateUtility.isDateString_MMDDYYYY = function (dateString) {
+        /*credit: https://stackoverflow.com/questions/6177975/how-to-validate-date-with-format-mm-dd-yyyy-in-javascript/6178341#6178341*/
+&nbsp;
+        /* First check for the pattern */
+        if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) { return false; }
+&nbsp;
+        /* Parse the date parts to integers */
+        var parts = dateString.split("/"),
+            day = parseInt(parts[1], 10),
+            month = parseInt(parts[0], 10),
+            year = parseInt(parts[2], 10),
+            monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+&nbsp;
+        /* Check the ranges of month and year */
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (year &lt; 1000 || year &gt; 3000 || month === 0 || month &gt; 12) { <span class="cstat-no" title="statement not covered" >return false; </span>}
+&nbsp;
+        /* Adjust for leap years */
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (year % 400 === 0 || (<span class="branch-1 cbranch-no" title="branch not covered" >year % 100 !== 0 </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >year % 4 === 0)</span>) { monthLength[1] = 29; }
+&nbsp;
+        /* Check the range of the day */
+        return day &gt; 0 &amp;&amp; day &lt;= monthLength[month - 1];
+    };
 }(window, document, BytePushers));
-/*jslint unparam: false*/</pre></td></tr>
+/*jslint unparam: false*/
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 27 2016 16:31:36 GMT-0500 (CDT)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 28 2016 14:31:25 GMT-0500 (CDT)
 </div>
 </div>
 <script src="../prettify.js"></script>

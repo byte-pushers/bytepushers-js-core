@@ -629,7 +629,7 @@
      * inherit() returns a newly created object that inherits properties from the prototype object p.
      * It uses the ECMAScript 5 function Object.create() if it is defined, and otherwise falls.
      *
-     * @param p
+     * @param p Represents the a prototype property of an object you want inherit.
      * @returns {*}
      */
     BytePushers.inherit = function (p) {
@@ -637,11 +637,11 @@
         if (p === null) { // p must be non-null object
             throw new TypeError();
         }
-        if (Object.create) {            // if Object.create() is defined...
-            return Object.create(p);    //      then just use it.
+        if (Object.create) {  // if Object.create() is defined...
+            return Object.create(p);    // then just use it.
         }
 
-        t = typeof p;               // Otherwise do some more type checking
+        t = typeof p;  // Otherwise do some more type checking
 
         if (t !== "object" && t !== "function") {
             throw new TypeError();

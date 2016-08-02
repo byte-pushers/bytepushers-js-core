@@ -1,7 +1,7 @@
 var allTestFiles = [];
 for (var file in window.__karma__.files) {
     if (window.__karma__.files.hasOwnProperty(file)) {
-        if (/Spec\.js$/.test(file)) {
+        if (/[Ss]pec\.js$/.test(file)) {
             allTestFiles.push(file);
         }
     }
@@ -18,7 +18,10 @@ require.config({
       'bytepushersDateUtility': 'src/main/javascript/software.bytepushers.utils.DateUtility',
       'bytepushersDOMUtility': 'src/main/javascript/software.bytepushers.utils.DOMUtility',
       'bytepushersNumberUtility': 'src/main/javascript/software.bytepushers.utils.NumberUtility',
-      'bytepushersResourceLoader': 'src/main/javascript/software.bytepushers.utils.ResourceLoader'
+      'bytepushersResourceLoader': 'src/main/javascript/software.bytepushers.utils.ResourceLoader',
+      'bytepushersReflection': 'src/main/javascript/software.bytepushers.utils.Reflection',
+      'BaseEntity': 'src/test/javascript/support/software.bytepushers.model.BaseEntity',
+      'Person': 'src/test/javascript/support/software.bytepushers.model.Person'
   },
 
   shim: {
@@ -45,6 +48,15 @@ require.config({
       },
       bytepushersResourceLoader: {
           deps: ['bytepushers']
+      },
+      bytepushersReflection: {
+          deps: ['bytepushers']
+      },
+      BaseEntity: {
+          deps: ['bytepushers']
+      },
+      Person: {
+          deps: ['bytepushers', 'BaseEntity']
       }
   },
 

@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for javascript/software.bytepushers.utils.Reflection.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">javascript/</a> software.bytepushers.utils.Reflection.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.39% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>113/121</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">69.81% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>37/53</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">81.25% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.39% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>113/121</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Created by tonte on 8/1/16.
+ */
+/*global window, BytePushers */
+/*jslint regexp: true*/
+(function (BytePushers) {
+    "use strict";
+    var EVAL_IS_BAD__AVOID_THIS = eval,
+        FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS = Function;
+&nbsp;
+    BytePushers = BytePushers || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+    BytePushers.util = BytePushers.util || BytePushers.namespace("software.bytepushers.util");
+    BytePushers.util.Reflection = function () {
+        var getFunctionArguments = function (func) {
+&nbsp;
+                var functionArgumentMatch = func.toString().match(/\(.+?(?=\))\)/),
+                    functionArguments = functionArgumentMatch[0].substring(1, functionArgumentMatch[0].length - 1).split(",").map(function (arg) {
+                        // Ensure no inline comments are parsed and trim the whitespace.
+                        return arg.replace(/\/\*.*\*\//, '').trim();
+                    }).filter(function (arg) {
+                        // Ensure no undefined values are added.
+                        return arg;
+                    }),
+                    functionArgumentList = "";
+&nbsp;
+                functionArguments.forEach(function (arg, argIndex, argArray) {
+                    functionArgumentList +=  arg + ((argIndex &lt; argArray.length - 1) ? <span class="branch-0 cbranch-no" title="branch not covered" >"," </span>: "");
+                });
+&nbsp;
+                return functionArgumentList;
+            },
+            replaceConstructor = function (originalFunctionString, ReflectedConstructor) {
+                var reflectedFunctionAsString = originalFunctionString,
+                    reflectedFunction,
+                    matchResults,
+                    superMethodCalls = [];
+&nbsp;
+                matchResults = reflectedFunctionAsString.match(/[A-Za-z0-9\.]+\.prototype\.[A-Za-z0-9]+\.apply\(this,\s*\[\s*.*\]\s*\)/g);
+                if (matchResults) {
+                    matchResults.forEach(function (match) {
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (match) {
+                            superMethodCalls.push = {
+                                key: match,
+                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor +  match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
+                            };
+                        }
+                    });
+&nbsp;
+                    superMethodCalls.forEach(<span class="fstat-no" title="function not covered" >function (superCallMethod) {</span>
+<span class="cstat-no" title="statement not covered" >                        reflectedFunctionAsString = reflectedFunctionAsString.replace(new RegExp(superCallMethod.key), superCallMethod.value);</span>
+                    });
+                }
+&nbsp;
+&nbsp;
+                matchResults = reflectedFunctionAsString.match(/[A-Za-z0-9\.]+\.prototype\.[A-Za-z0-9]+\.call\(this\s*,?(\s\w*,?)*\s*\)/g);
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (matchResults) {
+<span class="cstat-no" title="statement not covered" >                    matchResults.forEach(<span class="fstat-no" title="function not covered" >function (match) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        if (match) {</span>
+<span class="cstat-no" title="statement not covered" >                            superMethodCalls.push = {</span>
+                                key: match,
+                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor +  match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
+                            };
+                        }
+                    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    superMethodCalls.forEach(<span class="fstat-no" title="function not covered" >function (superCallMethod) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        reflectedFunctionAsString = reflectedFunctionAsString.replace(new RegExp(superCallMethod.key), superCallMethod.value);</span>
+                    });
+                }
+                reflectedFunction =  new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS('return ' + reflectedFunctionAsString)(); // jshint ignore:line
+&nbsp;
+                return reflectedFunction;
+            },
+            getClassRefPrototypeMethods = function (ClassRef, ReflectedConstructor) {
+                var classRefPrototypeMethods = {},
+                    classRefPrototypeMethod,
+                    classRefPrototypeMethodName;
+&nbsp;
+                for (classRefPrototypeMethodName in ClassRef.prototype) {
+                    if (ClassRef.prototype.hasOwnProperty(classRefPrototypeMethodName)) {
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (classRefPrototypeMethodName !== "constructor" &amp;&amp;
+                                classRefPrototypeMethodName !== "superclass" &amp;&amp;
+                                Object.isFunction(ClassRef.prototype[classRefPrototypeMethodName])) {
+                            classRefPrototypeMethod = ClassRef.prototype[classRefPrototypeMethodName];
+                            classRefPrototypeMethods[classRefPrototypeMethodName] = replaceConstructor(classRefPrototypeMethod.toString(), ReflectedConstructor);
+                        }
+                    }
+                }
+&nbsp;
+                return classRefPrototypeMethods;
+            },
+            wrapConstructorWithReflectionCapabilities = function (ClassRef) {
+                var WrappedSuperClassWithReflectionCapabilitiesConstructor,
+                    wrappedSuperClassPrototypeMethods,
+                    wrappedSuperClassPrototypeMethodName,
+                    WrappedClassWithReflectionCapabilitiesConstructor,
+                    wrappedClassWithReflectionCapabilitiesAsString = "",
+                    functionArguments = getFunctionArguments(ClassRef),
+                    originalClassAsString = ClassRef.toString(); //.replace(/\(.+?(?=\))\)/, "()");
+&nbsp;
+                if (ClassRef.prototype.superclass) {
+                    WrappedSuperClassWithReflectionCapabilitiesConstructor = wrapConstructorWithReflectionCapabilities(ClassRef.prototype.superclass);
+                    wrappedSuperClassPrototypeMethods = getClassRefPrototypeMethods(ClassRef.prototype.superclass, WrappedSuperClassWithReflectionCapabilitiesConstructor);
+                    originalClassAsString = originalClassAsString.replace(/.*superclass\.apply\(this,\s*\[\s*.*\]\s*\)\s*;*/, "\t\tthis.__proto__.superclass.apply(this, [" + functionArguments + "]);");
+                    originalClassAsString = originalClassAsString.replace(/.*superclass\.call\(this\s*,?(\s\w*,?)*\s*\)\s*;?/, "\t\tthis.__proto__.superclass.call(this " + (functionArguments ? "," + functionArguments : <span class="branch-1 cbranch-no" title="branch not covered" >"")</span> + ");");
+                    Object.defineProperty(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype, 'getMethod', {
+                        enumerable: false,
+                        value: function (methodName) {
+                            var reflectionMethod;
+&nbsp;
+                            <span class="missing-if-branch" title="if path not taken" >I</span>if (WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype.superclass) {
+<span class="cstat-no" title="statement not covered" >                                WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype.superclass.prototype.getMethod.apply(this, [methodName]);</span>
+                            }
+&nbsp;
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (!reflectionMethod) {
+                                reflectionMethod = this["_privates" + WrappedSuperClassWithReflectionCapabilitiesConstructor.name][methodName];//SuperClassConstructor.prototype.getReflectionMethod.apply(this, [methodName]);
+                            }
+&nbsp;
+                            return reflectionMethod;
+                        }
+                    });
+&nbsp;
+                    for (wrappedSuperClassPrototypeMethodName in wrappedSuperClassPrototypeMethods) {
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (wrappedSuperClassPrototypeMethods.hasOwnProperty(wrappedSuperClassPrototypeMethodName)) {
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (wrappedSuperClassPrototypeMethodName) {
+                                Object.defineProperty(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype, wrappedSuperClassPrototypeMethodName, {
+                                    enumerable: false,
+                                    value: wrappedSuperClassPrototypeMethods[wrappedSuperClassPrototypeMethodName]
+                                });
+                            }
+                        }
+                    }
+                }
+&nbsp;
+                // To expose the private functions, we create
+                // a new function that goes trough the functions string
+                // we could have done all string parsing in this class and
+                // only associate the functions directly with string
+                // manipulation here and not inside the new class,
+                // but then we would have to expose the functions as string
+                // in the code, which could lead to problems in the eval since
+                // string might have semicolons, line breaks etc.
+&nbsp;
+                //funcString += "new (";
+                //funcString += "return ";
+                wrappedClassWithReflectionCapabilitiesAsString += originalClassAsString.substring(0, originalClassAsString.length - 3) + "\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._privates" + ClassRef.name + " = {};\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._initPrivates = function(f) {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tvar fs = f.toString();\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tthis._privates" + ClassRef.name + " = {};\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tvar pf = fs.match(/function\\s*?(\\w.*?)\\(/g);\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tif (pf != null){\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\tfor (var i = 0, ii = pf.length; i &lt; ii; i++) {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\tvar fn = pf[i].replace(/function\\s+/, '').replace('(', '').trim();\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\tif (f.name != fn) {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\ttry {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tthis._privates" + ClassRef.name + "[fn] = eval(fn);\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t} catch (e) {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tif (e.name == 'ReferenceError') {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tcontinue;\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t} else {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tthrow e;\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tpf = fs.match(/\\w*?\\s+=\\s+function/g);\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tif (pf != null) {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\tfor (var i = 0, ii = pf.length; i &lt; ii; i++) {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\tvar fn = pf[i].replace(/var\\s*/, '').replace(' ', '').replace('=', '').replace(' ', '').replace('function', '').replace(' ', '').replace('(', '');\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\ttry {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tthis._privates" + ClassRef.name + "[fn] = eval(fn);\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t} catch (e) {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tif (e.name == 'ReferenceError') {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tcontinue;\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t} else {\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tthrow e;\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t}\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\t};\n\n";
+&nbsp;
+                if (!ClassRef.prototype.superclass) {
+                    wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._initPrivates(this.__proto__.superclass);\n";
+                } else {
+                    wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._initPrivates(this.__proto__.constructor);\n";
+                }
+&nbsp;
+                wrappedClassWithReflectionCapabilitiesAsString += "\t\tdelete this._initPrivates;\n";
+                wrappedClassWithReflectionCapabilitiesAsString += "\n\t}";
+                //funcString +=")();";
+                WrappedClassWithReflectionCapabilitiesConstructor = new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS(functionArguments, 'return ' + wrappedClassWithReflectionCapabilitiesAsString)(); // jshint ignore:line
+&nbsp;
+                if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {
+                    WrappedClassWithReflectionCapabilitiesConstructor.prototype = BytePushers.inherit(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype);
+                }
+                if (ClassRef.prototype.superclass  &amp;&amp; ClassRef.prototype.constructor) {
+                    WrappedClassWithReflectionCapabilitiesConstructor.prototype.constructor = WrappedClassWithReflectionCapabilitiesConstructor;
+                }
+                if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {
+                    WrappedClassWithReflectionCapabilitiesConstructor.prototype.superclass = WrappedSuperClassWithReflectionCapabilitiesConstructor;
+                }
+&nbsp;
+                return WrappedClassWithReflectionCapabilitiesConstructor;
+            };
+&nbsp;
+        this.getInstance = function (ClassRef, classConstructorArguments) {
+            // get the functions as a string
+            var WrappedClassWithReflectionCapabilitiesConstructor = wrapConstructorWithReflectionCapabilities(ClassRef),
+                wrappedClassPrototypeMethods = getClassRefPrototypeMethods(ClassRef, WrappedClassWithReflectionCapabilitiesConstructor),
+                wrappedClassPrototypeMethodName,
+                wrappedClassWithReflectionCapabilitiesInstance;
+&nbsp;
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (WrappedClassWithReflectionCapabilitiesConstructor) {
+                Object.defineProperty(WrappedClassWithReflectionCapabilitiesConstructor.prototype, 'getMethod', {
+                    enumerable: false,
+                    value: function (methodName) {
+                        var reflectionMethod;
+&nbsp;
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (WrappedClassWithReflectionCapabilitiesConstructor.prototype.superclass) {
+                            reflectionMethod = WrappedClassWithReflectionCapabilitiesConstructor.prototype.superclass.prototype.getMethod.apply(this, [methodName]);
+                        }
+&nbsp;
+                        if (!reflectionMethod) {
+                            reflectionMethod = this["_privates" + WrappedClassWithReflectionCapabilitiesConstructor.name][methodName];
+                        }
+&nbsp;
+                        return reflectionMethod;
+                    }
+                });
+&nbsp;
+                for (wrappedClassPrototypeMethodName in wrappedClassPrototypeMethods) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (wrappedClassPrototypeMethods.hasOwnProperty(wrappedClassPrototypeMethodName)) {
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (wrappedClassPrototypeMethodName) {
+                            Object.defineProperty(WrappedClassWithReflectionCapabilitiesConstructor.prototype, wrappedClassPrototypeMethodName, {
+                                enumerable: false,
+                                value: wrappedClassPrototypeMethods[wrappedClassPrototypeMethodName]
+                            });
+                        }
+                    }
+                }
+&nbsp;
+                wrappedClassWithReflectionCapabilitiesInstance = new WrappedClassWithReflectionCapabilitiesConstructor(classConstructorArguments); //var instance = eval(funcString);
+                return wrappedClassWithReflectionCapabilitiesInstance;
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            throw "WrappedClassWithReflectionCapabilitiesConstructor was not successfully created.";</span>
+        };
+    };
+}(BytePushers));</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Aug 01 2016 22:02:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

@@ -3,9 +3,5 @@ define(['bytepushers', 'bytepushersDOMUtility'], function(BytePushers) {
         it('should defined BytePushers.DOMUtility', function() {
             expect(BytePushers.DOMUtility).toBeDefined();
         });
-
-        it("undefined", function(){
-
-        });
     });
 });

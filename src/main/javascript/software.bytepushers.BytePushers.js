@@ -543,18 +543,6 @@
         return isFunction;
     };
 
-    Object.isFunction = function (target) {
-        var isFunction = false;
-
-        if (Object.isDefined(target)) {
-            if (typeof target === "function") {
-                isFunction = true;
-            }
-        }
-
-        return isFunction;
-    };
-
     Object.isConstructorFunction = function (targetFunction) {
         var isConstructorFunction = false,
             isNotFirstLetterUppercase;

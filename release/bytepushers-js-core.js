@@ -543,18 +543,6 @@
         return isFunction;
     };
 
-    Object.isFunction = function (target) {
-        var isFunction = false;
-
-        if (Object.isDefined(target)) {
-            if (typeof target === "function") {
-                isFunction = true;
-            }
-        }
-
-        return isFunction;
-    };
-
     Object.isConstructorFunction = function (targetFunction) {
         var isConstructorFunction = false,
             isNotFirstLetterUppercase;
@@ -699,6 +687,40 @@
     }
     /* END String Extensions *****************************************************************************************************/
 
+    BytePushers.implementsInterface = function (o) { /*, ... */
+        var i,
+            m,
+            arg;
+
+        for (i = 1; i < arguments.length; i = i + 1) { // for each argument after o var arg = arguments[i];
+            arg = arguments[i];
+            switch (typeof arg) { // If arg is a:
+            case 'string': // string: check for a method with that name
+                if (typeof o[arg] !== "function") {
+                    return false;
+                }
+                break;
+            case 'function': // function: use the prototype object instead
+            // If the argument is a function, we use its prototype object arg = arg.prototype;
+            // fall through to the next case
+            case 'object': // object: check for matching methods
+                for (m in arg) { // For each property of the object
+                    if (arg.hasOwnProperty(m)) {
+                        if (typeof arg[m] !== "function") {
+                            break;
+                        } // skip non-methods
+                        if (typeof o[m] !== "function") {
+                            return false;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        // If we're still here, then o implements everything
+        return true;
+    };
 
     BytePushers.namespace = function (ns_string) {
         var parts = ns_string.split('.'), parent = BytePushers;

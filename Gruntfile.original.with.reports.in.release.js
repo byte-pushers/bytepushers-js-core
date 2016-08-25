@@ -53,6 +53,15 @@ module.exports = function (grunt) {
                         dest: 'release/',
                         filter: 'isFile',
                         flatten: true
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            'build/reports/**'
+                        ],
+                        dest: 'release/reports/',
+                        filter: 'isFile',
+                        flatten: false
                     }
                 ]
             }

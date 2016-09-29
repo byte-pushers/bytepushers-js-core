@@ -1037,10 +1037,20 @@
                     "value": {
                         value: null,
                         writable: true
+                    },
+                    "abbreviation": {
+                        value: null,
+                        writable: true
+                    },
+                    "description": {
+                        value: null,
+                        writable: true
                     }
                 });
                 e.name = name;                  // Give it a name
                 e.value = namesToValues[name].value;  // And a value
+                e.abbreviation = namesToValues[name].abbreviation;  // And a abbreviation
+                e.description = namesToValues[name].description;  // And a description
                 enumeration[name] = e;          // Make it a property of constructor
                 enumeration.values.push(e);     // And store in the values array
             }
@@ -1441,6 +1451,24 @@
 
         /* Check the range of the day */
         return day > 0 && day <= monthLength[month - 1];
+    };
+
+    BytePushers.DateUtility.convertToDate = function (someDateValue) {
+        var someDate = null;
+
+        if (someDateValue instanceof Date) {
+            someDate = someDateValue;
+        } else if (someDateValue instanceof String) {
+            someDate = new Date(someDateValue);
+        } else if (typeof someDateValue === "string") {
+            someDate = new Date(someDateValue);
+        } else if (someDateValue instanceof Number) {
+            someDate = new Date(someDateValue);
+        } else if (typeof someDateValue === "number") {
+            someDate = new Date(someDateValue);
+        }
+
+        return someDate;
     };
 }(window, document, BytePushers));
 /*jslint unparam: false*/

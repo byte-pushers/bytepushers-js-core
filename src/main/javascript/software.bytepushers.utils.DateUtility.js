@@ -50,5 +50,23 @@
         /* Check the range of the day */
         return day > 0 && day <= monthLength[month - 1];
     };
+
+    BytePushers.DateUtility.convertToDate = function (someDateValue) {
+        var someDate = null;
+
+        if (someDateValue instanceof Date) {
+            someDate = someDateValue;
+        } else if (someDateValue instanceof String) {
+            someDate = new Date(someDateValue);
+        } else if (typeof someDateValue === "string") {
+            someDate = new Date(someDateValue);
+        } else if (someDateValue instanceof Number) {
+            someDate = new Date(someDateValue);
+        } else if (typeof someDateValue === "number") {
+            someDate = new Date(someDateValue);
+        }
+
+        return someDate;
+    };
 }(window, document, BytePushers));
 /*jslint unparam: false*/

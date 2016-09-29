@@ -1037,10 +1037,20 @@
                     "value": {
                         value: null,
                         writable: true
+                    },
+                    "abbreviation": {
+                        value: null,
+                        writable: true
+                    },
+                    "description": {
+                        value: null,
+                        writable: true
                     }
                 });
                 e.name = name;                  // Give it a name
                 e.value = namesToValues[name].value;  // And a value
+                e.abbreviation = namesToValues[name].abbreviation;  // And a abbreviation
+                e.description = namesToValues[name].description;  // And a description
                 enumeration[name] = e;          // Make it a property of constructor
                 enumeration.values.push(e);     // And store in the values array
             }

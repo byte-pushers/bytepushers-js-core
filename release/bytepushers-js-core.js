@@ -770,7 +770,7 @@
     /**
      * defineClass() -- a utility function for defining JavaScript classes.
      *
-     * This function expects a single object as its only argument.  It defines
+     * This function expects a single object as its only argument.  It define
      * a new JavaScript class based on the data in that object and returns the
      * constructor function of the new class.  This function handles the repetitive
      * tasks of defining classes: setting up the prototype object for correct
@@ -1453,6 +1453,12 @@
         return day > 0 && day <= monthLength[month - 1];
     };
 
+    /**
+     * Utility method that converts some date value into to an actual Date.
+     *
+     * @param someDateValue Represents the a valid date value.
+     * @returns {Date} that was converted from date value.
+     */
     BytePushers.DateUtility.convertToDate = function (someDateValue) {
         var someDate = null;
 
@@ -1469,6 +1475,29 @@
         }
 
         return someDate;
+    };
+
+    /**
+     * Utility method that determines if the two dates have the same calendar date.
+     *
+     * @param someDate1 Represents the first date to compare.
+     * @param someDate2 Represents the second date to compare.
+     * @returns {boolean} that indicates whether or not the two calendar date are the same.
+     */
+    BytePushers.DateUtility.isSameDate = function (someDate1, someDate2) {
+        var sameDate = false;
+
+        if (Object.isDate(someDate1) && Object.isDate(someDate2)) {
+            if (someDate1.getFullYear() === someDate2.getFullYear()) {
+                if (someDate1.getMonth() === someDate2.getMonth()) {
+                    if (someDate1.getDate() === someDate2.getDate()) {
+                        sameDate = true;
+                    }
+                }
+            }
+        }
+
+        return sameDate;
     };
 }(window, document, BytePushers));
 /*jslint unparam: false*/

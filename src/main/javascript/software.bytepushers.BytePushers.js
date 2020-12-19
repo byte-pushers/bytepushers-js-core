@@ -770,7 +770,7 @@
     /**
      * defineClass() -- a utility function for defining JavaScript classes.
      *
-     * This function expects a single object as its only argument.  It defines
+     * This function expects a single object as its only argument.  It define
      * a new JavaScript class based on the data in that object and returns the
      * constructor function of the new class.  This function handles the repetitive
      * tasks of defining classes: setting up the prototype object for correct

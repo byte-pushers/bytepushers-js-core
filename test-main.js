@@ -21,7 +21,8 @@ require.config({
       'bytepushersResourceLoader': 'src/main/javascript/software.bytepushers.utils.ResourceLoader',
       'bytepushersReflection': 'src/main/javascript/software.bytepushers.utils.Reflection',
       'BaseEntity': 'src/test/javascript/support/software.bytepushers.model.BaseEntity',
-      'Person': 'src/test/javascript/support/software.bytepushers.model.Person'
+      'Person': 'src/test/javascript/support/software.bytepushers.model.Person',/*
+      'Object': 'src/lib/bytepushers-js-obj-extensions/release/bytepushers-js-obj-extensions'*/
   },
 
   shim: {
@@ -57,7 +58,9 @@ require.config({
       },
       Person: {
           deps: ['bytepushers', 'BaseEntity']
-      }
+      }/*,
+      Object: {
+      }*/
   },
 
   deps: allTestFiles,

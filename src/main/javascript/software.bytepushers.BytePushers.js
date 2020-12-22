@@ -1,8 +1,7 @@
 /*global window, document*/
 /* jshint -W108, -W109 */
-/*jslint bitwise: true, unparam: true, regexp: true*/
-
-(function (window, document) {
+/*jslint bitwise: true, regexp: true*/
+(function (window) {
     'use strict';
     var BytePushers;
 
@@ -1065,4 +1064,4 @@
         // Return the constructor that identifies the new type
         return enumeration;
     };
-}(window, document));
+}(window));

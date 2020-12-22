@@ -78,28 +78,41 @@
     BytePushers.converters.DateConverter.convertToDate_YYYYMMDDThhmmsssTZD = function (iso8601DateString) {
         return BytePushers.converters.DateConverter.convertToISO8601Date(iso8601DateString);
     };
-    BytePushers.converters.DateConverter.convertToString_MMDDYYY = function (d, delimeter) {
-        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+    BytePushers.converters.DateConverter.convertToString_MMDDYYY = function (d, delimiter) {
         var date = new Date(d),
-            month = String((date.getMonth() + 1)),
+            month = String(date.getMonth() + 1),
             day = String(date.getDate()),
-            year = date.getFullYear();
+            year = date.getFullYear(),
+            dateArray;
 
-        if (month.length < 2) { month = '0' + month; }
-        if (day.length < 2) { day = '0' + day; }
+        if (Object.isUndefinedOrNull(delimiter)) {
+            delimiter = "";
+        }
 
-        return [month, day, year].join(delimeter);
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        dateArray = [month, day, year];
+
+        return dateArray.join(delimiter);
     };
-    BytePushers.converters.DateConverter.convertToString_YYYYMMDD = function (d, delimeter) {
-        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+    BytePushers.converters.DateConverter.convertToString_YYYYMMDD = function (d, delimiter) {
+        if (Object.isUndefinedOrNull(delimiter)) {
+            delimiter = "";
+        }
+
         if (!Object.isDate(d)) {
             throw new Error("parameter d must be a Date Object.");
         }
 
-        return d.getFullYear() + delimeter + BytePushers.NumberUtility.padLeft(d.getMonth() + 1, 1) + delimeter + d.getDate();
+        return d.getFullYear() + delimiter + BytePushers.NumberUtility.padLeft(d.getMonth() + 1, 1) + delimiter + d.getDate();
     };
-    BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD = function (d, delimeter) {
-        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+    BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD = function (d) {
         if (!Object.isDate(d)) {
             throw new Error("parameter d must be a Date Object.");
         }
@@ -119,12 +132,24 @@
 
         date = new Date(d[1], 0, 1);
 
-        if (d[3]) { date.setMonth(d[3] - 1); }
-        if (d[5]) { date.setDate(d[5]); }
-        if (d[7]) { date.setHours(d[7]); }
-        if (d[8]) { date.setMinutes(d[8]); }
-        if (d[10]) { date.setSeconds(d[10]); }
-        if (d[12]) { date.setMilliseconds(Number("0." + d[12]) * 1000); }
+        if (d[3]) {
+            date.setMonth(d[3] - 1);
+        }
+        if (d[5]) {
+            date.setDate(d[5]);
+        }
+        if (d[7]) {
+            date.setHours(d[7]);
+        }
+        if (d[8]) {
+            date.setMinutes(d[8]);
+        }
+        if (d[10]) {
+            date.setSeconds(d[10]);
+        }
+        if (d[12]) {
+            date.setMilliseconds(Number("0." + d[12]) * 1000);
+        }
         /*if (d[14]) {
             offset = (Number(d[16]) * 60) + Number(d[17]);
             offset *= ((d[15] === '-') ? 1 : -1);
@@ -172,9 +197,8 @@
         return date;
     };
 
-
     BytePushers.models = BytePushers.models || BytePushers.namespace("software.bytepushers.models");
-    BytePushers.models.Month =  BytePushers.namespace("software.bytepushers.models.Month");
+    BytePushers.models.Month = BytePushers.namespace("software.bytepushers.models.Month");
 
     /**
      * <p>Static field that is used to get calendar full name, abbreviated names, and total calendar days.</p>
@@ -229,18 +253,73 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     BytePushers.models.Month.monthNames = [
-        {"name": "January", "abbr": "Jan", "getTotalDays": function () {return 31; } },
-        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) {if (year) { return (year % 4 === 0) ? 29 : 28; } throw ("Expected parameter(Year) is not defined."); } },
-        {"name": "March", "abbr": "Mar", "getTotalDays": function () {return 31; }},
-        {"name": "April", "abbr": "Apr", "getTotalDays": function () {return 30; }},
-        {"name": "May", "abbr": "May", "getTotalDays": function () {return 31; }},
-        {"name": "June", "abbr": "Jun", "getTotalDays": function () {return 30; }},
-        {"name": "July", "abbr": "Jul", "getTotalDays": function () {return 31; }},
-        {"name": "August", "abbr": "Aug", "getTotalDays": function () {return 31; }},
-        {"name": "September", "abbr": "Sep", "getTotalDays": function () {return 30; }},
-        {"name": "October", "abbr": "Oct", "getTotalDays": function () {return 31; }},
-        {"name": "November", "abbr": "Nov", "getTotalDays": function () {return 30; }},
-        {"name": "December", "abbr": "Dec", "getTotalDays": function () {return 31; }}
+        {
+            "name": "January",
+            "abbr": "Jan",
+            "getTotalDays": function () {
+                return 31;
+            }
+        },
+        {
+            "name": "February",
+            "abbr": "Feb",
+            "getTotalDays": function (year) {
+                if (year) {
+                    if (year % 4 === 0) {
+                        return 29;
+                    } else {
+                        return 28;
+                    }
+                }
+                throw ("Expected parameter(Year) is not defined.");
+            }
+        },
+        {
+            "name": "March",
+            "abbr": "Mar",
+            "getTotalDays": function () {
+                return 31;
+            }
+        },
+        {
+            "name": "April",
+            "abbr": "Apr",
+            "getTotalDays": function () {
+                return 30;
+            }
+        },
+        {
+            "name": "May",
+            "abbr": "May",
+            "getTotalDays": function () {
+                return 31;
+            }
+        },
+        {
+            "name": "June",
+            "abbr": "Jun",
+            "getTotalDays": function () {
+                return 30;
+            }
+        },
+        {"name": "July", "abbr": "Jul", "getTotalDays": function () {
+            return 31;
+        }},
+        {"name": "August", "abbr": "Aug", "getTotalDays": function () {
+            return 31;
+        }},
+        {"name": "September", "abbr": "Sep", "getTotalDays": function () {
+            return 30;
+        }},
+        {"name": "October", "abbr": "Oct", "getTotalDays": function () {
+            return 31;
+        }},
+        {"name": "November", "abbr": "Nov", "getTotalDays": function () {
+            return 30;
+        }},
+        {"name": "December", "abbr": "Dec", "getTotalDays": function () {
+            return 31;
+        }}
     ];
     /**
      * <p>Static field for the list of weekdays.</p>

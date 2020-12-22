@@ -154,7 +154,7 @@ describe("Date extension tests:", function() {
         });
 
         it('can add negative hours', function() {
-            result = result.addTime(-10);
+            result = dec31.addTime(-10);
             expect(result.getHours()).toBe(3);
         });
     });

@@ -21,12 +21,25 @@ module.exports = function (grunt) {
             files: ['src/main/javascript/**/*.js']
         },
         jslint: {
-            javascript: {
+            server: {
+                src: [
+                    /*'src/main/javascript/!**!/!*.js',*/
+                    /*'src/main/javascript/software.bytepushers.BytePushers.js',*/
+                    /*'src/main/javascript/software.bytepushers.exceptions.Errors.js',*/
+                    'src/main/javascript/software.bytepushers.filters.GenericPropertyFilter.js',
+                    'src/main/javascript/software.bytepushers.utils.DateConverter.js',
+                    'src/main/javascript/software.bytepushers.utils.DateUtility.js',
+                    'src/main/javascript/software.bytepushers.utils.DOMUtility.js',
+                    'src/main/javascript/software.bytepushers.utils.NumberUtility.js',
+                    /*'src/main/javascript/software.bytepushers.utils.Reflection.js',*/
+                    /*'src/main/javascript/software.bytepushers.utils.ResourceLoader.js'*/
+                ],
+                directives: {
+                },
                 options: {
                     edition: 'latest',
-                    errorsOnly: true
+                    errorsOnly: true,
                 },
-                src: ['src/main/javascript/**/*.js']
             }
         },
         karma: {
@@ -118,7 +131,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    //grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -126,10 +139,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-npm');
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('validate', ['jshint'/*, 'jslint'*/]);
-    //grunt.registerTask('test', ['test-karma-ci']);
-    //grunt.registerTask('test-karma', ['karma:' + karma_server]);
-    //grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
+    grunt.registerTask('validate', ['jshint', 'jslint']);
+    grunt.registerTask('test', ['test-karma-ci']);
+    grunt.registerTask('test-karma', ['karma:' + karma_server]);
+    grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
     grunt.registerTask('build', ['clean:' + build, 'validate', /*'test', */'package']);
     grunt.registerTask('release', function (target) {

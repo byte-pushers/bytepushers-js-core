@@ -1,6 +1,6 @@
 /*global window, document, BytePushers*/
-/*jslint unparam: true*/
-(function (window, document, BytePushers) {
+
+(function (BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
     BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");
@@ -32,20 +32,26 @@
         /*credit: https://stackoverflow.com/questions/6177975/how-to-validate-date-with-format-mm-dd-yyyy-in-javascript/6178341#6178341*/
 
         /* First check for the pattern */
-        if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) { return false; }
+        if (!(/^\d{1,2}\/\d{1,2}\/\d{4}$/).test(dateString)) {
+            return false;
+        }
 
         /* Parse the date parts to integers */
         var parts = dateString.split("/"),
             day = parseInt(parts[1], 10),
             month = parseInt(parts[0], 10),
             year = parseInt(parts[2], 10),
-            monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+            monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         /* Check the ranges of month and year */
-        if (year < 1000 || year > 3000 || month === 0 || month > 12) { return false; }
+        if (year < 1000 || year > 3000 || month === 0 || month > 12) {
+            return false;
+        }
 
         /* Adjust for leap years */
-        if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) { monthLength[1] = 29; }
+        if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
+            monthLength[1] = 29;
+        }
 
         /* Check the range of the day */
         return day > 0 && day <= monthLength[month - 1];
@@ -97,5 +103,4 @@
 
         return sameDate;
     };
-}(window, document, BytePushers));
-/*jslint unparam: false*/
+}(BytePushers));

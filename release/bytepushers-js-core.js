@@ -1,8 +1,7 @@
 /*global window, document*/
 /* jshint -W108, -W109 */
-/*jslint bitwise: true, unparam: true, regexp: true*/
-
-(function (window, document) {
+/*jslint bitwise: true, regexp: true*/
+(function (window) {
     'use strict';
     var BytePushers;
 
@@ -543,18 +542,6 @@
         return isFunction;
     };
 
-    Object.isFunction = function (target) {
-        var isFunction = false;
-
-        if (Object.isDefined(target)) {
-            if (typeof target === "function") {
-                isFunction = true;
-            }
-        }
-
-        return isFunction;
-    };
-
     Object.isConstructorFunction = function (targetFunction) {
         var isConstructorFunction = false,
             isNotFirstLetterUppercase;
@@ -699,6 +686,40 @@
     }
     /* END String Extensions *****************************************************************************************************/
 
+    BytePushers.implementsInterface = function (o) { /*, ... */
+        var i,
+            m,
+            arg;
+
+        for (i = 1; i < arguments.length; i = i + 1) { // for each argument after o var arg = arguments[i];
+            arg = arguments[i];
+            switch (typeof arg) { // If arg is a:
+            case 'string': // string: check for a method with that name
+                if (typeof o[arg] !== "function") {
+                    return false;
+                }
+                break;
+            case 'function': // function: use the prototype object instead
+            // If the argument is a function, we use its prototype object arg = arg.prototype;
+            // fall through to the next case
+            case 'object': // object: check for matching methods
+                for (m in arg) { // For each property of the object
+                    if (arg.hasOwnProperty(m)) {
+                        if (typeof arg[m] !== "function") {
+                            break;
+                        } // skip non-methods
+                        if (typeof o[m] !== "function") {
+                            return false;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        // If we're still here, then o implements everything
+        return true;
+    };
 
     BytePushers.namespace = function (ns_string) {
         var parts = ns_string.split('.'), parent = BytePushers;
@@ -748,7 +769,7 @@
     /**
      * defineClass() -- a utility function for defining JavaScript classes.
      *
-     * This function expects a single object as its only argument.  It defines
+     * This function expects a single object as its only argument.  It define
      * a new JavaScript class based on the data in that object and returns the
      * constructor function of the new class.  This function handles the repetitive
      * tasks of defining classes: setting up the prototype object for correct
@@ -1015,10 +1036,20 @@
                     "value": {
                         value: null,
                         writable: true
+                    },
+                    "abbreviation": {
+                        value: null,
+                        writable: true
+                    },
+                    "description": {
+                        value: null,
+                        writable: true
                     }
                 });
                 e.name = name;                  // Give it a name
                 e.value = namesToValues[name].value;  // And a value
+                e.abbreviation = namesToValues[name].abbreviation;  // And a abbreviation
+                e.description = namesToValues[name].description;  // And a description
                 enumeration[name] = e;          // Make it a property of constructor
                 enumeration.values.push(e);     // And store in the values array
             }
@@ -1033,7 +1064,8 @@
         // Return the constructor that identifies the new type
         return enumeration;
     };
-}(window, document));;/*global BytePushers*/
+}(window));
+;/*global BytePushers*/
 (function (BytePushers) {
     "use strict";
     BytePushers = BytePushers || {};
@@ -1074,8 +1106,8 @@
     BytePushers.exceptions.InvalidDateRangeException.prototype.toString = function () {
         return this.name + "(" + this.message + ")";
     };
-}(BytePushers));;/*global BytePushers, console*/
-/*jslint unparam: true*/
+}(BytePushers));
+;/*global BytePushers, console*/
 (function (BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
@@ -1083,10 +1115,13 @@
     BytePushers.filters.GenericProptertyFilter = BytePushers.namespace("software.bytepushers.filters.GenericProptertyFilter");
 
     BytePushers.filters.GenericProptertyFilter.DatePropteryFilter = function (values, date, propertyName) {
-        if (!Object.isArray(values)) { return; }
         var filteredDates = [];
 
-        values.forEach(function (value, index, values) {
+        if (!Object.isArray(values)) {
+            return;
+        }
+
+        values.forEach(function (value) {
             if (value[propertyName].valueOf() === date.valueOf()) {
                 filteredDates.push(value);
             }
@@ -1096,18 +1131,22 @@
     };
 
     BytePushers.filters.GenericProptertyFilter.StringPropteryFilter = function (values, searchText, propertyName) {
-        if (!Object.isArray(values)) { return; }
         var filtered = [];
+
+        if (!Object.isArray(values)) {
+            return;
+        }
         searchText = searchText.toLowerCase();
 
-        values.forEach(function (value, index, values) {
-            if (value[propertyName].toLowerCase().indexOf(searchText) >= 0) { filtered.push(value); }
+        values.forEach(function (value) {
+            if (value[propertyName].toLowerCase().indexOf(searchText) >= 0) {
+                filtered.push(value);
+            }
         });
 
         return filtered;
     };
 }(BytePushers));
-/*jslint unparam: false*/
 ;/*global BytePushers*/
 (function (BytePushers) {
     'use strict';
@@ -1188,28 +1227,41 @@
     BytePushers.converters.DateConverter.convertToDate_YYYYMMDDThhmmsssTZD = function (iso8601DateString) {
         return BytePushers.converters.DateConverter.convertToISO8601Date(iso8601DateString);
     };
-    BytePushers.converters.DateConverter.convertToString_MMDDYYY = function (d, delimeter) {
-        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+    BytePushers.converters.DateConverter.convertToString_MMDDYYY = function (d, delimiter) {
         var date = new Date(d),
-            month = String((date.getMonth() + 1)),
+            month = String(date.getMonth() + 1),
             day = String(date.getDate()),
-            year = date.getFullYear();
+            year = date.getFullYear(),
+            dateArray;
 
-        if (month.length < 2) { month = '0' + month; }
-        if (day.length < 2) { day = '0' + day; }
+        if (Object.isUndefinedOrNull(delimiter)) {
+            delimiter = "";
+        }
 
-        return [month, day, year].join(delimeter);
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        dateArray = [month, day, year];
+
+        return dateArray.join(delimiter);
     };
-    BytePushers.converters.DateConverter.convertToString_YYYYMMDD = function (d, delimeter) {
-        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+    BytePushers.converters.DateConverter.convertToString_YYYYMMDD = function (d, delimiter) {
+        if (Object.isUndefinedOrNull(delimiter)) {
+            delimiter = "";
+        }
+
         if (!Object.isDate(d)) {
             throw new Error("parameter d must be a Date Object.");
         }
 
-        return d.getFullYear() + delimeter + BytePushers.NumberUtility.padLeft(d.getMonth() + 1, 1) + delimeter + d.getDate();
+        return d.getFullYear() + delimiter + BytePushers.NumberUtility.padLeft(d.getMonth() + 1, 1) + delimiter + d.getDate();
     };
-    BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD = function (d, delimeter) {
-        delimeter = (Object.isDefined(delimeter)) ? delimeter : "";
+    BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD = function (d) {
         if (!Object.isDate(d)) {
             throw new Error("parameter d must be a Date Object.");
         }
@@ -1229,12 +1281,24 @@
 
         date = new Date(d[1], 0, 1);
 
-        if (d[3]) { date.setMonth(d[3] - 1); }
-        if (d[5]) { date.setDate(d[5]); }
-        if (d[7]) { date.setHours(d[7]); }
-        if (d[8]) { date.setMinutes(d[8]); }
-        if (d[10]) { date.setSeconds(d[10]); }
-        if (d[12]) { date.setMilliseconds(Number("0." + d[12]) * 1000); }
+        if (d[3]) {
+            date.setMonth(d[3] - 1);
+        }
+        if (d[5]) {
+            date.setDate(d[5]);
+        }
+        if (d[7]) {
+            date.setHours(d[7]);
+        }
+        if (d[8]) {
+            date.setMinutes(d[8]);
+        }
+        if (d[10]) {
+            date.setSeconds(d[10]);
+        }
+        if (d[12]) {
+            date.setMilliseconds(Number("0." + d[12]) * 1000);
+        }
         /*if (d[14]) {
             offset = (Number(d[16]) * 60) + Number(d[17]);
             offset *= ((d[15] === '-') ? 1 : -1);
@@ -1282,9 +1346,8 @@
         return date;
     };
 
-
     BytePushers.models = BytePushers.models || BytePushers.namespace("software.bytepushers.models");
-    BytePushers.models.Month =  BytePushers.namespace("software.bytepushers.models.Month");
+    BytePushers.models.Month = BytePushers.namespace("software.bytepushers.models.Month");
 
     /**
      * <p>Static field that is used to get calendar full name, abbreviated names, and total calendar days.</p>
@@ -1339,18 +1402,73 @@
      * @author <a href="mailto:pouncilt.developer@gmail.com">Tont&eacute; Pouncil</a>
      */
     BytePushers.models.Month.monthNames = [
-        {"name": "January", "abbr": "Jan", "getTotalDays": function () {return 31; } },
-        {"name": "February", "abbr": "Feb", "getTotalDays": function (year) {if (year) { return (year % 4 === 0) ? 29 : 28; } throw ("Expected parameter(Year) is not defined."); } },
-        {"name": "March", "abbr": "Mar", "getTotalDays": function () {return 31; }},
-        {"name": "April", "abbr": "Apr", "getTotalDays": function () {return 30; }},
-        {"name": "May", "abbr": "May", "getTotalDays": function () {return 31; }},
-        {"name": "June", "abbr": "Jun", "getTotalDays": function () {return 30; }},
-        {"name": "July", "abbr": "Jul", "getTotalDays": function () {return 31; }},
-        {"name": "August", "abbr": "Aug", "getTotalDays": function () {return 31; }},
-        {"name": "September", "abbr": "Sep", "getTotalDays": function () {return 30; }},
-        {"name": "October", "abbr": "Oct", "getTotalDays": function () {return 31; }},
-        {"name": "November", "abbr": "Nov", "getTotalDays": function () {return 30; }},
-        {"name": "December", "abbr": "Dec", "getTotalDays": function () {return 31; }}
+        {
+            "name": "January",
+            "abbr": "Jan",
+            "getTotalDays": function () {
+                return 31;
+            }
+        },
+        {
+            "name": "February",
+            "abbr": "Feb",
+            "getTotalDays": function (year) {
+                if (year) {
+                    if (year % 4 === 0) {
+                        return 29;
+                    } else {
+                        return 28;
+                    }
+                }
+                throw ("Expected parameter(Year) is not defined.");
+            }
+        },
+        {
+            "name": "March",
+            "abbr": "Mar",
+            "getTotalDays": function () {
+                return 31;
+            }
+        },
+        {
+            "name": "April",
+            "abbr": "Apr",
+            "getTotalDays": function () {
+                return 30;
+            }
+        },
+        {
+            "name": "May",
+            "abbr": "May",
+            "getTotalDays": function () {
+                return 31;
+            }
+        },
+        {
+            "name": "June",
+            "abbr": "Jun",
+            "getTotalDays": function () {
+                return 30;
+            }
+        },
+        {"name": "July", "abbr": "Jul", "getTotalDays": function () {
+            return 31;
+        }},
+        {"name": "August", "abbr": "Aug", "getTotalDays": function () {
+            return 31;
+        }},
+        {"name": "September", "abbr": "Sep", "getTotalDays": function () {
+            return 30;
+        }},
+        {"name": "October", "abbr": "Oct", "getTotalDays": function () {
+            return 31;
+        }},
+        {"name": "November", "abbr": "Nov", "getTotalDays": function () {
+            return 30;
+        }},
+        {"name": "December", "abbr": "Dec", "getTotalDays": function () {
+            return 31;
+        }}
     ];
     /**
      * <p>Static field for the list of weekdays.</p>
@@ -1369,8 +1487,8 @@
     ];
 }(BytePushers));
 ;/*global window, document, BytePushers*/
-/*jslint unparam: true*/
-(function (window, document, BytePushers) {
+
+(function (BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
     BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");
@@ -1402,26 +1520,78 @@
         /*credit: https://stackoverflow.com/questions/6177975/how-to-validate-date-with-format-mm-dd-yyyy-in-javascript/6178341#6178341*/
 
         /* First check for the pattern */
-        if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) { return false; }
+        if (!(/^\d{1,2}\/\d{1,2}\/\d{4}$/).test(dateString)) {
+            return false;
+        }
 
         /* Parse the date parts to integers */
         var parts = dateString.split("/"),
             day = parseInt(parts[1], 10),
             month = parseInt(parts[0], 10),
             year = parseInt(parts[2], 10),
-            monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+            monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         /* Check the ranges of month and year */
-        if (year < 1000 || year > 3000 || month === 0 || month > 12) { return false; }
+        if (year < 1000 || year > 3000 || month === 0 || month > 12) {
+            return false;
+        }
 
         /* Adjust for leap years */
-        if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) { monthLength[1] = 29; }
+        if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
+            monthLength[1] = 29;
+        }
 
         /* Check the range of the day */
         return day > 0 && day <= monthLength[month - 1];
     };
-}(window, document, BytePushers));
-/*jslint unparam: false*/
+
+    /**
+     * Utility method that converts some date value into to an actual Date.
+     *
+     * @param someDateValue Represents the a valid date value.
+     * @returns {Date} that was converted from date value.
+     */
+    BytePushers.DateUtility.convertToDate = function (someDateValue) {
+        var someDate = null;
+
+        if (someDateValue instanceof Date) {
+            someDate = someDateValue;
+        } else if (someDateValue instanceof String) {
+            someDate = new Date(someDateValue);
+        } else if (typeof someDateValue === "string") {
+            someDate = new Date(someDateValue);
+        } else if (someDateValue instanceof Number) {
+            someDate = new Date(someDateValue);
+        } else if (typeof someDateValue === "number") {
+            someDate = new Date(someDateValue);
+        }
+
+        return someDate;
+    };
+
+    /**
+     * Utility method that determines if the two dates have the same calendar date.
+     *
+     * @param someDate1 Represents the first date to compare.
+     * @param someDate2 Represents the second date to compare.
+     * @returns {boolean} that indicates whether or not the two calendar date are the same.
+     */
+    BytePushers.DateUtility.isSameDate = function (someDate1, someDate2) {
+        var sameDate = false;
+
+        if (Object.isDate(someDate1) && Object.isDate(someDate2)) {
+            if (someDate1.getFullYear() === someDate2.getFullYear()) {
+                if (someDate1.getMonth() === someDate2.getMonth()) {
+                    if (someDate1.getDate() === someDate2.getDate()) {
+                        sameDate = true;
+                    }
+                }
+            }
+        }
+
+        return sameDate;
+    };
+}(BytePushers));
 ;/*global $, window, document, BytePushers*/
 (function (window, document, BytePushers) {
     'use strict';
@@ -1489,21 +1659,38 @@
         throw ("document.querySelectorAll() method is not supported by your browser.  Please contact the administrator for this app.");
     }
 }(window, document, BytePushers));;/*global window, document, BytePushers*/
-/*jslint unparam: true*/
-(function (window, document, BytePushers) {
+(function (BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
     BytePushers.NumberUtility = BytePushers.namespace("software.bytepushers.utils.NumberUtility");
     BytePushers.NumberUtility.padLeft = function padLeft(number, length) {
-        number = (number === undefined || number === null) ? "" : number;
-        return (number.length >= length) ? number : padLeft("0" + number, length);
+        if (number === undefined || number === null) {
+            number = "";
+        }
+
+        if (number.length >= length) {
+            return number;
+        }
+
+        return padLeft("0" + number, length);
     };
     BytePushers.NumberUtility.padRight = function padRight(number, length) {
-        number = (number === undefined || number === null) ? "" : number;
-        return (number.length >= length) ? number : padRight(number + "0", length);
+        if (number === undefined || number === null) {
+            number = "";
+        }
+
+        if (number.length >= length) {
+            return number;
+        }
+
+        return padRight(number + "0", length);
     };
     BytePushers.NumberUtility.isSingleDigit = function isSingleDigit(number) {
-        return (0 < number && number <= 9) ? true : false;
+        if (0 < number && number <= 9) {
+            return true;
+        }
+
+        return false;
     };
     BytePushers.NumberUtility.isNotANumber = function isNotANumber(d) {
         return isNaN(d);
@@ -1514,12 +1701,11 @@
         }
         return !isNaN(d);
     };
-}(window, document, BytePushers));
-/*jslint unparam: false*/;/**
+}(BytePushers));
+;/**
  * Created by tonte on 8/1/16.
  */
 /*global window, BytePushers */
-/*jslint regexp: true*/
 (function (BytePushers) {
     "use strict";
     var EVAL_IS_BAD__AVOID_THIS = eval,
@@ -1541,7 +1727,12 @@
                     functionArgumentList = "";
 
                 functionArguments.forEach(function (arg, argIndex, argArray) {
-                    functionArgumentList +=  arg + ((argIndex < argArray.length - 1) ? "," : "");
+                    if (argIndex < argArray.length - 1) {
+                        functionArgumentList += arg + ",";
+                    } else {
+                        functionArgumentList += arg;
+                    }
+                    // functionArgumentList += arg + ((argIndex < argArray.length - 1) ? "," : "");
                 });
 
                 return functionArgumentList;
@@ -1558,7 +1749,7 @@
                         if (match) {
                             superMethodCalls.push = {
                                 key: match,
-                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor +  match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
+                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor + match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
                             };
                         }
                     });
@@ -1575,7 +1766,7 @@
                         if (match) {
                             superMethodCalls.push = {
                                 key: match,
-                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor +  match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
+                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor + match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
                             };
                         }
                     });
@@ -1584,7 +1775,7 @@
                         reflectedFunctionAsString = reflectedFunctionAsString.replace(new RegExp(superCallMethod.key), superCallMethod.value);
                     });
                 }
-                reflectedFunction =  new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS('return ' + reflectedFunctionAsString)(); // jshint ignore:line
+                reflectedFunction = new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS('return ' + reflectedFunctionAsString)(); // jshint ignore:line
 
                 return reflectedFunction;
             },
@@ -1713,7 +1904,7 @@
                 if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {
                     WrappedClassWithReflectionCapabilitiesConstructor.prototype = BytePushers.inherit(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype);
                 }
-                if (ClassRef.prototype.superclass  && ClassRef.prototype.constructor) {
+                if (ClassRef.prototype.superclass && ClassRef.prototype.constructor) {
                     WrappedClassWithReflectionCapabilitiesConstructor.prototype.constructor = WrappedClassWithReflectionCapabilitiesConstructor;
                 }
                 if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {
@@ -1767,7 +1958,8 @@
             throw "WrappedClassWithReflectionCapabilitiesConstructor was not successfully created.";
         };
     };
-}(BytePushers));;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject*/
+}(BytePushers));
+;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject*/
 /**
  * Created with IntelliJ IDEA.
  * User: pouncilt

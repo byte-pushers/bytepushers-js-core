@@ -1,8 +1,7 @@
 /*global window, document*/
 /* jshint -W108, -W109 */
-/*jslint bitwise: true, unparam: true, regexp: true*/
-
-(function (window, document) {
+/*jslint bitwise: true, regexp: true*/
+(function (window) {
     'use strict';
     var BytePushers;
 
@@ -543,18 +542,6 @@
         return isFunction;
     };
 
-    Object.isFunction = function (target) {
-        var isFunction = false;
-
-        if (Object.isDefined(target)) {
-            if (typeof target === "function") {
-                isFunction = true;
-            }
-        }
-
-        return isFunction;
-    };
-
     Object.isConstructorFunction = function (targetFunction) {
         var isConstructorFunction = false,
             isNotFirstLetterUppercase;
@@ -699,6 +686,40 @@
     }
     /* END String Extensions *****************************************************************************************************/
 
+    BytePushers.implementsInterface = function (o) { /*, ... */
+        var i,
+            m,
+            arg;
+
+        for (i = 1; i < arguments.length; i = i + 1) { // for each argument after o var arg = arguments[i];
+            arg = arguments[i];
+            switch (typeof arg) { // If arg is a:
+            case 'string': // string: check for a method with that name
+                if (typeof o[arg] !== "function") {
+                    return false;
+                }
+                break;
+            case 'function': // function: use the prototype object instead
+            // If the argument is a function, we use its prototype object arg = arg.prototype;
+            // fall through to the next case
+            case 'object': // object: check for matching methods
+                for (m in arg) { // For each property of the object
+                    if (arg.hasOwnProperty(m)) {
+                        if (typeof arg[m] !== "function") {
+                            break;
+                        } // skip non-methods
+                        if (typeof o[m] !== "function") {
+                            return false;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        // If we're still here, then o implements everything
+        return true;
+    };
 
     BytePushers.namespace = function (ns_string) {
         var parts = ns_string.split('.'), parent = BytePushers;
@@ -748,7 +769,7 @@
     /**
      * defineClass() -- a utility function for defining JavaScript classes.
      *
-     * This function expects a single object as its only argument.  It defines
+     * This function expects a single object as its only argument.  It define
      * a new JavaScript class based on the data in that object and returns the
      * constructor function of the new class.  This function handles the repetitive
      * tasks of defining classes: setting up the prototype object for correct
@@ -1015,10 +1036,20 @@
                     "value": {
                         value: null,
                         writable: true
+                    },
+                    "abbreviation": {
+                        value: null,
+                        writable: true
+                    },
+                    "description": {
+                        value: null,
+                        writable: true
                     }
                 });
                 e.name = name;                  // Give it a name
                 e.value = namesToValues[name].value;  // And a value
+                e.abbreviation = namesToValues[name].abbreviation;  // And a abbreviation
+                e.description = namesToValues[name].description;  // And a description
                 enumeration[name] = e;          // Make it a property of constructor
                 enumeration.values.push(e);     // And store in the values array
             }
@@ -1033,4 +1064,4 @@
         // Return the constructor that identifies the new type
         return enumeration;
     };
-}(window, document));
+}(window));

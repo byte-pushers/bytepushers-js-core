@@ -2,7 +2,6 @@
  * Created by tonte on 8/1/16.
  */
 /*global window, BytePushers */
-/*jslint regexp: true*/
 (function (BytePushers) {
     "use strict";
     var EVAL_IS_BAD__AVOID_THIS = eval,
@@ -24,7 +23,12 @@
                     functionArgumentList = "";
 
                 functionArguments.forEach(function (arg, argIndex, argArray) {
-                    functionArgumentList +=  arg + ((argIndex < argArray.length - 1) ? "," : "");
+                    if (argIndex < argArray.length - 1) {
+                        functionArgumentList += arg + ",";
+                    } else {
+                        functionArgumentList += arg;
+                    }
+                    // functionArgumentList += arg + ((argIndex < argArray.length - 1) ? "," : "");
                 });
 
                 return functionArgumentList;
@@ -41,7 +45,7 @@
                         if (match) {
                             superMethodCalls.push = {
                                 key: match,
-                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor +  match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
+                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor + match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
                             };
                         }
                     });
@@ -58,7 +62,7 @@
                         if (match) {
                             superMethodCalls.push = {
                                 key: match,
-                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor +  match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
+                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor + match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
                             };
                         }
                     });
@@ -67,7 +71,7 @@
                         reflectedFunctionAsString = reflectedFunctionAsString.replace(new RegExp(superCallMethod.key), superCallMethod.value);
                     });
                 }
-                reflectedFunction =  new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS('return ' + reflectedFunctionAsString)(); // jshint ignore:line
+                reflectedFunction = new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS('return ' + reflectedFunctionAsString)(); // jshint ignore:line
 
                 return reflectedFunction;
             },
@@ -196,7 +200,7 @@
                 if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {
                     WrappedClassWithReflectionCapabilitiesConstructor.prototype = BytePushers.inherit(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype);
                 }
-                if (ClassRef.prototype.superclass  && ClassRef.prototype.constructor) {
+                if (ClassRef.prototype.superclass && ClassRef.prototype.constructor) {
                     WrappedClassWithReflectionCapabilitiesConstructor.prototype.constructor = WrappedClassWithReflectionCapabilitiesConstructor;
                 }
                 if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {

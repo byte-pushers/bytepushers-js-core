@@ -21,25 +21,12 @@ module.exports = function (grunt) {
             files: ['src/main/javascript/**/*.js']
         },
         jslint: {
-            server: {
-                src: [
-                    /*'src/main/javascript/!**!/!*.js',*/
-                    /*'src/main/javascript/software.bytepushers.BytePushers.js',*/
-                    /*'src/main/javascript/software.bytepushers.exceptions.Errors.js',*/
-                    'src/main/javascript/software.bytepushers.filters.GenericPropertyFilter.js',
-                    'src/main/javascript/software.bytepushers.utils.DateConverter.js',
-                    'src/main/javascript/software.bytepushers.utils.DateUtility.js',
-                    'src/main/javascript/software.bytepushers.utils.DOMUtility.js',
-                    'src/main/javascript/software.bytepushers.utils.NumberUtility.js',
-                    /*'src/main/javascript/software.bytepushers.utils.Reflection.js',*/
-                    /*'src/main/javascript/software.bytepushers.utils.ResourceLoader.js'*/
-                ],
-                directives: {
-                },
+            javascript: {
                 options: {
                     edition: 'latest',
-                    errorsOnly: true,
+                    errorsOnly: true
                 },
+                src: ['src/main/javascript/**/*.js']
             }
         },
         karma: {
@@ -66,6 +53,15 @@ module.exports = function (grunt) {
                         dest: 'release/',
                         filter: 'isFile',
                         flatten: true
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            'build/reports/**'
+                        ],
+                        dest: 'release/reports/',
+                        filter: 'isFile',
+                        flatten: false
                     }
                 ]
             }
@@ -144,14 +140,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('build', ['clean:' + build, 'validate', /*'test', */'package']);
-    grunt.registerTask('release', function (target) {
-        target = (target === null || target === undefined) ? "patch" : target;
-
-        grunt.task.run("clean:release");
-        grunt.task.run("build");
-        grunt.task.run("copy:release");
-        grunt.task.run("bump:"+ target);
-        grunt.task.run("npm-publish");
-    });
+    grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
+    grunt.registerTask('release', ['clean:release', 'build', 'copy:release', 'bump', 'npm-publish']);
 };

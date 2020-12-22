@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.0.66",
+  "version": "0.1.2",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -17,28 +17,33 @@
   },
   "main": "release/index.js",
   "devDependencies": {
-    "graceful-fs": "^4.1.4",
-    "grunt": "~1.0.1",
+    "coverage": "^0.4.1",
+    "graceful-fs": "^4.2.4",
+    "grunt": "^1.0.4",
     "grunt-bump": "^0.8.0",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-concat": "^1.0.0",
     "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-jasmine": "^1.0.0",
+    "grunt-contrib-jasmine": "^1.2.0",
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-contrib-uglify": "^0.11.0",
-    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-jsdoc": "^1.1.0",
-    "grunt-jslint": "^1.1.14",
-    "grunt-karma": "^0.12.1",
+    "grunt-jslint": "^1.1.15",
+    "grunt-karma": "^4.0.0",
     "grunt-npm": "0.0.2",
     "grunt-release": "^0.13.0",
-    "jshint-stylish": "^2.2.0",
-    "karma-coverage": "^0.5.5",
-    "karma-jasmine": "^0.3.6",
-    "karma-phantomjs-launcher": "^0.2.2",
-    "karma-requirejs": "^0.2.2",
-    "phantomjs": "^1.9.19",
-    "requirejs": "^2.1.22"
+    "jasmine": "^3.6.3",
+    "jshint-stylish": "^2.2.1",
+    "karma": "^5.2.3",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.3",
+    "karma-jasmine": "^4.0.1",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-requirejs": "^1.1.0",
+    "lodash": "^4.17.20",
+    "phantomjs": "^2.1.7",
+    "requirejs": "^2.3.6"
   },
   "scripts": {
     "postinstall": "bower install",
@@ -58,5 +63,8 @@
       "src/main/javascript"
     ],
     "main": "index.js"
+  },
+  "dependencies": {
+    "bytepushers-js-obj-extensions": "^0.0.5"
   }
 }

@@ -1,4 +1,4 @@
-define(['bytepushers', 'bytepushersDateConverter'], function(BytePushers) {
+define(['bytepushers', 'bytepushersDateConverter'/*, 'Object'*/], function(BytePushers) {
     describe("bytepushersDateConverter tests", function() {
         it('should defined BytePushers.converters.DateConverter', function() {
             expect(BytePushers.converters.DateConverter).toBeDefined();

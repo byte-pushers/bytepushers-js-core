@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -64,6 +64,6 @@
     "main": "index.js"
   },
   "dependencies": {
-    "bytepushers-js-obj-extensions": "~0.0.8"
+    "bytepushers-js-obj-extensions": "~0.0.10"
   }
 }

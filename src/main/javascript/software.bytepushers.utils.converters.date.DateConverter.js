@@ -1,4 +1,5 @@
 /*global BytePushers*/
+
 (function (BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
@@ -181,17 +182,17 @@
         }
         return date;
     };
-    BytePushers.converters.DateConverter.convertToString = function (d, dateFormat, delimeter) {
+    BytePushers.converters.DateConverter.convertToString = function (d, dateFormat, delimiter) {
         var date = null;
         switch (dateFormat) {
         case BytePushers.converters.DateConverter.MMDDYYYY_DATE_FORMAT:
-            date = BytePushers.converters.DateConverter.convertToString_MMDDYYY(d, delimeter);
+            date = BytePushers.converters.DateConverter.convertToString_MMDDYYY(d, delimiter);
             break;
         case BytePushers.converters.DateConverter.YYYYMMDD_DATE_FORMAT:
-            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDD(d, delimeter);
+            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDD(d, delimiter);
             break;
         case BytePushers.converters.DateConverter.YYYYMMDDThhmmsssTZD_DATE_FORMAT:
-            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD(d, delimeter);
+            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD(d, delimiter);
             break;
         }
         return date;

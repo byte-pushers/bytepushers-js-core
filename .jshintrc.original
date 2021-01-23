@@ -1,4 +1,4 @@
-{
+/*{
   "globalstrict": true,
   "globals": {
     "angular": false,
@@ -10,4 +10,4 @@
     "module": false,
     "inject": false
   }
-}
+}*/

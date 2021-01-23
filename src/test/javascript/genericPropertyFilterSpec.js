@@ -1,4 +1,4 @@
-define(['bytepushers', 'bytepushersFiltersProptery'], function (BytePushers) {
+define(['bytepushers', 'bytepushersFiltersProperty'], function (BytePushers) {
     describe("bytepushers date filter tests", function() {
 
       //began writing filter tests and really need to finish filters period

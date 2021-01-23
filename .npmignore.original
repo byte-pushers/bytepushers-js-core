@@ -36,12 +36,12 @@ hs_err_pid*
 /bytepushers-common-js.iml
 /.jshintrc
 /.bowerrc
-/karma.conf.ci.js
+/karma.conf.ci.requires.js
 /test-main.js
 /.gitignore
 /.travis.yml
 /pom.xml
-/karma.conf.js
+/karma.conf.requires.js
 /Gruntfile.js
 
 # Sensitive or high-churn files:

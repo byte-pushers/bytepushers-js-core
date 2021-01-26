@@ -209,5 +209,8 @@
     BytePushers.PhoneNumberUtility.backSpacerUp = function backSpacerUpFunc(object, e) {
         return backSpacerUp(object, e);
     };
+    BytePushers.PhoneNumberUtility.formatPhoneNumber = function formatPhoneNumber(object) {
+        return formatPhoneNumber(object);
+    };
 }(BytePushers));
 

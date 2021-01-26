@@ -80,7 +80,7 @@ module.exports = function (grunt) {
         },
         copy: {
             build: {
-                files: [{expand: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
+                files: [{expand: true, src: ['src/main/javascript/*.js', 'src/main/javascript/*.d.ts'], dest: 'build/', filter: 'isFile'}]
             },
             release: {
                 files: [

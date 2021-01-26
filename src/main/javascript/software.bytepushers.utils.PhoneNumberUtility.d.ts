@@ -1,7 +1,8 @@
 declare module MBytePushers {
     export interface PhoneNumberUtility {
-        backSpacerDown(object:Object, event: Event):void;
+        backSpacerDown(object:Object):void;
         backSpacerUp(object:Object, event: Event):void;
+        formatPhoneNumber(object:Object): void;
     }
 }
 

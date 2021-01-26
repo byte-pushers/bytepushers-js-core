@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             files: ['src/main/javascript/**/*.js']
         },
         jslint: {
-            server: {
+            javascript: {
                 src: [
                     /*'src/main/javascript/!**!/!*.js',*/
                     /*'src/main/javascript/software.bytepushers.BytePushers.js',*/
@@ -31,6 +31,7 @@ module.exports = function (grunt) {
                     'src/main/javascript/software.bytepushers.utils.DateUtility.js',
                     'src/main/javascript/software.bytepushers.utils.DOMUtility.js',
                     'src/main/javascript/software.bytepushers.utils.NumberUtility.js',
+                    'src/main/javascript/software.bytepushers.utils.PhoneNumberUtility.js',
                     /*'src/main/javascript/software.bytepushers.utils.Reflection.js',*/
                     /*'src/main/javascript/software.bytepushers.utils.ResourceLoader.js'*/
                 ],
@@ -39,20 +40,47 @@ module.exports = function (grunt) {
                 options: {
                     edition: 'latest',
                     errorsOnly: true,
+                    failOnError: false
                 },
             }
         },
         karma: {
             server: {
-                configFile: 'karma.conf.js'
+                configFile: 'karma.conf.requires.js'
             },
             ci: {
-                configFile: 'karma.conf.ci.js'
+                options: {
+                    basePath: '',
+                    frameworks: ['jasmine', 'requirejs'],
+                    files: [
+                        {pattern: 'node_modules/bytepushers-js-obj-extensions/release/bytepushers-js-obj-extensions.js', included: true},
+                        {pattern: 'src/main/javascript/*.js', included: false},
+                        {pattern: 'src/main/javascript/*.d.ts', included: false},
+                        {pattern: 'src/test/javascript/*.js', included: false},
+                        {pattern: 'src/test/javascript/*.d.ts', included: false},
+                        'test-main.js'
+                    ],
+                    exclude: [
+                    ],
+                    preprocessors: {
+                        'src/main/**/*.js': ['coverage']
+                    },
+                    reporters: ['progress', 'coverage'],
+                    coverageReporter: {
+                        dir: 'build/reports/coverage'
+                    },
+                    port: 9876,
+                    colors: true,
+                    autoWatch: false,
+                    browsers: ['PhantomJS'],
+                    singleRun: true,
+                    concurrency: Infinity
+                }
             }
         },
         copy: {
             build: {
-                files: [{expand: true, src: ['src/main/javascript/*.js'], dest: 'build/', filter: 'isFile'}]
+                files: [{expand: true, src: ['src/main/javascript/*.js', 'src/main/javascript/*.d.ts'], dest: 'build/', filter: 'isFile'}]
             },
             release: {
                 files: [
@@ -61,7 +89,8 @@ module.exports = function (grunt) {
                         src: [
                             'build/<%= pkg.name %>.min.js',
                             'build/<%= pkg.name %>.js',
-                            'build/src/main/javascript/index.js'
+                            'build/src/main/javascript/index.js',
+                            'build/src/main/javascript/*.d.ts'
                         ],
                         dest: 'release/',
                         filter: 'isFile',
@@ -144,7 +173,8 @@ module.exports = function (grunt) {
     grunt.registerTask('test-karma', ['karma:' + karma_server]);
     grunt.registerTask('test-karma-ci', ['karma:' + karma_ci]);
     grunt.registerTask('package', ['copy:' + build, 'uglify', 'concat']);
-    grunt.registerTask('build', ['clean:' + build, 'validate', /*'test', */'package']);
+    grunt.registerTask('build', ['clean:' + build, 'validate', 'test', 'package']);
+    //grunt.registerTask('release', ['clean:release', 'build', 'copy:release', 'bump', 'npm-publish']);
     grunt.registerTask('release', function (target) {
         target = (target === null || target === undefined) ? "patch" : target;
 

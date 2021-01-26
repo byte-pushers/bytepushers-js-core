@@ -31,10 +31,10 @@ module.exports = function (grunt) {
         },
         karma: {
             server: {
-                configFile: 'karma.conf.js'
+                configFile: 'karma.conf.requires.js'
             },
             ci: {
-                configFile: 'karma.conf.ci.js'
+                configFile: 'karma.conf.ci.requires.js'
             }
         },
         copy: {

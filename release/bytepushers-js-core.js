@@ -1148,6 +1148,7 @@
     };
 }(BytePushers));
 ;/*global BytePushers*/
+
 (function (BytePushers) {
     'use strict';
     BytePushers = BytePushers || {};
@@ -1330,17 +1331,17 @@
         }
         return date;
     };
-    BytePushers.converters.DateConverter.convertToString = function (d, dateFormat, delimeter) {
+    BytePushers.converters.DateConverter.convertToString = function (d, dateFormat, delimiter) {
         var date = null;
         switch (dateFormat) {
         case BytePushers.converters.DateConverter.MMDDYYYY_DATE_FORMAT:
-            date = BytePushers.converters.DateConverter.convertToString_MMDDYYY(d, delimeter);
+            date = BytePushers.converters.DateConverter.convertToString_MMDDYYY(d, delimiter);
             break;
         case BytePushers.converters.DateConverter.YYYYMMDD_DATE_FORMAT:
-            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDD(d, delimeter);
+            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDD(d, delimiter);
             break;
         case BytePushers.converters.DateConverter.YYYYMMDDThhmmsssTZD_DATE_FORMAT:
-            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD(d, delimeter);
+            date = BytePushers.converters.DateConverter.convertToString_YYYYMMDDThhmmsssTZD(d, delimiter);
             break;
         }
         return date;
@@ -1702,263 +1703,222 @@
         return !isNaN(d);
     };
 }(BytePushers));
-;/**
- * Created by tonte on 8/1/16.
- */
-/*global window, BytePushers */
+;/*global BytePushers*/
 (function (BytePushers) {
-    "use strict";
-    var EVAL_IS_BAD__AVOID_THIS = eval,
-        FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS = Function;
+    'use strict';
 
-    BytePushers = BytePushers || {};
-    BytePushers.util = BytePushers.util || BytePushers.namespace("software.bytepushers.util");
-    BytePushers.util.Reflection = function () {
-        var getFunctionArguments = function (func) {
 
-                var functionArgumentMatch = func.toString().match(/\(.+?(?=\))\)/),
-                    functionArguments = functionArgumentMatch[0].substring(1, functionArgumentMatch[0].length - 1).split(",").map(function (arg) {
-                        // Ensure no inline comments are parsed and trim the whitespace.
-                        return arg.replace(/\/\*.*\*\//, '').trim();
-                    }).filter(function (arg) {
-                        // Ensure no undefined values are added.
-                        return arg;
-                    }),
-                    functionArgumentList = "";
+    // main.js
+    /*
+        This script is based on the javascript code of Roman Feldblum (web.developer@programmer.net)
+        Original script : http://javascript.internet.com/forms/format-phone-number.html
+        Original script is revised by Eralper Yilmaz (http://www.eralper.com)
+        Revised script : http://www.kodyaz.com
+    */
 
-                functionArguments.forEach(function (arg, argIndex, argArray) {
-                    if (argIndex < argArray.length - 1) {
-                        functionArgumentList += arg + ",";
-                    } else {
-                        functionArgumentList += arg;
-                    }
-                    // functionArgumentList += arg + ((argIndex < argArray.length - 1) ? "," : "");
-                });
+    var zChar = [' ', '(', ')', '-', '.'];
+    var maxphonelength = 13;
+    var phonevalue1;
+    var phonevalue2;
+    var cursorposition;
 
-                return functionArgumentList;
-            },
-            replaceConstructor = function (originalFunctionString, ReflectedConstructor) {
-                var reflectedFunctionAsString = originalFunctionString,
-                    reflectedFunction,
-                    matchResults,
-                    superMethodCalls = [];
+    function doPhoneNumberFormat(phoneNumber, specialCharacters) {
+        var phoneNumberArray = phoneNumber.replace(/\D/g,'').split("");
+        var formatPhoneNumber;
 
-                matchResults = reflectedFunctionAsString.match(/[A-Za-z0-9\.]+\.prototype\.[A-Za-z0-9]+\.apply\(this,\s*\[\s*.*\]\s*\)/g);
-                if (matchResults) {
-                    matchResults.forEach(function (match) {
-                        if (match) {
-                            superMethodCalls.push = {
-                                key: match,
-                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor + match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
-                            };
-                        }
-                    });
+        if (phoneNumberArray.length == 10) {
+            formatPhoneNumber = "(" + phoneNumberArray[0] + phoneNumberArray[1] + phoneNumberArray[2] + ") " + phoneNumberArray[3] + phoneNumberArray[4] + phoneNumberArray[5] + "-" + phoneNumberArray[6] + phoneNumberArray[7] + phoneNumberArray[8] + phoneNumberArray[9];
+        }
 
-                    superMethodCalls.forEach(function (superCallMethod) {
-                        reflectedFunctionAsString = reflectedFunctionAsString.replace(new RegExp(superCallMethod.key), superCallMethod.value);
-                    });
+        return formatPhoneNumber;
+    }
+
+    function parseChar(sStr, sChar) {
+        var sNewStr;
+        var i = 0;
+        var iStart;
+        var iEnd;
+        var zChar;
+
+        if (sChar.length === null) {
+            zChar = [sChar];
+        } else {
+            zChar = sChar;
+        }
+
+        while (i < zChar.length) {
+            sNewStr = "";
+
+            iStart = 0;
+            iEnd = sStr.indexOf(sChar[i]);
+
+            while (iEnd !== -1) {
+                sNewStr += sStr.substring(iStart, iEnd);
+                iStart = iEnd + 1;
+                iEnd = sStr.indexOf(sChar[i], iStart);
+            }
+            sNewStr += sStr.substring(sStr.lastIndexOf(sChar[i]) + 1, sStr.length);
+
+            sStr = sNewStr;
+            i = i + 1;
+        }
+
+        return sNewStr;
+    }
+
+    function parseForNumber1(object) {
+        return parseChar(object.value, zChar);
+    }
+
+    function formatPhoneNumber(object) {
+        return doPhoneNumberFormat(object.value, zChar);
+    }
+
+    function getCursorPosition() {
+        var t1 = phonevalue1;
+        var t2 = phonevalue2;
+        var bool = false;
+        var i = 0;
+
+        while (i < t1.length) {
+            if (t1.substring(i, 1) !== t2.substring(i, 1)) {
+                if (!bool) {
+                    cursorposition = i;
+                    bool = true;
                 }
-
-
-                matchResults = reflectedFunctionAsString.match(/[A-Za-z0-9\.]+\.prototype\.[A-Za-z0-9]+\.call\(this\s*,?(\s\w*,?)*\s*\)/g);
-                if (matchResults) {
-                    matchResults.forEach(function (match) {
-                        if (match) {
-                            superMethodCalls.push = {
-                                key: match,
-                                value: EVAL_IS_BAD__AVOID_THIS(match.replace(match, ReflectedConstructor + match.substring(0, match.indexOf(".prototype")))) // jshint ignore:line
-                            };
-                        }
-                    });
-
-                    superMethodCalls.forEach(function (superCallMethod) {
-                        reflectedFunctionAsString = reflectedFunctionAsString.replace(new RegExp(superCallMethod.key), superCallMethod.value);
-                    });
-                }
-                reflectedFunction = new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS('return ' + reflectedFunctionAsString)(); // jshint ignore:line
-
-                return reflectedFunction;
-            },
-            getClassRefPrototypeMethods = function (ClassRef, ReflectedConstructor) {
-                var classRefPrototypeMethods = {},
-                    classRefPrototypeMethod,
-                    classRefPrototypeMethodName;
-
-                for (classRefPrototypeMethodName in ClassRef.prototype) {
-                    if (ClassRef.prototype.hasOwnProperty(classRefPrototypeMethodName)) {
-                        if (classRefPrototypeMethodName !== "constructor" &&
-                                classRefPrototypeMethodName !== "superclass" &&
-                                Object.isFunction(ClassRef.prototype[classRefPrototypeMethodName])) {
-                            classRefPrototypeMethod = ClassRef.prototype[classRefPrototypeMethodName];
-                            classRefPrototypeMethods[classRefPrototypeMethodName] = replaceConstructor(classRefPrototypeMethod.toString(), ReflectedConstructor);
-                        }
-                    }
-                }
-
-                return classRefPrototypeMethods;
-            },
-            wrapConstructorWithReflectionCapabilities = function (ClassRef) {
-                var WrappedSuperClassWithReflectionCapabilitiesConstructor,
-                    wrappedSuperClassPrototypeMethods,
-                    wrappedSuperClassPrototypeMethodName,
-                    WrappedClassWithReflectionCapabilitiesConstructor,
-                    wrappedClassWithReflectionCapabilitiesAsString = "",
-                    functionArguments = getFunctionArguments(ClassRef),
-                    originalClassAsString = ClassRef.toString(); //.replace(/\(.+?(?=\))\)/, "()");
-
-                if (ClassRef.prototype.superclass) {
-                    WrappedSuperClassWithReflectionCapabilitiesConstructor = wrapConstructorWithReflectionCapabilities(ClassRef.prototype.superclass);
-                    wrappedSuperClassPrototypeMethods = getClassRefPrototypeMethods(ClassRef.prototype.superclass, WrappedSuperClassWithReflectionCapabilitiesConstructor);
-                    originalClassAsString = originalClassAsString.replace(/.*superclass\.apply\(this,\s*\[\s*.*\]\s*\)\s*;*/, "\t\tthis.__proto__.superclass.apply(this, [" + functionArguments + "]);");
-                    originalClassAsString = originalClassAsString.replace(/.*superclass\.call\(this\s*,?(\s\w*,?)*\s*\)\s*;?/, "\t\tthis.__proto__.superclass.call(this " + (functionArguments ? "," + functionArguments : "") + ");");
-                    Object.defineProperty(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype, 'getMethod', {
-                        enumerable: false,
-                        value: function (methodName) {
-                            var reflectionMethod;
-
-                            if (WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype.superclass) {
-                                WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype.superclass.prototype.getMethod.apply(this, [methodName]);
-                            }
-
-                            if (!reflectionMethod) {
-                                reflectionMethod = this["_privates" + WrappedSuperClassWithReflectionCapabilitiesConstructor.name][methodName];//SuperClassConstructor.prototype.getReflectionMethod.apply(this, [methodName]);
-                            }
-
-                            return reflectionMethod;
-                        }
-                    });
-
-                    for (wrappedSuperClassPrototypeMethodName in wrappedSuperClassPrototypeMethods) {
-                        if (wrappedSuperClassPrototypeMethods.hasOwnProperty(wrappedSuperClassPrototypeMethodName)) {
-                            if (wrappedSuperClassPrototypeMethodName) {
-                                Object.defineProperty(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype, wrappedSuperClassPrototypeMethodName, {
-                                    enumerable: false,
-                                    value: wrappedSuperClassPrototypeMethods[wrappedSuperClassPrototypeMethodName]
-                                });
-                            }
-                        }
-                    }
-                }
-
-                // To expose the private functions, we create
-                // a new function that goes trough the functions string
-                // we could have done all string parsing in this class and
-                // only associate the functions directly with string
-                // manipulation here and not inside the new class,
-                // but then we would have to expose the functions as string
-                // in the code, which could lead to problems in the eval since
-                // string might have semicolons, line breaks etc.
-
-                //funcString += "new (";
-                //funcString += "return ";
-                wrappedClassWithReflectionCapabilitiesAsString += originalClassAsString.substring(0, originalClassAsString.length - 3) + "\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._privates" + ClassRef.name + " = {};\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._initPrivates = function(f) {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tvar fs = f.toString();\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tthis._privates" + ClassRef.name + " = {};\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tvar pf = fs.match(/function\\s*?(\\w.*?)\\(/g);\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tif (pf != null){\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\tfor (var i = 0, ii = pf.length; i < ii; i++) {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\tvar fn = pf[i].replace(/function\\s+/, '').replace('(', '').trim();\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\tif (f.name != fn) {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\ttry {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tthis._privates" + ClassRef.name + "[fn] = eval(fn);\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t} catch (e) {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tif (e.name == 'ReferenceError') {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tcontinue;\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t} else {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tthrow e;\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tpf = fs.match(/\\w*?\\s+=\\s+function/g);\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\tif (pf != null) {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\tfor (var i = 0, ii = pf.length; i < ii; i++) {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\tvar fn = pf[i].replace(/var\\s*/, '').replace(' ', '').replace('=', '').replace(' ', '').replace('function', '').replace(' ', '').replace('(', '');\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\ttry {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tthis._privates" + ClassRef.name + "[fn] = eval(fn);\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t} catch (e) {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\tif (e.name == 'ReferenceError') {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tcontinue;\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t} else {\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t\tthrow e;\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t\t}\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\t};\n\n";
-
-                if (!ClassRef.prototype.superclass) {
-                    wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._initPrivates(this.__proto__.superclass);\n";
-                } else {
-                    wrappedClassWithReflectionCapabilitiesAsString += "\t\tthis._initPrivates(this.__proto__.constructor);\n";
-                }
-
-                wrappedClassWithReflectionCapabilitiesAsString += "\t\tdelete this._initPrivates;\n";
-                wrappedClassWithReflectionCapabilitiesAsString += "\n\t}";
-                //funcString +=")();";
-                WrappedClassWithReflectionCapabilitiesConstructor = new FUNCTION_CONSTRUCTOR_IS_BAD__AVOID_THIS(functionArguments, 'return ' + wrappedClassWithReflectionCapabilitiesAsString)(); // jshint ignore:line
-
-                if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {
-                    WrappedClassWithReflectionCapabilitiesConstructor.prototype = BytePushers.inherit(WrappedSuperClassWithReflectionCapabilitiesConstructor.prototype);
-                }
-                if (ClassRef.prototype.superclass && ClassRef.prototype.constructor) {
-                    WrappedClassWithReflectionCapabilitiesConstructor.prototype.constructor = WrappedClassWithReflectionCapabilitiesConstructor;
-                }
-                if (WrappedSuperClassWithReflectionCapabilitiesConstructor) {
-                    WrappedClassWithReflectionCapabilitiesConstructor.prototype.superclass = WrappedSuperClassWithReflectionCapabilitiesConstructor;
-                }
-
-                return WrappedClassWithReflectionCapabilitiesConstructor;
-            };
-
-        this.getInstance = function (ClassRef, classConstructorArguments) {
-            // get the functions as a string
-            var WrappedClassWithReflectionCapabilitiesConstructor = wrapConstructorWithReflectionCapabilities(ClassRef),
-                wrappedClassPrototypeMethods = getClassRefPrototypeMethods(ClassRef, WrappedClassWithReflectionCapabilitiesConstructor),
-                wrappedClassPrototypeMethodName,
-                wrappedClassWithReflectionCapabilitiesInstance;
-
-
-            if (WrappedClassWithReflectionCapabilitiesConstructor) {
-                Object.defineProperty(WrappedClassWithReflectionCapabilitiesConstructor.prototype, 'getMethod', {
-                    enumerable: false,
-                    value: function (methodName) {
-                        var reflectionMethod;
-
-                        if (WrappedClassWithReflectionCapabilitiesConstructor.prototype.superclass) {
-                            reflectionMethod = WrappedClassWithReflectionCapabilitiesConstructor.prototype.superclass.prototype.getMethod.apply(this, [methodName]);
-                        }
-
-                        if (!reflectionMethod) {
-                            reflectionMethod = this["_privates" + WrappedClassWithReflectionCapabilitiesConstructor.name][methodName];
-                        }
-
-                        return reflectionMethod;
-                    }
-                });
-
-                for (wrappedClassPrototypeMethodName in wrappedClassPrototypeMethods) {
-                    if (wrappedClassPrototypeMethods.hasOwnProperty(wrappedClassPrototypeMethodName)) {
-                        if (wrappedClassPrototypeMethodName) {
-                            Object.defineProperty(WrappedClassWithReflectionCapabilitiesConstructor.prototype, wrappedClassPrototypeMethodName, {
-                                enumerable: false,
-                                value: wrappedClassPrototypeMethods[wrappedClassPrototypeMethodName]
-                            });
-                        }
-                    }
-                }
-
-                wrappedClassWithReflectionCapabilitiesInstance = new WrappedClassWithReflectionCapabilitiesConstructor(classConstructorArguments); //var instance = eval(funcString);
-                return wrappedClassWithReflectionCapabilitiesInstance;
             }
 
-            throw "WrappedClassWithReflectionCapabilitiesConstructor was not successfully created.";
-        };
+            i = i + 1;
+        }
+    }
+
+    function validatePhone(phoneNumber, object) {
+        var p = phoneNumber;
+        var pp;
+        var l30;
+        var p30;
+        var p31;
+
+        p = p.replace(/[^\d]*/gi, "");
+
+        if (p.length < 3) {
+            object.value = p;
+        } else if (p.length === 3) {
+            pp = p;
+            var d4 = p.indexOf('(');
+            var d5 = p.indexOf(')');
+            if (d4 === -1) {
+                pp = "(" + pp;
+            }
+            if (d5 === -1) {
+                pp = pp + ")";
+            }
+            object.value = pp;
+        } else if (p.length > 3 && p.length < 7) {
+            p = "(" + p;
+            l30 = p.length;
+            p30 = p.substring(0, 4);
+            p30 = p30 + ")";
+
+            p31 = p.substring(4, l30);
+            pp = p30 + p31;
+
+            object.value = pp;
+
+        } else if (p.length >= 7) {
+            p = "(" + p;
+            l30 = p.length;
+            p30 = p.substring(0, 4);
+            p30 = p30 + ")";
+
+            p31 = p.substring(4, l30);
+            pp = p30 + p31;
+
+            var l40 = pp.length;
+            var p40 = pp.substring(0, 8);
+            p40 = p40 + "-";
+
+            var p41 = pp.substring(8, l40);
+            var ppp = p40 + p41;
+
+            object.value = ppp.substring(0, maxphonelength);
+        }
+
+        getCursorPosition();
+
+        if (cursorposition >= 0) {
+            if (cursorposition === 0) {
+                cursorposition = 2;
+            } else if (cursorposition <= 2) {
+                cursorposition = cursorposition + 1;
+            } else if (cursorposition <= 5) {
+                cursorposition = cursorposition + 2;
+            } else if (cursorposition === 6) {
+                cursorposition = cursorposition + 2;
+            } else if (cursorposition === 7) {
+                cursorposition = cursorposition + 4;
+                var e1 = object.value.indexOf(')');
+                var e2 = object.value.indexOf('-');
+                if (e1 > -1 && e2 > -1) {
+                    if (e2 - e1 === 4) {
+                        cursorposition = cursorposition - 1;
+                    }
+                }
+            } else if (cursorposition < 11) {
+                cursorposition = cursorposition + 3;
+            } else if (cursorposition === 11) {
+                cursorposition = cursorposition + 1;
+            } else if (cursorposition >= 12) {
+                cursorposition = cursorposition;
+            }
+
+            var txtRange = object.createTextRange();
+            txtRange.moveStart("character", cursorposition);
+            txtRange.moveEnd("character", cursorposition - object.value.length);
+            txtRange.select();
+        }
+
+    }
+
+    function backSpacerUp(object, e) {
+        var keycode;
+        var phoneNumber;
+
+        if (e) {
+            e = e;
+        } else {
+            e = window.event;
+        }
+        if (e.which) {
+            keycode = e.which;
+        } else {
+            keycode = e.keyCode;
+        }
+
+        phoneNumber = parseForNumber1(object);
+
+        if (keycode >= 48) {
+            validatePhone(phoneNumber, object);
+        }
+    }
+
+    function backSpacerDown(object) {
+        return {value: formatPhoneNumber(object)};
+    }
+
+    BytePushers = BytePushers || {};
+    BytePushers.PhoneNumberUtility = BytePushers.namespace("software.bytepushers.utils.PhoneNumberUtility");
+    BytePushers.PhoneNumberUtility.backSpacerDown = function backSpacerDownFunc(object) {
+        return backSpacerDown(object);
+    };
+    BytePushers.PhoneNumberUtility.backSpacerUp = function backSpacerUpFunc(object, e) {
+        return backSpacerUp(object, e);
+    };
+    BytePushers.PhoneNumberUtility.formatPhoneNumber = function formatPhoneNumber(object) {
+        return formatPhoneNumber(object);
     };
 }(BytePushers));
+
 ;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject*/
 /**
  * Created with IntelliJ IDEA.

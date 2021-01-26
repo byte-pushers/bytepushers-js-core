@@ -6,6 +6,7 @@ for (var file in window.__karma__.files) {
         }
     }
 }
+// console.log(allTestFiles);
 
 require.config({
   baseUrl: '/base',
@@ -13,16 +14,15 @@ require.config({
   paths: {
       'bytepushers': 'src/main/javascript/software.bytepushers.BytePushers',
       'bytepushersErrors': 'src/main/javascript/software.bytepushers.exceptions.Errors',
-      'bytepushersFiltersProptery': 'src/main/javascript/software.bytepushers.filters.GenericPropertyFilter',
+      'bytepushersFiltersProperty': 'src/main/javascript/software.bytepushers.filters.GenericPropertyFilter',
       'bytepushersDateConverter': 'src/main/javascript/software.bytepushers.utils.converters.date.DateConverter',
       'bytepushersDateUtility': 'src/main/javascript/software.bytepushers.utils.DateUtility',
+      'bytepushersPhoneNumberUtility': 'src/main/javascript/software.bytepushers.utils.PhoneNumberUtility',
       'bytepushersDOMUtility': 'src/main/javascript/software.bytepushers.utils.DOMUtility',
       'bytepushersNumberUtility': 'src/main/javascript/software.bytepushers.utils.NumberUtility',
       'bytepushersResourceLoader': 'src/main/javascript/software.bytepushers.utils.ResourceLoader',
-      'bytepushersReflection': 'src/main/javascript/software.bytepushers.utils.Reflection',
       'BaseEntity': 'src/test/javascript/support/software.bytepushers.model.BaseEntity',
-      'Person': 'src/test/javascript/support/software.bytepushers.model.Person',/*
-      'Object': 'src/lib/bytepushers-js-obj-extensions/release/bytepushers-js-obj-extensions'*/
+      'Person': 'src/test/javascript/support/software.bytepushers.model.Person'
   },
 
   shim: {
@@ -32,13 +32,16 @@ require.config({
       bytepushersErrors: {
           deps: ['bytepushers']
       },
-      bytepushersFiltersProptery: {
+      bytepushersFiltersProperty: {
           deps: ['bytepushers']
       },
       bytepushersDateConverter: {
           deps: ['bytepushers']
       },
       bytepushersDateUtility: {
+          deps: ['bytepushers']
+      },
+      bytepushersPhoneNumberUtility: {
           deps: ['bytepushers']
       },
       bytepushersDOMUtility: {
@@ -58,9 +61,7 @@ require.config({
       },
       Person: {
           deps: ['bytepushers', 'BaseEntity']
-      }/*,
-      Object: {
-      }*/
+      }
   },
 
   deps: allTestFiles,

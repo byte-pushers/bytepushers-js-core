@@ -1,5 +1,5 @@
-/*global BytePushers*/
-(function (BytePushers) {
+/*global BytePushers window*/
+(function (BytePushers, window) {
     'use strict';
 
 
@@ -11,17 +11,17 @@
         Revised script : http://www.kodyaz.com
     */
 
-    var zChar = [' ', '(', ')', '-', '.'];
+    var specialChar = [' ', '(', ')', '-', '.'];
     var maxphonelength = 13;
-    var phonevalue1;
-    var phonevalue2;
-    var cursorposition;
+    var phonevalue1 = null;
+    var phonevalue2 = null;
+    var cursorposition = null;
 
-    function doPhoneNumberFormat(phoneNumber, specialCharacters) {
-        var phoneNumberArray = phoneNumber.replace(/\D/g,'').split("");
+    function doPhoneNumberFormat(phoneNumber) {
+        var phoneNumberArray = phoneNumber.replace(/\D/g, '').split("");
         var formatPhoneNumber;
 
-        if (phoneNumberArray.length == 10) {
+        if (phoneNumberArray.length === 10) {
             formatPhoneNumber = "(" + phoneNumberArray[0] + phoneNumberArray[1] + phoneNumberArray[2] + ") " + phoneNumberArray[3] + phoneNumberArray[4] + phoneNumberArray[5] + "-" + phoneNumberArray[6] + phoneNumberArray[7] + phoneNumberArray[8] + phoneNumberArray[9];
         }
 
@@ -62,11 +62,11 @@
     }
 
     function parseForNumber1(object) {
-        return parseChar(object.value, zChar);
+        return parseChar(object.value, specialChar);
     }
 
     function formatPhoneNumber(object) {
-        return doPhoneNumberFormat(object.value, zChar);
+        return doPhoneNumberFormat(object.value, specialChar);
     }
 
     function getCursorPosition() {
@@ -209,8 +209,8 @@
     BytePushers.PhoneNumberUtility.backSpacerUp = function backSpacerUpFunc(object, e) {
         return backSpacerUp(object, e);
     };
-    BytePushers.PhoneNumberUtility.formatPhoneNumber = function formatPhoneNumber(object) {
+    BytePushers.PhoneNumberUtility.formatPhoneNumber = function (object) {
         return formatPhoneNumber(object);
     };
-}(BytePushers));
+}(BytePushers, window));
 

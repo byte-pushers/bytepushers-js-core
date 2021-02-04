@@ -1,7 +1,20 @@
-/*global BytePushers*/
-(function (BytePushers) {
+/*global BytePushers, window, module*/
+/* jshint -W108, -W109, -W079 */
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     "use strict";
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.exceptions = BytePushers.namespace("software.bytepushers.exceptions");
     BytePushers.exceptions.InvalidParameterException = function (message) {
         Error.call(this, message);
@@ -39,4 +52,6 @@
     BytePushers.exceptions.InvalidDateRangeException.prototype.toString = function () {
         return this.name + "(" + this.message + ")";
     };
-}(BytePushers));
+
+    module.exports = BytePushers;
+}(window));

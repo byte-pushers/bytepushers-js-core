@@ -1,6 +1,10 @@
-/*global window, document*/
-/* jshint -W108, -W109 */
+/*global window, document, module*/
+/* jshint -W108, -W109, -W079 */
 /*jslint bitwise: true, regexp: true*/
+
+var window = window || {};
+var module = module || {};
+
 (function (window) {
     'use strict';
     var BytePushers;
@@ -1064,11 +1068,26 @@
         // Return the constructor that identifies the new type
         return enumeration;
     };
+
+    module.exports = BytePushers;
 }(window));
-;/*global BytePushers*/
-(function (BytePushers) {
+;/*global BytePushers, window, module*/
+/* jshint -W108, -W109, -W079 */
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     "use strict";
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.exceptions = BytePushers.namespace("software.bytepushers.exceptions");
     BytePushers.exceptions.InvalidParameterException = function (message) {
         Error.call(this, message);
@@ -1106,11 +1125,27 @@
     BytePushers.exceptions.InvalidDateRangeException.prototype.toString = function () {
         return this.name + "(" + this.message + ")";
     };
-}(BytePushers));
-;/*global BytePushers, console*/
-(function (BytePushers) {
+
+    module.exports = BytePushers;
+}(window));
+;/*global BytePushers, console, window, module*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.filters = BytePushers.namespace("software.bytepushers.filters");
     BytePushers.filters.GenericProptertyFilter = BytePushers.namespace("software.bytepushers.filters.GenericProptertyFilter");
 
@@ -1146,12 +1181,27 @@
 
         return filtered;
     };
-}(BytePushers));
-;/*global BytePushers*/
 
-(function (BytePushers) {
+    module.exports = BytePushers;
+}(window));
+;/*global BytePushers, window, module*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.converters = BytePushers.namespace("software.bytepushers.utils.converters");
     BytePushers.converters.DateConverter = BytePushers.namespace("software.bytepushers.utils.converters.DateConverter");
     BytePushers.converters.DateConverter.MMDDYYYY_DATE_FORMAT = 0;
@@ -1486,12 +1536,27 @@
         {"name": "Friday", "abbr": "Fri."},
         {"name": "Saturday", "abbr": "Sat."}
     ];
-}(BytePushers));
-;/*global window, document, BytePushers*/
 
-(function (BytePushers) {
+    module.exports = BytePushers;
+}(window));
+;/*global window, document, BytePushers, module*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");
     BytePushers.DateUtility.date_sort_asc = function (date1, date2) {
         // This is a comparison function that will result in dates being sorted in
@@ -1592,11 +1657,27 @@
 
         return sameDate;
     };
-}(BytePushers));
-;/*global $, window, document, BytePushers*/
-(function (window, document, BytePushers) {
+
+    module.exports = BytePushers;
+}(window));
+;/*global $, window, document, BytePushers, module*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window, document) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.DOMUtility = BytePushers.namespace("software.bytepushers.utils.DOMUtility");
     BytePushers.DOMUtility.addListener = null;
     BytePushers.DOMUtility.removeListener = null;
@@ -1659,10 +1740,26 @@
     } else {
         throw ("document.querySelectorAll() method is not supported by your browser.  Please contact the administrator for this app.");
     }
-}(window, document, BytePushers));;/*global window, document, BytePushers*/
-(function (BytePushers) {
+    module.exports = BytePushers;
+}(window, document));
+;/*global window, document, BytePushers*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.NumberUtility = BytePushers.namespace("software.bytepushers.utils.NumberUtility");
     BytePushers.NumberUtility.padLeft = function padLeft(number, length) {
         if (number === undefined || number === null) {
@@ -1702,11 +1799,26 @@
         }
         return !isNaN(d);
     };
-}(BytePushers));
+
+    module.exports = BytePushers;
+}(window));
 ;/*global BytePushers window*/
-(function (BytePushers, window) {
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
 
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
 
     // main.js
     /*
@@ -1917,9 +2029,16 @@
     BytePushers.PhoneNumberUtility.formatPhoneNumber = function (object) {
         return formatPhoneNumber(object);
     };
-}(BytePushers, window));
 
-;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject*/
+    module.exports = BytePushers;
+}(window));
+
+;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject, module*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
 /**
  * Created with IntelliJ IDEA.
  * User: pouncilt
@@ -1927,9 +2046,18 @@
  * Time: 8:14 AM
  * To change this template use File | Settings | File Templates.
  */
-(function (window, document, BytePushers) {
+(function (window, document) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.ResourceLoader = BytePushers.namespace("software.bytepushers.utils.ResourceLoader");
     BytePushers.ResourceLoader = function () {
         function isResourceNotLoaded() {/*fileName*/
@@ -2017,4 +2145,6 @@
         };
     };
     BytePushers.ResourceLoader.loadedResources = [];
-}(window, document, BytePushers));
+
+    module.exports = BytePushers;
+}(window, document));

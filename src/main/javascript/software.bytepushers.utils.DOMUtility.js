@@ -1,7 +1,21 @@
-/*global $, window, document, BytePushers*/
-(function (window, document, BytePushers) {
+/*global $, window, document, BytePushers, module*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window, document) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.DOMUtility = BytePushers.namespace("software.bytepushers.utils.DOMUtility");
     BytePushers.DOMUtility.addListener = null;
     BytePushers.DOMUtility.removeListener = null;
@@ -64,4 +78,5 @@
     } else {
         throw ("document.querySelectorAll() method is not supported by your browser.  Please contact the administrator for this app.");
     }
-}(window, document, BytePushers));
+    module.exports = BytePushers;
+}(window, document));

@@ -1,4 +1,9 @@
-/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject*/
+/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject, module*/
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
 /**
  * Created with IntelliJ IDEA.
  * User: pouncilt
@@ -6,9 +11,18 @@
  * Time: 8:14 AM
  * To change this template use File | Settings | File Templates.
  */
-(function (window, document, BytePushers) {
+(function (window, document) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.ResourceLoader = BytePushers.namespace("software.bytepushers.utils.ResourceLoader");
     BytePushers.ResourceLoader = function () {
         function isResourceNotLoaded() {/*fileName*/
@@ -96,4 +110,6 @@
         };
     };
     BytePushers.ResourceLoader.loadedResources = [];
-}(window, document, BytePushers));
+
+    module.exports = BytePushers;
+}(window, document));

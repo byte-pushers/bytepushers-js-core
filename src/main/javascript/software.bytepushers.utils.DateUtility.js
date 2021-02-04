@@ -1,8 +1,21 @@
-/*global window, document, BytePushers*/
+/*global window, document, BytePushers, module*/
+/* jshint -W108, -W109, -W079 */
 
-(function (BytePushers) {
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.DateUtility = BytePushers.namespace("software.bytepushers.utils.DateUtility");
     BytePushers.DateUtility.date_sort_asc = function (date1, date2) {
         // This is a comparison function that will result in dates being sorted in
@@ -103,4 +116,6 @@
 
         return sameDate;
     };
-}(BytePushers));
+
+    module.exports = BytePushers;
+}(window));

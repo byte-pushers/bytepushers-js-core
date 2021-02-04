@@ -1,7 +1,20 @@
 /*global BytePushers window*/
-(function (BytePushers, window) {
+/* jshint -W108, -W109, -W079 */
+
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
 
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
 
     // main.js
     /*
@@ -212,5 +225,7 @@
     BytePushers.PhoneNumberUtility.formatPhoneNumber = function (object) {
         return formatPhoneNumber(object);
     };
-}(BytePushers, window));
+
+    module.exports = BytePushers;
+}(window));
 

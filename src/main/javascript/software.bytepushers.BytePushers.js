@@ -1,6 +1,10 @@
-/*global window, document*/
-/* jshint -W108, -W109 */
+/*global window, document, module*/
+/* jshint -W108, -W109, -W079 */
 /*jslint bitwise: true, regexp: true*/
+
+var window = window || {};
+var module = module || {};
+
 (function (window) {
     'use strict';
     var BytePushers;
@@ -1064,4 +1068,6 @@
         // Return the constructor that identifies the new type
         return enumeration;
     };
+
+    module.exports = BytePushers;
 }(window));

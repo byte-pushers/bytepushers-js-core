@@ -1,8 +1,21 @@
-/*global BytePushers*/
+/*global BytePushers, window, module*/
+/* jshint -W108, -W109, -W079 */
 
-(function (BytePushers) {
+var window = window || {};
+var module = module || {};
+
+(function (window) {
     'use strict';
-    BytePushers = BytePushers || {};
+
+    var BytePushers;
+
+    if (window.BytePushers !== undefined && window.BytePushers !== null) {
+        BytePushers = window.BytePushers;
+    } else {
+        window.BytePushers = {};
+        BytePushers = window.BytePushers;
+    }
+
     BytePushers.converters = BytePushers.namespace("software.bytepushers.utils.converters");
     BytePushers.converters.DateConverter = BytePushers.namespace("software.bytepushers.utils.converters.DateConverter");
     BytePushers.converters.DateConverter.MMDDYYYY_DATE_FORMAT = 0;
@@ -337,4 +350,6 @@
         {"name": "Friday", "abbr": "Fri."},
         {"name": "Saturday", "abbr": "Sat."}
     ];
-}(BytePushers));
+
+    module.exports = BytePushers;
+}(window));

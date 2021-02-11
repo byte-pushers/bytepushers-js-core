@@ -19,7 +19,7 @@ var module = module || {};
     var specialChar = [' ', '(', ')', '-', '.'];
 
     function doPhoneNumberFormat(phoneNumber) {
-        var phoneNumberArray = phoneNumber.replace(/\D/g, '').split("");
+        var phoneNumberArray = (phoneNumber) ? phoneNumber.replace(/\D/g, '').split("") : [];
         var formatPhoneNumber;
 
         if (Array.isArray(phoneNumberArray) && phoneNumberArray.length === 10) {

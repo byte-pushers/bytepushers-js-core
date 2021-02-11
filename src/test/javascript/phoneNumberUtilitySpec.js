@@ -7,7 +7,7 @@ define(['bytepushers', 'bytepushersPhoneNumberUtility'], function(BytePushers) {
         it("format phone number", function(){
             var actualValue = {value: "2143484321"};
             var expectedValue = {value: "(214) 348-4321"};
-            expect(BytePushers.PhoneNumberUtility.backSpacerDown(actualValue, new Event(null))).toEqual(expectedValue);
+            expect({value: BytePushers.PhoneNumberUtility.formatPhoneNumber(actualValue)}).toEqual(expectedValue);
         });
     });
 });

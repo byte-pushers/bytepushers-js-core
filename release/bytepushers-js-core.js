@@ -1660,6 +1660,23 @@ var module = module || {};
 
     module.exports = BytePushers;
 }(window));
+
+         /* Function to  calculatBirthdate */
+function calculateBirthday(birthDate) {
+    let now = new Date();
+    let currentYear = now.getFullYear();
+    let birthYear = birthDate.getFullYear();
+    let age = currentYear - birthYear;
+    if (now < new Date(birthDate.setFullYear(currentYear))) {
+        age = age -1;
+    }
+    return age;
+}
+console.log(calculateBirthday(new Date(1982, 11, 4)));
+console.log(calculateBirthday(new Date(1962, 0, 1)));
+
+
+
 ;/*global $, window, document, BytePushers, module*/
 /* jshint -W108, -W109, -W079 */
 

@@ -9,6 +9,12 @@ define(['bytepushers', 'bytepushersDateUtility'], function(BytePushers) {
             expect(BytePushers.DateUtility.date_sort_asc(date1, date2)).toEqual(-1);
         });
 
+        it("and so is a spec", function() {
+            a = true;
+
+            expect(a).toBe(false);
+        });
+
         it("validate date string", function(){
             var date = '11/17/2000';
             expect(BytePushers.DateUtility.isDateString_MMDDYYYY(date)).toEqual(true);

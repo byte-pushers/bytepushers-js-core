@@ -1,6 +1,6 @@
 {
   "name": "bytepushers-js-core",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "A collection of core object extensions and general utilities that can be used as base foundational classes.",
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.2",
     "karma-requirejs": "^0.2.2",
-    "phantomjs": "^1.9.19",
+    "phantomjs": "^2.1.7",
     "requirejs": "^2.1.22"
   },
   "scripts": {

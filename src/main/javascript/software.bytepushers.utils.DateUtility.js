@@ -1,13 +1,15 @@
 /*global window, document, BytePushers, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -117,22 +119,20 @@ var module = module || {};
         return sameDate;
     };
 
+    /* Function to  calculatBirthdate */
+    BytePushers.DateUtility.calculateBirthday = function (birthDate) {
+        var now = new Date();
+        var currentYear = now.getFullYear();
+        var birthYear = birthDate.getFullYear();
+        var age = currentYear - birthYear;
+
+        if (now < new Date(birthDate.setFullYear(currentYear))) {
+            age = age - 1;
+        }
+        return age;
+    };
+
     module.exports = BytePushers;
 }(window));
-
-         /* Function to  calculatBirthdate */
-function calculateBirthday(birthDate) {
-    let now = new Date();
-    let currentYear = now.getFullYear();
-    let birthYear = birthDate.getFullYear();
-    let age = currentYear - birthYear;
-    if (now < new Date(birthDate.setFullYear(currentYear))) {
-        age = age -1;
-    }
-    return age;
-}
-console.log(calculateBirthday(new Date(1982, 11, 4)));
-console.log(calculateBirthday(new Date(1962, 0, 1)));
-
 
 

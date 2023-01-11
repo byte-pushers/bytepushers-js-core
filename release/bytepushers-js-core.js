@@ -2,12 +2,14 @@
 /* jshint -W108, -W109, -W079 */
 /*jslint bitwise: true, regexp: true*/
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     'use strict';
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1073,13 +1075,15 @@ var module = module || {};
 }(window));
 ;/*global BytePushers, window, module*/
 /* jshint -W108, -W109, -W079 */
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     "use strict";
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1131,13 +1135,15 @@ var module = module || {};
 ;/*global BytePushers, console, window, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1187,13 +1193,15 @@ var module = module || {};
 ;/*global BytePushers, window, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1542,13 +1550,15 @@ var module = module || {};
 ;/*global window, document, BytePushers, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1658,35 +1668,35 @@ var module = module || {};
         return sameDate;
     };
 
+    /* Function to  calculatBirthdate */
+    BytePushers.DateUtility.calculateBirthday = function (birthDate) {
+        var now = new Date();
+        var currentYear = now.getFullYear();
+        var birthYear = birthDate.getFullYear();
+        var age = currentYear - birthYear;
+
+        if (now < new Date(birthDate.setFullYear(currentYear))) {
+            age = age - 1;
+        }
+        return age;
+    };
+
     module.exports = BytePushers;
 }(window));
-
-         /* Function to  calculatBirthdate */
-function calculateBirthday(birthDate) {
-    let now = new Date();
-    let currentYear = now.getFullYear();
-    let birthYear = birthDate.getFullYear();
-    let age = currentYear - birthYear;
-    if (now < new Date(birthDate.setFullYear(currentYear))) {
-        age = age -1;
-    }
-    return age;
-}
-console.log(calculateBirthday(new Date(1982, 11, 4)));
-console.log(calculateBirthday(new Date(1962, 0, 1)));
-
 
 
 ;/*global $, window, document, BytePushers, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window, document) {
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1759,16 +1769,18 @@ var module = module || {};
     }
     module.exports = BytePushers;
 }(window, document));
-;/*global window, document, BytePushers*/
+;/*global window, document, BytePushers, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1819,16 +1831,18 @@ var module = module || {};
 
     module.exports = BytePushers;
 }(window));
-;/*global BytePushers window*/
+;/*global BytePushers window, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
@@ -1840,7 +1854,14 @@ var module = module || {};
     var specialChar = [' ', '(', ')', '-', '.'];
 
     function doPhoneNumberFormat(phoneNumber) {
-        var phoneNumberArray = (phoneNumber) ? phoneNumber.replace(/\D/g, '').split("") : [];
+        var phoneNumberArray;
+
+        if (phoneNumber === null || phoneNumber === undefined) {
+            phoneNumberArray = phoneNumber.replace(/\D/g, '').split("");
+        } else {
+            phoneNumberArray = [];
+        }
+
         var formatPhoneNumber;
 
         if (Array.isArray(phoneNumberArray) && phoneNumberArray.length === 10) {
@@ -1866,8 +1887,8 @@ var module = module || {};
 ;/*global window, document, BytePushers, XMLHttpRequest, ActiveXObject, module*/
 /* jshint -W108, -W109, -W079 */
 
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 /**
  * Created with IntelliJ IDEA.
@@ -1880,6 +1901,8 @@ var module = module || {};
     'use strict';
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;

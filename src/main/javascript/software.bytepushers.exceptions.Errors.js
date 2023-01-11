@@ -1,12 +1,14 @@
 /*global BytePushers, window, module*/
 /* jshint -W108, -W109, -W079 */
-var window = window || {};
-var module = module || {};
+// var window = window || {};
+// var module = module || {};
 
 (function (window) {
     "use strict";
 
     var BytePushers;
+
+    window = window || {};
 
     if (window.BytePushers !== undefined && window.BytePushers !== null) {
         BytePushers = window.BytePushers;
